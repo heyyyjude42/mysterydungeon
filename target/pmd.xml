@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pmd version="5.3.5" timestamp="2019-02-13T22:46:47.381">
+<file name="/Users/thing/Documents/2019/cs0320/projects-heyyyjude42/src/main/java/edu/brown/cs/jwang73/autocorrect/Corpus.java">
+<violation beginline="257" endline="257" begincolumn="15" endcolumn="45" rule="UselessParentheses" ruleset="Unnecessary" package="edu.brown.cs.jwang73.autocorrect" class="Corpus" method="compareBigramUnigram" externalInfoUrl="https://pmd.github.io/pmd-5.3.5/pmd-java/rules/java/unnecessary.html#UselessParentheses" priority="4">
+Useless parentheses.
+</violation>
+<violation beginline="264" endline="264" begincolumn="17" endcolumn="49" rule="UselessParentheses" ruleset="Unnecessary" package="edu.brown.cs.jwang73.autocorrect" class="Corpus" method="compareBigramUnigram" externalInfoUrl="https://pmd.github.io/pmd-5.3.5/pmd-java/rules/java/unnecessary.html#UselessParentheses" priority="4">
+Useless parentheses.
+</violation>
+<violation beginline="267" endline="267" begincolumn="17" endcolumn="32" rule="UselessParentheses" ruleset="Unnecessary" package="edu.brown.cs.jwang73.autocorrect" class="Corpus" method="compareBigramUnigram" externalInfoUrl="https://pmd.github.io/pmd-5.3.5/pmd-java/rules/java/unnecessary.html#UselessParentheses" priority="4">
+Useless parentheses.
+</violation>
+</file>
+</pmd>
