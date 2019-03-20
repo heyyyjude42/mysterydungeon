@@ -5,6 +5,7 @@ import java.io.StringWriter;
 import java.io.PrintWriter;
 import java.io.File;
 
+import edu.brown.cs.dnd.Search.SearchHandler;
 import joptsimple.OptionParser;
 import joptsimple.OptionSet;
 import spark.*;
@@ -55,7 +56,12 @@ public final class Main {
       runSparkServer((int) options.valueOf("port"));
     }
 
-    repl = new REPL();
+    // set up command registration here
+    CommandHandler handler = new CommandHandler();
+    SearchHandler search = new SearchHandler();
+    search.registerCommands(handler);
+
+    repl = new REPL(handler);
     repl.beginParsing();
 
   }

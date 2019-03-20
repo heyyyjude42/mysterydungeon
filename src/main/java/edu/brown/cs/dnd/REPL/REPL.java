@@ -9,11 +9,13 @@ import java.io.InputStreamReader;
  * reused across projects.
  */
 public class REPL {
+  private CommandHandler handler;
 
   /**
    * Constructor.
    */
-  public REPL() {
+  public REPL(CommandHandler handler) {
+    this.handler = handler;
   }
 
   /**
@@ -41,6 +43,10 @@ public class REPL {
   }
 
   private void parse(String nextInput) {
-
+    try {
+      handler.runCommand(nextInput.split("\\s+"));
+    } catch (InvalidInputException e) {
+      e.getMessage();
+    }
   }
 }
