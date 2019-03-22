@@ -45,8 +45,8 @@ public class REPL {
   private void parse(String nextInput) {
     try {
       handler.runCommand(nextInput.split("\\s+"));
-    } catch (InvalidInputException e) {
-      e.getMessage();
+    } catch (InvalidInputException | CommandFailedException e) {
+      System.out.println(e.getMessage());
     }
   }
 }

@@ -2,10 +2,13 @@ edu/brown/cs/dnd/REPL/Main$ExceptionPrinter.class
 edu/brown/cs/dnd/REPL/InvalidInputException.class
 edu/brown/cs/dnd/REPL/REPL.class
 edu/brown/cs/dnd/Search/SearchHandler.class
+edu/brown/cs/dnd/Data/QueryResult.class
 edu/brown/cs/dnd/REPL/CommandHandler.class
-edu/brown/cs/dnd/Database/SRD.class
+edu/brown/cs/dnd/REPL/CommandFailedException.class
 edu/brown/cs/dnd/Search/SearchHandler$1.class
+edu/brown/cs/dnd/Data/Spell.class
 edu/brown/cs/dnd/REPL/Main.class
 edu/brown/cs/dnd/REPL/Command.class
 edu/brown/cs/dnd/REPL/Main$1.class
 edu/brown/cs/dnd/Search/SearchHandler$SearchCommand.class
+edu/brown/cs/dnd/Data/Database.class
