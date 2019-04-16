@@ -1,8 +1,11 @@
 package edu.brown.cs.dnd.Data;
 
+import com.google.common.reflect.TypeToken;
+import com.google.gson.Gson;
 import edu.brown.cs.dnd.REPL.CommandFailedException;
 
 import java.sql.*;
+import java.util.HashMap;
 
 /**
  * Class for querying the database. SQL queries should be contained here.
@@ -39,11 +42,13 @@ public class Database {
    * @throws SQLException
    */
   public static QueryResult searchTable(String term, String table) throws CommandFailedException, SQLException {
-    if (table.toLowerCase().equals("spells")) {
-      return searchSpells(term);
+    switch (table.toLowerCase()) {
+      case "spells":
+        return searchSpells(term);
+      default:
+        throw new CommandFailedException("ERROR: did not find the table named" +
+            " " + table);
     }
-
-    throw new CommandFailedException("ERROR: did not find the table named " + table);
   }
 
   public static Spell searchSpells(String term) throws SQLException {
@@ -85,5 +90,10 @@ public class Database {
     }
 
     return results;
+  }
+
+  public static HashMap<String, String> sqlStringToMap(String term) {
+    return new Gson().fromJson(term, new TypeToken<HashMap<String, String>>() {
+    }.getType());
   }
 }

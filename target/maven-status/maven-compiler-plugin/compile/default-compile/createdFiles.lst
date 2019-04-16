@@ -1,5 +1,6 @@
 edu/brown/cs/dnd/REPL/Main$ExceptionPrinter.class
 edu/brown/cs/dnd/REPL/InvalidInputException.class
+edu/brown/cs/dnd/Data/Monster.class
 edu/brown/cs/dnd/REPL/REPL.class
 edu/brown/cs/dnd/Search/SearchHandler.class
 edu/brown/cs/dnd/Data/QueryResult.class
@@ -7,6 +8,7 @@ edu/brown/cs/dnd/Roll/RollHandler.class
 edu/brown/cs/dnd/REPL/CommandHandler.class
 edu/brown/cs/dnd/Roll/RollHandler$1.class
 edu/brown/cs/dnd/REPL/CommandFailedException.class
+edu/brown/cs/dnd/Data/Feat.class
 edu/brown/cs/dnd/Search/SearchHandler$1.class
 edu/brown/cs/dnd/Data/Spell.class
 edu/brown/cs/dnd/Roll/RollHandler$RollCommand.class
