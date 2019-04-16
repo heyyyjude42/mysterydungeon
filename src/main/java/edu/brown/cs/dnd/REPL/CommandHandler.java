@@ -1,5 +1,7 @@
 package edu.brown.cs.dnd.REPL;
 
+import org.omg.CORBA.DynAnyPackage.Invalid;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,6 +28,10 @@ public class CommandHandler {
       throw new InvalidInputException("ERROR: command not found");
     }
 
-    cmd.run(args);
+    try {
+      cmd.run(args);
+    } catch (CommandFailedException | InvalidInputException e) {
+      System.out.println(e.getMessage());
+    }
   }
 }

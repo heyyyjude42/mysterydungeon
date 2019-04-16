@@ -4,7 +4,11 @@ import java.io.IOException;
 import java.io.StringWriter;
 import java.io.PrintWriter;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
+import edu.brown.cs.dnd.Roll.RollHandler;
 import edu.brown.cs.dnd.Search.SearchHandler;
 import joptsimple.OptionParser;
 import joptsimple.OptionSet;
@@ -58,8 +62,14 @@ public final class Main {
 
     // set up command registration here
     CommandHandler handler = new CommandHandler();
-    SearchHandler search = new SearchHandler();
-    search.registerCommands(handler);
+    List<Handler> handlers = new ArrayList<>(Arrays.asList(
+        new SearchHandler(),
+        new RollHandler()
+    ));
+
+    for (Handler h : handlers) {
+      h.registerCommands(handler);
+    }
 
     repl = new REPL(handler);
     repl.beginParsing();
