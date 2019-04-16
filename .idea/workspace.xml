@@ -2,14 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="65753899-8da1-4191-87eb-bf62220a3a95" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/edu/brown/cs/dnd/Data/Feat.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/edu/brown/cs/dnd/Data/Monster.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.mvn-classpath" beforeDir="false" afterPath="$PROJECT_DIR$/.mvn-classpath" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/edu/brown/cs/dnd/Data/Database.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/brown/cs/dnd/Data/Database.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/edu/brown/cs/dnd/Data/Database.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/edu/brown/cs/dnd/Data/Database.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/cs32-projects-1.0.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/cs32-projects-1.0.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/brown/cs/dnd/Data/Monster.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/brown/cs/dnd/Data/Monster.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/brown/cs/dnd/Search/SearchHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/brown/cs/dnd/Search/SearchHandler.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -20,11 +17,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/edu/brown/cs/dnd/Data/Database.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="217">
-              <caret line="92" column="3" lean-forward="true" selection-start-line="92" selection-start-column="3" selection-end-line="92" selection-end-column="3" />
+            <state relative-caret-position="246">
+              <caret line="67" column="5" selection-start-line="67" selection-start-column="5" selection-end-line="67" selection-end-column="5" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -81,11 +78,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/edu/brown/cs/dnd/Data/Monster.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="462">
-              <caret line="31" column="21" lean-forward="true" selection-start-line="31" selection-start-column="21" selection-end-line="31" selection-end-column="21" />
+            <state relative-caret-position="157">
+              <caret line="81" column="37" selection-start-line="81" selection-start-column="37" selection-end-line="81" selection-end-column="37" />
               <folding>
                 <element signature="e#1311#1312#0" expanded="true" />
                 <element signature="e#1332#1333#0" expanded="true" />
@@ -147,8 +144,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/edu/brown/cs/dnd/Search/SearchHandler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="219">
-              <caret line="38" column="42" selection-start-line="38" selection-start-column="42" selection-end-line="38" selection-end-column="42" />
+            <state relative-caret-position="267">
+              <caret line="41" column="56" lean-forward="true" selection-start-line="41" selection-start-column="56" selection-end-line="41" selection-end-column="56" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -216,7 +213,6 @@
         <option value="$PROJECT_DIR$/src/main/java/edu/brown/cs/dnd/REPL/REPL.java" />
         <option value="$PROJECT_DIR$/src/main/java/edu/brown/cs/dnd/Data/Spell.java" />
         <option value="$PROJECT_DIR$/src/main/java/edu/brown/cs/dnd/REPL/Handler.java" />
-        <option value="$PROJECT_DIR$/src/main/java/edu/brown/cs/dnd/Search/SearchHandler.java" />
         <option value="$PROJECT_DIR$/src/main/java/edu/brown/cs/dnd/REPL/Main.java" />
         <option value="$PROJECT_DIR$/src/main/java/edu/brown/cs/dnd/Roll/RollHandler.java" />
         <option value="$PROJECT_DIR$/src/main/java/edu/brown/cs/dnd/REPL/CommandFailedException.java" />
@@ -229,8 +225,9 @@
         <option value="$PROJECT_DIR$/tests/roll/multiple_ds.test" />
         <option value="$PROJECT_DIR$/src/main/java/edu/brown/cs/dnd/Data/Model.java" />
         <option value="$PROJECT_DIR$/src/main/java/edu/brown/cs/dnd/Data/Feat.java" />
-        <option value="$PROJECT_DIR$/src/main/java/edu/brown/cs/dnd/Data/Database.java" />
         <option value="$PROJECT_DIR$/src/main/java/edu/brown/cs/dnd/Data/Monster.java" />
+        <option value="$PROJECT_DIR$/src/main/java/edu/brown/cs/dnd/Search/SearchHandler.java" />
+        <option value="$PROJECT_DIR$/src/main/java/edu/brown/cs/dnd/Data/Database.java" />
       </list>
     </option>
   </component>
@@ -316,7 +313,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1555379879078" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1555382615280" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
   </component>
@@ -349,18 +346,18 @@
       <updated>1553113889755</updated>
       <workItem from="1553113891230" duration="4792000" />
       <workItem from="1553190648666" duration="7119000" />
-      <workItem from="1555373067034" duration="6180000" />
+      <workItem from="1555373067034" duration="8294000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="18091000" />
+    <option name="totallyTimeSpent" value="20205000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1280" height="773" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2580645" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2580645" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -368,7 +365,7 @@
       <window_info id="Capture Tool" order="5" />
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" visible="true" weight="0.32991204" />
+      <window_info active="true" anchor="bottom" id="Find" order="1" visible="true" weight="0.32991204" />
       <window_info anchor="bottom" id="Run" order="2" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
@@ -535,16 +532,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/edu/brown/cs/dnd/Search/SearchHandler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="219">
-          <caret line="38" column="42" selection-start-line="38" selection-start-column="42" selection-end-line="38" selection-end-column="42" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/edu/brown/cs/dnd/Data/Feat.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="240">
@@ -590,20 +577,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/edu/brown/cs/dnd/Data/Database.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="217">
-          <caret line="92" column="3" lean-forward="true" selection-start-line="92" selection-start-column="3" selection-end-line="92" selection-end-column="3" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/edu/brown/cs/dnd/Data/Monster.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="462">
-          <caret line="31" column="21" lean-forward="true" selection-start-line="31" selection-start-column="21" selection-end-line="31" selection-end-column="21" />
+        <state relative-caret-position="157">
+          <caret line="81" column="37" selection-start-line="81" selection-start-column="37" selection-end-line="81" selection-end-column="37" />
           <folding>
             <element signature="e#1311#1312#0" expanded="true" />
             <element signature="e#1332#1333#0" expanded="true" />
@@ -639,6 +616,26 @@
             <element signature="e#2069#2070#0" expanded="true" />
             <element signature="e#2101#2102#0" expanded="true" />
             <element signature="e#2125#2126#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/edu/brown/cs/dnd/Search/SearchHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="267">
+          <caret line="41" column="56" lean-forward="true" selection-start-line="41" selection-start-column="56" selection-end-line="41" selection-end-column="56" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/edu/brown/cs/dnd/Data/Database.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="246">
+          <caret line="67" column="5" selection-start-line="67" selection-start-column="5" selection-end-line="67" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>

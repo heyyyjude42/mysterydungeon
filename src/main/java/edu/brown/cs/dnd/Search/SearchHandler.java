@@ -39,7 +39,7 @@ public class SearchHandler implements Handler {
         QueryResult result = Database.searchTable(term, table);
         System.out.println("\n" + result.prettify() + "\n");
       } catch (SQLException e) {
-        throw new CommandFailedException("ERROR: database search failed");
+        throw new CommandFailedException("ERROR: " + e.getMessage());
       }
     }
   }

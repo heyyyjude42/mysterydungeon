@@ -80,7 +80,7 @@ public class Monster implements QueryResult {
     }
 
     // only add legendary actions if they actually exist for this monster
-    if (legendaryActions.size() > 0) {
+    if (legendaryActions != null && legendaryActions.size() > 0) {
       str += "—————\n";
       str += "LEGENDARY ACTIONS\n";
       str += "—————\n";

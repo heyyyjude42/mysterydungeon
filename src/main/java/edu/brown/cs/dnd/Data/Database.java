@@ -43,16 +43,76 @@ public class Database {
    */
   public static QueryResult searchTable(String term, String table) throws CommandFailedException, SQLException {
     switch (table.toLowerCase()) {
+      case "spell":
       case "spells":
         return searchSpells(term);
+      case "monster":
+      case "monsters":
+      case "creature":
+      case "creatures":
+        return searchMonsters(term);
+      case "feats":
+      case "feat":
+        return searchFeats(term);
       default:
         throw new CommandFailedException("ERROR: did not find the table named" +
             " " + table);
     }
   }
 
+  public static Feat searchFeats(String term) throws SQLException {
+    Object[] result = Database.searchTableRaw(term, "feats");
+
+    if (result == null) {
+      return null;
+    }
+
+    String name = (String) result[1];
+    String desc = (String) result[2];
+
+    return new Feat(name, desc);
+  }
+
+  public static Monster searchMonsters(String term) throws SQLException {
+    Object[] result = Database.searchTableRaw(term, "monsters");
+
+    if (result == null) {
+      return null;
+    }
+
+    String name = (String) result[1];
+    String size = (String) result[2];
+    String type = (String) result[3];
+    String alignment = (String) result[4];
+    int ac = (Integer) result[5];
+    int hp = (Integer) result[6];
+    String hpDice = (String) result[7];
+    String speed = (String) result[8];
+    int str = (Integer) result[9];
+    int dex = (Integer) result[10];
+    int con = (Integer) result[11];
+    int intelligence = (Integer) result[12];
+    int wis = (Integer) result[13];
+    int cha = (Integer) result[14];
+    int cr = (Integer) result[15];
+    HashMap<String, String> traits =
+        Database.sqlStringToMap((String) result[16]);
+    HashMap<String, String> actions =
+        Database.sqlStringToMap((String) result[17]);
+    HashMap<String, String> legendaryActions =
+        Database.sqlStringToMap((String) result[18]);
+
+    return new Monster(name, size, type, alignment, ac, hp, hpDice, speed,
+        str, dex, con, intelligence, wis, cha, cr, traits, actions,
+        legendaryActions);
+  }
+
   public static Spell searchSpells(String term) throws SQLException {
     Object[] result = Database.searchTableRaw(term, "spells");
+
+    if (result == null) {
+      return null;
+    }
 
     String name = (String) result[1];
     String school = (String) result[2];
@@ -81,7 +141,10 @@ public class Database {
 
     ResultSet rs = prep.executeQuery();
     int colNum = rs.getMetaData().getColumnCount();
-    rs.next();
+
+    if (!rs.next()) {
+      return null;
+    }
 
     Object[] results = new Object[colNum];
 
@@ -92,7 +155,7 @@ public class Database {
     return results;
   }
 
-  public static HashMap<String, String> sqlStringToMap(String term) {
+  private static HashMap<String, String> sqlStringToMap(String term) {
     return new Gson().fromJson(term, new TypeToken<HashMap<String, String>>() {
     }.getType());
   }
