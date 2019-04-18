@@ -147,7 +147,12 @@ public class Database {
   }
 
   private static Object[] searchTableRaw(String term, String table) throws SQLException {
-    String query = "SELECT * FROM " + table + " WHERE name = ?;";
+    String query = "SELECT * FROM " + table + " WHERE name = ?";
+
+    // TODO: other conditions go here
+
+    query += " COLLATE NOCASE;";
+
     PreparedStatement prep;
     prep = conn.prepareStatement(query);
 
