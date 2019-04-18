@@ -8,6 +8,8 @@ import edu.brown.cs.dnd.REPL.CommandHandler;
 import edu.brown.cs.dnd.REPL.Handler;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Class that handles REPL queries involving search.
@@ -26,6 +28,8 @@ public class SearchHandler implements Handler {
   private class SearchCommand implements Command {
     @Override
     public String run(String[] args) throws CommandFailedException {
+      args = sanitize(args);
+
       if (args.length < 2) {
         return "";
       }
@@ -43,6 +47,7 @@ public class SearchHandler implements Handler {
       } else {
         // todo account for single search term / multiple words??
         // todo: syntax: search "mage hand" vs search in spells "mage hand"
+        // todo: allow search for other conditions as well?
         String table = args[1];
         String term = args[2];
 
@@ -58,6 +63,44 @@ public class SearchHandler implements Handler {
       } else {
         return "Didn't find anything :(\n";
       }
+    }
+
+    /**
+     * Takes in the raw input and parses it for quotation marks.
+     * @param args
+     * @return
+     */
+    private String[] sanitize(String[] args) {
+      List<String> results = new ArrayList<>();
+
+      boolean inQuotes = false;
+      String hold = "";
+
+      for (String s : args) {
+        if (s.contains("\"")) {
+          if (inQuotes) {
+            // if we're already in quotes, this closes it
+            inQuotes = false;
+            hold += " " + s.substring(0, s.indexOf("\""));
+            results.add(hold);
+            hold = "";
+          } else {
+            // if we're not in quotes, this opens it
+            inQuotes = true;
+            hold = s.substring(s.indexOf("\"") + 1);
+          }
+        } else {
+          if (inQuotes) {
+            // add to hold
+            hold += " " + s;
+          } else {
+            // add to list
+            results.add(s);
+          }
+        }
+      }
+
+      return results.toArray(new String[results.size()]);
     }
   }
 
