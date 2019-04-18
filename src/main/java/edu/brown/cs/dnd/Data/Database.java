@@ -12,6 +12,7 @@ import java.util.HashMap;
  */
 public class Database {
   private static Connection conn;
+  private static String[] TABLES = {"spells", "feats", "monsters"};
 
   public static void load(String path) {
     try {
@@ -28,8 +29,21 @@ public class Database {
    *
    * @param term
    */
-  public static void searchSRD(String term) {
+  public static QueryResult searchSRD(String term) throws SQLException {
+    QueryResult result = null;
+    int index = 0;
 
+    while (result == null && index < TABLES.length) {
+      try {
+        result = searchTable(term, TABLES[index]);
+      } catch (CommandFailedException e) {
+        // shouldn't happen
+        e.printStackTrace();
+      }
+      index++;
+    }
+
+    return result;
   }
 
   /**

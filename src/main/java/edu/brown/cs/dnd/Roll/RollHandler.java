@@ -13,7 +13,7 @@ public class RollHandler implements Handler {
 
   private class RollCommand implements Command {
     @Override
-    public void run(String[] args) throws InvalidInputException {
+    public String run(String[] args) throws InvalidInputException {
       if (args.length != 2) {
         throw new InvalidInputException(SYNTAX_ERROR_MESSAGE);
       }
@@ -21,7 +21,7 @@ public class RollHandler implements Handler {
       String dice = args[1];
 
       try {
-        System.out.println("Result: " + rollDice(dice) + "\n");
+        return "Result: " + rollDice(dice) + "\n";
       } catch (NumberFormatException e) {
         throw new InvalidInputException(SYNTAX_ERROR_MESSAGE);
       }

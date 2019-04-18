@@ -25,21 +25,38 @@ public class SearchHandler implements Handler {
 
   private class SearchCommand implements Command {
     @Override
-    public void run(String[] args) throws CommandFailedException {
+    public String run(String[] args) throws CommandFailedException {
       if (args.length < 2) {
-        return;
+        return "";
       }
 
-      // todo account for single search term / multiple words??
-      // todo: syntax: search "mage hand" vs search in spells "mage hand"
-      String table = args[1];
-      String term = args[2];
+      QueryResult result;
 
-      try {
-        QueryResult result = Database.searchTable(term, table);
-        System.out.println("\n" + result.prettify() + "\n");
-      } catch (SQLException e) {
-        throw new CommandFailedException("ERROR: " + e.getMessage());
+      // no table specified, only a search term.. will have to account for
+      // quotes here
+      if (args.length == 2) {
+        try {
+          result = Database.searchSRD(args[1]);
+        } catch (SQLException e) {
+          throw new CommandFailedException("ERROR: " + e.getMessage());
+        }
+      } else {
+        // todo account for single search term / multiple words??
+        // todo: syntax: search "mage hand" vs search in spells "mage hand"
+        String table = args[1];
+        String term = args[2];
+
+        try {
+          result = Database.searchTable(term, table);
+        } catch (SQLException e) {
+          throw new CommandFailedException("ERROR: " + e.getMessage());
+        }
+      }
+
+      if (result != null) {
+        return "\n" + result.prettify() + "\n";
+      } else {
+        return "Didn't find anything :(\n";
       }
     }
   }

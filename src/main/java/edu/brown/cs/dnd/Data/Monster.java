@@ -68,7 +68,7 @@ public class Monster implements QueryResult {
     str += "Challenge:    " + this.cr + "\n";
 
     for (String key : traits.keySet()) {
-      str += key + ": " + traits.get(key) + "\n";
+      str += "* " + key.toUpperCase() + ": " + traits.get(key) + "\n";
     }
 
     str += "—————\n";
@@ -76,7 +76,7 @@ public class Monster implements QueryResult {
     str += "—————\n";
 
     for (String key : actions.keySet()) {
-      str += key + ": " + actions.get(key) + "\n";
+      str += "* " + key.toUpperCase() + ": " + actions.get(key) + "\n";
     }
 
     // only add legendary actions if they actually exist for this monster
@@ -86,7 +86,7 @@ public class Monster implements QueryResult {
       str += "—————\n";
 
       for (String key : legendaryActions.keySet()) {
-        str += key + ": " + legendaryActions.get(key) + "\n";
+        str += "* " + key.toUpperCase() + ": " + legendaryActions.get(key) + "\n";
       }
     }
 

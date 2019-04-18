@@ -1,14 +1,12 @@
 package edu.brown.cs.dnd.REPL;
 
-import org.omg.CORBA.DynAnyPackage.Invalid;
-
 import java.util.HashMap;
 import java.util.Map;
 
 public class CommandHandler {
   private Map<String, Command> commands;
 
-  public CommandHandler() {
+  CommandHandler() {
     this.commands = new HashMap<>();
   }
 
@@ -16,7 +14,7 @@ public class CommandHandler {
     this.commands.put(name, cmd);
   }
 
-  public void runCommand(String[] args) throws InvalidInputException, CommandFailedException {
+  String runCommand(String[] args) throws InvalidInputException {
     if (args == null || args.length == 0) {
       throw new InvalidInputException("ERROR: no arguments given");
     }
@@ -29,9 +27,9 @@ public class CommandHandler {
     }
 
     try {
-      cmd.run(args);
+      return cmd.run(args);
     } catch (CommandFailedException | InvalidInputException e) {
-      System.out.println(e.getMessage());
+      return e.getMessage();
     }
   }
 }
