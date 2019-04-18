@@ -1,7 +1,9 @@
 package edu.brown.cs.dnd.Search;
 
+import edu.brown.cs.dnd.Data.Comparator;
 import edu.brown.cs.dnd.Data.QueryResult;
 import edu.brown.cs.dnd.Data.Database;
+import edu.brown.cs.dnd.Data.SearchOperator;
 import edu.brown.cs.dnd.REPL.Command;
 import edu.brown.cs.dnd.REPL.CommandFailedException;
 import edu.brown.cs.dnd.REPL.CommandHandler;
@@ -34,7 +36,7 @@ public class SearchHandler implements Handler {
         return "";
       }
 
-      QueryResult result;
+      List<? extends QueryResult> result;
 
       // no table specified, only a search term.. will have to account for
       // quotes here
@@ -51,22 +53,30 @@ public class SearchHandler implements Handler {
         String table = args[1];
         String term = args[2];
 
+        List<SearchOperator> operators = new ArrayList<>();
+        operators.add(new SearchOperator(Comparator.IS, "name", term, true));
+
         try {
-          result = Database.searchTable(term, table);
+          result = Database.searchTable(operators, table);
         } catch (SQLException e) {
           throw new CommandFailedException("ERROR: " + e.getMessage());
         }
       }
 
-      if (result != null) {
-        return "\n" + result.prettify() + "\n";
-      } else {
+      if (result.isEmpty()) {
         return "Didn't find anything :(\n";
+      } else {
+        String toReturn = "";
+        for (QueryResult r : result) {
+          toReturn += r.prettify() + "\n";
+        }
+        return toReturn;
       }
     }
 
     /**
      * Takes in the raw input and parses it for quotation marks.
+     *
      * @param args
      * @return
      */
