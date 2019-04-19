@@ -1,0 +1,5 @@
+INPUT
+search spells | class: wizard, level: >= 1, level: <= 3, school: conjuration
+OUTPUT
+RESULTS
+END

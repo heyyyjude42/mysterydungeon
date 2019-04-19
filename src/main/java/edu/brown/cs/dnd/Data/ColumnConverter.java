@@ -17,8 +17,8 @@ public class ColumnConverter {
         return "con";
       case "wisdom":
         return "wis";
-      case "int":
-        return "intelligence";
+      case "intelligence":
+        return "int";
       case "charisma":
         return "cha";
       case "hitpoints":

@@ -69,7 +69,7 @@ public class SearchHandler implements Handler {
 
           // should have at least two things in it
           if (delimited.length >= 2) {
-            String columnName = delimited[0];
+            String columnName = delimited[0].replace(" ", "");
             String[] restrictions = delimited[1].substring(1).split(" "); // whitespace
 
             if (restrictions.length == 1) {
@@ -81,7 +81,6 @@ public class SearchHandler implements Handler {
               if (restrictions.length == 2) {
                 // the first is the comparator, and the second is the term
                 Comparator c;
-                System.out.println(restrictions[0]);
                 switch (restrictions[0]) {
                   case "<=":
                     c = Comparator.LESS_THAN_OR_EQUALS;
