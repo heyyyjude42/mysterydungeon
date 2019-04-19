@@ -36,7 +36,7 @@ public class Database {
     int index = 0;
 
     List<SearchOperator> o = new ArrayList<>();
-    o.add(new SearchOperator(Comparator.IS, "name", term, true));
+    o.add(new SearchOperator(Comparator.IS, "name", term));
 
     while (result.isEmpty() && index < TABLES.length) {
       try {
@@ -165,12 +165,13 @@ public class Database {
 
     query += " COLLATE NOCASE;";
 
+    System.out.println(query);
+
     PreparedStatement prep;
     prep = conn.prepareStatement(query);
 
     for (int i = 0; i < operators.size(); i++) {
-      if (operators.get(i).isTermString())
-        prep.setString(i + 1, operators.get(i).getTerm());
+      prep.setString(i + 1, operators.get(i).getTerm());
     }
 
     ResultSet rs = prep.executeQuery();
