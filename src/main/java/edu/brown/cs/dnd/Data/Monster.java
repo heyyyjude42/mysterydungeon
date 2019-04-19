@@ -1,8 +1,10 @@
 package edu.brown.cs.dnd.Data;
 
+import edu.brown.cs.dnd.Dungeon.RoomElement;
+
 import java.util.HashMap;
 
-public class Monster implements QueryResult {
+public class Monster extends RoomElement implements QueryResult {
   private String name;
   private String size;
   private String type;
