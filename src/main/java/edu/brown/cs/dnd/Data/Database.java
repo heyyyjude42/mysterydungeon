@@ -5,7 +5,9 @@ import com.google.gson.Gson;
 import edu.brown.cs.dnd.REPL.CommandFailedException;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * Class for querying the database. SQL queries should be contained here.
@@ -25,17 +27,20 @@ public class Database {
   }
 
   /**
-   * Executes a search in the whole database.
+   * Executes a search in the whole database, ONLY FOR NAME.
    *
    * @param term
    */
-  public static QueryResult searchSRD(String term) throws SQLException {
-    QueryResult result = null;
+  public static List<? extends QueryResult> searchSRD(String term) throws SQLException {
+    List<? extends QueryResult> result = new ArrayList<>();
     int index = 0;
 
-    while (result == null && index < TABLES.length) {
+    List<SearchOperator> o = new ArrayList<>();
+    o.add(new SearchOperator(Comparator.IS, "name", term, true));
+
+    while (result.isEmpty() && index < TABLES.length) {
       try {
-        result = searchTable(term, TABLES[index]);
+        result = searchTable(o, TABLES[index]);
       } catch (CommandFailedException e) {
         // shouldn't happen
         e.printStackTrace();
@@ -49,126 +54,138 @@ public class Database {
   /**
    * Executes a search in a specific table.
    *
-   * @param term
+   * @param o
    * @param table
    * @return
    * @throws CommandFailedException
    * @throws SQLException
    */
-  public static QueryResult searchTable(String term, String table) throws CommandFailedException, SQLException {
+  public static List<? extends QueryResult> searchTable(List<SearchOperator> o,
+                                                        String table) throws CommandFailedException, SQLException {
     switch (table.toLowerCase()) {
       case "spell":
       case "spells":
-        return searchSpells(term);
+        return searchSpells(o);
       case "monster":
       case "monsters":
       case "creature":
       case "creatures":
-        return searchMonsters(term);
+        return searchMonsters(o);
       case "feats":
       case "feat":
-        return searchFeats(term);
+        return searchFeats(o);
       default:
         throw new CommandFailedException("ERROR: did not find the table named" +
             " " + table);
     }
   }
 
-  public static Feat searchFeats(String term) throws SQLException {
-    Object[] result = Database.searchTableRaw(term, "feats");
+  public static List<Feat> searchFeats(List<SearchOperator> o) throws SQLException {
+    List<Object[]> results = Database.searchTableRaw(o, "feats");
+    List<Feat> typedResults = new ArrayList<>();
 
-    if (result == null) {
-      return null;
+    for (Object[] result : results) {
+      String name = (String) result[1];
+      String desc = (String) result[2];
+      typedResults.add(new Feat(name, desc));
     }
 
-    String name = (String) result[1];
-    String desc = (String) result[2];
-
-    return new Feat(name, desc);
+    return typedResults;
   }
 
-  public static Monster searchMonsters(String term) throws SQLException {
-    Object[] result = Database.searchTableRaw(term, "monsters");
+  public static List<Monster> searchMonsters(List<SearchOperator> o) throws SQLException {
+    List<Object[]> results = Database.searchTableRaw(o, "monsters");
+    List<Monster> typedResults = new ArrayList<>();
 
-    if (result == null) {
-      return null;
+    for (Object[] result : results) {
+      String name = (String) result[1];
+      String size = (String) result[2];
+      String type = (String) result[3];
+      String alignment = (String) result[4];
+      int ac = (Integer) result[5];
+      int hp = (Integer) result[6];
+      String hpDice = (String) result[7];
+      String speed = (String) result[8];
+      int str = (Integer) result[9];
+      int dex = (Integer) result[10];
+      int con = (Integer) result[11];
+      int intelligence = (Integer) result[12];
+      int wis = (Integer) result[13];
+      int cha = (Integer) result[14];
+      int cr = (Integer) result[15];
+      HashMap<String, String> traits =
+          Database.sqlStringToMap((String) result[16]);
+      HashMap<String, String> actions =
+          Database.sqlStringToMap((String) result[17]);
+      HashMap<String, String> legendaryActions =
+          Database.sqlStringToMap((String) result[18]);
+
+      typedResults.add(new Monster(name, size, type, alignment, ac, hp,
+          hpDice, speed, str, dex, con, intelligence, wis, cha, cr, traits,
+          actions, legendaryActions));
     }
 
-    String name = (String) result[1];
-    String size = (String) result[2];
-    String type = (String) result[3];
-    String alignment = (String) result[4];
-    int ac = (Integer) result[5];
-    int hp = (Integer) result[6];
-    String hpDice = (String) result[7];
-    String speed = (String) result[8];
-    int str = (Integer) result[9];
-    int dex = (Integer) result[10];
-    int con = (Integer) result[11];
-    int intelligence = (Integer) result[12];
-    int wis = (Integer) result[13];
-    int cha = (Integer) result[14];
-    int cr = (Integer) result[15];
-    HashMap<String, String> traits =
-        Database.sqlStringToMap((String) result[16]);
-    HashMap<String, String> actions =
-        Database.sqlStringToMap((String) result[17]);
-    HashMap<String, String> legendaryActions =
-        Database.sqlStringToMap((String) result[18]);
-
-    return new Monster(name, size, type, alignment, ac, hp, hpDice, speed,
-        str, dex, con, intelligence, wis, cha, cr, traits, actions,
-        legendaryActions);
+    return typedResults;
   }
 
-  public static Spell searchSpells(String term) throws SQLException {
-    Object[] result = Database.searchTableRaw(term, "spells");
+  public static List<Spell> searchSpells(List<SearchOperator> o) throws SQLException {
+    List<Object[]> results = Database.searchTableRaw(o, "spells");
+    List<Spell> typedResults = new ArrayList<>();
 
-    if (result == null) {
-      return null;
+    for (Object[] result : results) {
+      String name = (String) result[1];
+      String school = (String) result[2];
+      int level = (Integer) result[3];
+      boolean ritual = (Integer) result[4] == 1;
+      String range = (String) result[5];
+      String castingTime = (String) result[6];
+      boolean verbal = (Integer) result[7] == 1;
+      boolean somatic = (Integer) result[8] == 1;
+      boolean concentration = (Integer) result[9] == 1;
+      String materials = (String) result[10];
+      String duration = (String) result[11];
+      String description = (String) result[12];
+      String classes = (String) result[13];
+
+      typedResults.add(new Spell(name, school, level, ritual, range,
+          castingTime, verbal, somatic, concentration, materials, duration,
+          description, classes));
     }
 
-    String name = (String) result[1];
-    String school = (String) result[2];
-    int level = (Integer) result[3];
-    boolean ritual = (Integer) result[4] == 1;
-    String range = (String) result[5];
-    String castingTime = (String) result[6];
-    boolean verbal = (Integer) result[7] == 1;
-    boolean somatic = (Integer) result[8] == 1;
-    boolean concentration = (Integer) result[9] == 1;
-    String materials = (String) result[10];
-    String duration = (String) result[11];
-    String description = (String) result[12];
-    String classes = (String) result[13];
-
-    return new Spell(name, school, level, ritual, range, castingTime, verbal,
-        somatic, concentration, materials, duration, description, classes);
+    return typedResults;
   }
 
-  private static Object[] searchTableRaw(String term, String table) throws SQLException {
-    String query = "SELECT * FROM " + table + " WHERE name = ?";
+  private static List<Object[]> searchTableRaw(List<SearchOperator> operators,
+                                               String table) throws SQLException {
+    String query = "SELECT * FROM " + table + " WHERE";
 
-    // TODO: other conditions go here
+    for (SearchOperator o : operators) {
+      query += " " + o.toString();
+    }
 
     query += " COLLATE NOCASE;";
 
     PreparedStatement prep;
     prep = conn.prepareStatement(query);
 
-    prep.setString(1, term);
+    for (int i = 0; i < operators.size(); i++) {
+      if (operators.get(i).isTermString())
+        prep.setString(i + 1, operators.get(i).getTerm());
+    }
 
     ResultSet rs = prep.executeQuery();
     int colNum = rs.getMetaData().getColumnCount();
 
-    if (!rs.next()) {
-      return null;
-    }
+    List<Object[]> results = new ArrayList<>();
 
-    Object[] results = new Object[colNum];
+    while (rs.next()) {
+      Object[] result = new Object[colNum];
 
-    for (int i = 1; i <= colNum; i++) {
-      results[i - 1] = rs.getObject(i);
+      for (int i = 1; i <= colNum; i++) {
+        result[i - 1] = rs.getObject(i);
+      }
+
+      results.add(result);
     }
 
     return results;
