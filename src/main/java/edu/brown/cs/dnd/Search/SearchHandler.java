@@ -55,7 +55,7 @@ public class SearchHandler implements Handler {
     }
 
     private List<SearchOperator> findOperators(String query) {
-      if (query.split(OPTIONS_START).length == 0) {
+      if (query.split(OPTIONS_START).length == 1) {
         return new ArrayList<>();
       } else {
         String[] options =
