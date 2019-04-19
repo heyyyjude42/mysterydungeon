@@ -138,9 +138,6 @@ public class SearchHandler implements Handler {
           throw new CommandFailedException("ERROR: " + e.getMessage());
         }
       } else {
-        // TODO account for "search in spells fireball" vs "search spells for
-        //  fireball"??
-
         String table = args[1];
         String term = args[2];
 
@@ -214,6 +211,4 @@ public class SearchHandler implements Handler {
       return results.toArray(new String[results.size()]);
     }
   }
-
-
 }
