@@ -25,8 +25,6 @@ public class GenerateNPCHandler implements Handler {
 
 
   private class GenerateNPCCommand implements Command {
-
+    
   }
-
-
 }
