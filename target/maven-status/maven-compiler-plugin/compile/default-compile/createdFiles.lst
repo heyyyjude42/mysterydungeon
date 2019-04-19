@@ -8,8 +8,8 @@ edu/brown/cs/dnd/Roll/RollHandler$RollCommand.class
 edu/brown/cs/dnd/REPL/Main.class
 edu/brown/cs/dnd/Search/SearchHandler$SearchCommand.class
 edu/brown/cs/dnd/Data/Database.class
-edu/brown/cs/dnd/Data/Monster.class
 edu/brown/cs/dnd/REPL/REPL.class
+edu/brown/cs/dnd/Data/Monster.class
 edu/brown/cs/dnd/Data/QueryResult.class
 edu/brown/cs/dnd/Data/SearchOperator$1.class
 edu/brown/cs/dnd/Roll/RollHandler.class
@@ -20,5 +20,5 @@ edu/brown/cs/dnd/Data/Spell.class
 edu/brown/cs/dnd/Data/Database$1.class
 edu/brown/cs/dnd/Data/Comparator.class
 edu/brown/cs/dnd/REPL/Handler.class
-edu/brown/cs/dnd/REPL/Command.class
 edu/brown/cs/dnd/REPL/Main$1.class
+edu/brown/cs/dnd/REPL/Command.class
