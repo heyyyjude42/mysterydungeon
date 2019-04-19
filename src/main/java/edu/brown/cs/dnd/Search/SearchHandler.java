@@ -160,10 +160,16 @@ public class SearchHandler implements Handler {
     private String prettifyResults(List<? extends QueryResult> result) {
       if (result.isEmpty()) {
         return "Didn't find anything :(\n";
-      } else {
+      } else if (result.size() < 5) {
         String toReturn = "";
         for (QueryResult r : result) {
           toReturn += r.prettify() + "\n\n";
+        }
+        return toReturn;
+      } else {
+        String toReturn = "";
+        for (QueryResult r : result) {
+          toReturn += "* " + r.simplify() + "\n";
         }
         return toReturn;
       }

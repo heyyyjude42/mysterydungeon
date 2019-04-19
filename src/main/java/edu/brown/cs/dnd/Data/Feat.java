@@ -14,6 +14,11 @@ public class Feat implements QueryResult {
     return this.name.toUpperCase() + "\n" + this.desc;
   }
 
+  @Override
+  public String simplify() {
+    return this.name;
+  }
+
   public String getDesc() {
     return desc;
   }

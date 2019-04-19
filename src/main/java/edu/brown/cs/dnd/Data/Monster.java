@@ -99,6 +99,11 @@ public class Monster extends RoomElement implements QueryResult {
     return str;
   }
 
+  @Override
+  public String simplify() {
+    return this.name + " | CR " + this.cr;
+  }
+
   public String getName() {
     return name;
   }

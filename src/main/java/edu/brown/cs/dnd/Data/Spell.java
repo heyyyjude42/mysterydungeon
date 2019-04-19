@@ -72,6 +72,11 @@ public class Spell implements QueryResult {
     return str;
   }
 
+  @Override
+  public String simplify() {
+    return this.name;
+  }
+
   public String getName() {
     return name;
   }
