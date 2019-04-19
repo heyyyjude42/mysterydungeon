@@ -64,13 +64,16 @@ public class SearchHandler implements Handler {
 
         for (String o : options) {
           o = o.replace(" ", ""); // clear whitespace
+          System.out.println("Option w/o whitespace: " + o);
           String[] delimited = o.split(OPTIONS_NAME_BREAK); // turns
           // class:wizard into [class][wizard]
 
+          System.out.println("Size after : split is " + delimited.length);
+
           // should have at least two things in it
-          if (delimited.length < 2) {
+          if (delimited.length >= 2) {
             String columnName = delimited[0];
-            String[] restrictions = delimited[1].split(" ");
+            String[] restrictions = delimited[1].split(" "); // whitespace
 
             if (restrictions.length == 1) {
               // this is an equality comparison, such as level: 3

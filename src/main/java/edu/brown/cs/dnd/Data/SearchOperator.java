@@ -9,6 +9,22 @@ public class SearchOperator {
     this.comparator = comparator;
     this.columnName = columnName;
     this.term = term;
+
+    if (columnName.equals("name")) {
+      this.term = capitalizeEveryWord(term);
+    }
+  }
+
+  private String capitalizeEveryWord(String term) {
+    String[] words = term.split(" ");
+    String toReturn = "";
+
+    for (String word : words) {
+      toReturn += word.substring(0, 1).toUpperCase() + word.substring(1).toLowerCase();
+    }
+
+    return toReturn.substring(0, toReturn.length() - 1); // removes the last
+    // space
   }
 
   public String getTerm() {

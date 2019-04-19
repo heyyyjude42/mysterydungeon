@@ -165,6 +165,8 @@ public class Database {
 
     query += " COLLATE NOCASE;";
 
+    System.out.println(query);
+
     PreparedStatement prep;
     prep = conn.prepareStatement(query);
 
