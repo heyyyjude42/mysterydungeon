@@ -19,13 +19,13 @@ public class SearchOperator {
   public String toString() {
     switch (comparator) {
       case LESS_THAN:
-        return this.columnName + " < " + this.term;
+        return this.columnName + " < ?";
       case GREATER_THAN:
-        return this.columnName + " > " + this.term;
+        return this.columnName + " > ?";
       case LESS_THAN_OR_EQUALS:
-        return this.columnName + " <= " + this.term;
+        return this.columnName + " <= ?";
       case GREATER_THAN_OR_EQUALS:
-        return this.columnName + " >= " + this.term;
+        return this.columnName + " >= ?";
       case IS:
         return "instr(UPPER(" + this.columnName + "), UPPER(?)) > 0";
       default:

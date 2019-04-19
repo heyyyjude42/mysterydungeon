@@ -1,0 +1,5 @@
+INPUT
+search monsters | cr: > 10
+OUTPUT
+NO_ERROR
+END

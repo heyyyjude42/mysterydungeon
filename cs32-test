@@ -134,13 +134,13 @@ class Test:
     # HELLO TAS I CHANGED YOUR SCRIPT HERE TO MAKE SURE OUR PARSING DOESN'T THROW ERRORS
     if expected[0].startswith("NO_ERROR"):
       for actual_line in actual:
-        if actual_line.startswith("ERROR:"):
+        if actual_line.startswith("ERROR:") or actual_line.startswith("Exception"):
           return False
       return True
 
     if expected[0].startswith("RESULTS"):
       for actual_line in actual:
-        if actual_line.startswith("ERROR:"):
+        if actual_line.startswith("ERROR:") or actual_line.startswith("Exception"):
           return False
         elif actual_line.startswith("Didn't find anything"):
           return False
