@@ -104,7 +104,7 @@ public class SearchHandler implements Handler {
         String term = args[2];
 
         List<SearchOperator> operators = new ArrayList<>();
-        operators.add(new SearchOperator(Comparator.IS, "name", term, true));
+        operators.add(new SearchOperator(Comparator.IS, "name", term));
 
         try {
           result = Database.searchTable(operators, table);
