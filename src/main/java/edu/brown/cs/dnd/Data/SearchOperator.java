@@ -7,7 +7,7 @@ public class SearchOperator {
 
   public SearchOperator(Comparator comparator, String columnName, String term) {
     this.comparator = comparator;
-    this.columnName = columnName;
+    this.columnName = ColumnConverter.convert(columnName);
     this.term = term;
   }
 
