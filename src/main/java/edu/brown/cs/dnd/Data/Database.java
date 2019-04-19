@@ -160,12 +160,11 @@ public class Database {
     String query = "SELECT * FROM " + table + " WHERE";
 
     for (SearchOperator o : operators) {
-      query += " " + o.toString();
+      query += " " + o.toString() + " AND";
     }
 
-    query += " COLLATE NOCASE;";
-
-    System.out.println(query);
+    query = query.substring(0, query.length() - 4); // gets rid of the last "
+    // AND "
 
     PreparedStatement prep;
     prep = conn.prepareStatement(query);

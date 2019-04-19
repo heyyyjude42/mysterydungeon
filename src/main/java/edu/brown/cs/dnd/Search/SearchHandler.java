@@ -17,7 +17,7 @@ import java.util.List;
  * Class that handles REPL queries involving search.
  */
 public class SearchHandler implements Handler {
-  private String OPTIONS_START = "|";
+  private String OPTIONS_START = "\\|";
   private String OPTIONS_DELIMITER = ",";
   private String OPTIONS_NAME_BREAK = ":";
 
@@ -55,20 +55,18 @@ public class SearchHandler implements Handler {
     }
 
     private List<SearchOperator> findOperators(String query) {
-      if (!query.contains(OPTIONS_START)) {
+      if (query.split(OPTIONS_START).length == 0) {
         return new ArrayList<>();
       } else {
         String[] options =
             query.split(OPTIONS_START)[1].split(OPTIONS_DELIMITER);
+
         List<SearchOperator> ops = new ArrayList<>();
 
         for (String o : options) {
           o = o.replace(" ", ""); // clear whitespace
-          System.out.println("Option w/o whitespace: " + o);
           String[] delimited = o.split(OPTIONS_NAME_BREAK); // turns
           // class:wizard into [class][wizard]
-
-          System.out.println("Size after : split is " + delimited.length);
 
           // should have at least two things in it
           if (delimited.length >= 2) {
@@ -166,7 +164,7 @@ public class SearchHandler implements Handler {
       } else {
         String toReturn = "";
         for (QueryResult r : result) {
-          toReturn += r.prettify() + "\n";
+          toReturn += r.prettify() + "\n\n";
         }
         return toReturn;
       }
