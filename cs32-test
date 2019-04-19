@@ -130,6 +130,22 @@ class Test:
   def acceptable(expected, actual):
     expected = Test.collapse_errors(expected)
     actual = Test.collapse_errors(actual)
+
+    # HELLO TAS I CHANGED YOUR SCRIPT HERE TO MAKE SURE OUR PARSING DOESN'T THROW ERRORS
+    if expected[0].startswith("NO_ERROR"):
+      for actual_line in actual:
+        if actual_line.startswith("ERROR:"):
+          return False
+      return True
+
+    if expected[0].startswith("RESULTS"):
+      for actual_line in actual:
+        if actual_line.startswith("ERROR:"):
+          return False
+        elif actual_line.startswith("Didn't find anything"):
+          return False
+      return True
+
     if len(expected) != len(actual):
       return False
     for expected_line, actual_line in zip(expected, actual):

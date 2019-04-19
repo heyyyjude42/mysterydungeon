@@ -64,14 +64,13 @@ public class SearchHandler implements Handler {
         List<SearchOperator> ops = new ArrayList<>();
 
         for (String o : options) {
-          o = o.replace(" ", ""); // clear whitespace
           String[] delimited = o.split(OPTIONS_NAME_BREAK); // turns
-          // class:wizard into [class][wizard]
+          // class: wizard into [class][ wizard]
 
           // should have at least two things in it
           if (delimited.length >= 2) {
             String columnName = delimited[0];
-            String[] restrictions = delimited[1].split(" "); // whitespace
+            String[] restrictions = delimited[1].substring(1).split(" "); // whitespace
 
             if (restrictions.length == 1) {
               // this is an equality comparison, such as level: 3
@@ -82,6 +81,7 @@ public class SearchHandler implements Handler {
               if (restrictions.length == 2) {
                 // the first is the comparator, and the second is the term
                 Comparator c;
+                System.out.println(restrictions[0]);
                 switch (restrictions[0]) {
                   case "<=":
                     c = Comparator.LESS_THAN_OR_EQUALS;
