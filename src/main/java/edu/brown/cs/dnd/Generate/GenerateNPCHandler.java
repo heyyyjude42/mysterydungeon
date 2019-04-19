@@ -1,9 +1,7 @@
 package edu.brown.cs.dnd.Generate;
 
 import edu.brown.cs.dnd.Data.Database;
-import edu.brown.cs.dnd.REPL.Handler;
-import edu.brown.cs.dnd.REPL.CommandHandler;
-import edu.brown.cs.dnd.REPL.Command;
+import edu.brown.cs.dnd.REPL.*;
 
 /**
  * Class representing a handler to support generating an NPC based on user
@@ -25,6 +23,10 @@ public class GenerateNPCHandler implements Handler {
 
 
   private class GenerateNPCCommand implements Command {
-    
+
+    @Override
+    public String run(String[] args) throws InvalidInputException, CommandFailedException {
+      return null;
+    }
   }
 }

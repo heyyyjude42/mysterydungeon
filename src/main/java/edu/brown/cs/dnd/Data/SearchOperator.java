@@ -4,18 +4,27 @@ public class SearchOperator {
   private Comparator comparator;
   private String columnName;
   private String term;
-  private boolean termIsString;
 
-  public SearchOperator(Comparator comparator, String columnName, String term,
-                        boolean termIsString) {
+  public SearchOperator(Comparator comparator, String columnName, String term) {
     this.comparator = comparator;
     this.columnName = columnName;
     this.term = term;
-    this.termIsString = termIsString;
+
+    if (columnName.equals("name")) {
+      this.term = capitalizeEveryWord(term);
+    }
   }
 
-  public boolean isTermString() {
-    return this.termIsString;
+  private String capitalizeEveryWord(String term) {
+    String[] words = term.split(" ");
+    String toReturn = "";
+
+    for (String word : words) {
+      toReturn += word.substring(0, 1).toUpperCase() + word.substring(1).toLowerCase();
+    }
+
+    return toReturn.substring(0, toReturn.length() - 1); // removes the last
+    // space
   }
 
   public String getTerm() {
@@ -33,11 +42,8 @@ public class SearchOperator {
         return this.columnName + " <= " + this.term;
       case GREATER_THAN_OR_EQUALS:
         return this.columnName + " >= " + this.term;
-      case CONTAINS:
-        return "instr(" + this.columnName + ", \"" + this.term + "\") > 0";
       case IS:
-        return this.columnName + " = " + (!termIsString ? this.term :
-            "?"); // insert later in PreparedStatement
+        return "instr(" + this.columnName + ", ?) > 0";
       default:
         return "";
     }

@@ -17,6 +17,10 @@ import java.util.List;
  * Class that handles REPL queries involving search.
  */
 public class SearchHandler implements Handler {
+  private String OPTIONS_START = "|";
+  private String OPTIONS_DELIMITER = ",";
+  private String OPTIONS_NAME_BREAK = ":";
+
   public SearchHandler() {
     Database.load("data/srd.db");
   }
@@ -32,14 +36,104 @@ public class SearchHandler implements Handler {
     public String run(String[] args) throws CommandFailedException {
       args = sanitize(args);
 
+      String query = args[0];
+      for (int i = 1; i < args.length; i++) {
+        query += " " + args[i];
+      }
+      List<SearchOperator> operators = findOperators(query);
+
       if (args.length < 2) {
         return "";
       }
 
+      // if there's no terms, we only care about name
+      if (operators.isEmpty()) {
+        return searchByName(args);
+      } else {
+        return searchByOperators(query, operators);
+      }
+    }
+
+    private List<SearchOperator> findOperators(String query) {
+      if (!query.contains(OPTIONS_START)) {
+        return new ArrayList<>();
+      } else {
+        String[] options =
+            query.split(OPTIONS_START)[1].split(OPTIONS_DELIMITER);
+        List<SearchOperator> ops = new ArrayList<>();
+
+        for (String o : options) {
+          o = o.replace(" ", ""); // clear whitespace
+          System.out.println("Option w/o whitespace: " + o);
+          String[] delimited = o.split(OPTIONS_NAME_BREAK); // turns
+          // class:wizard into [class][wizard]
+
+          System.out.println("Size after : split is " + delimited.length);
+
+          // should have at least two things in it
+          if (delimited.length >= 2) {
+            String columnName = delimited[0];
+            String[] restrictions = delimited[1].split(" "); // whitespace
+
+            if (restrictions.length == 1) {
+              // this is an equality comparison, such as level: 3
+              ops.add(new SearchOperator(Comparator.IS, columnName,
+                  restrictions[0]));
+            } else {
+              restrictions = sanitize(restrictions); // this gives us quotes
+              if (restrictions.length == 2) {
+                // the first is the comparator, and the second is the term
+                Comparator c;
+                switch (restrictions[0]) {
+                  case "<=":
+                    c = Comparator.LESS_THAN_OR_EQUALS;
+                    break;
+                  case "<":
+                    c = Comparator.LESS_THAN;
+                    break;
+                  case ">=":
+                    c = Comparator.GREATER_THAN_OR_EQUALS;
+                    break;
+                  case ">":
+                    c = Comparator.GREATER_THAN;
+                    break;
+                  default:
+                    c = Comparator.IS;
+                }
+                ops.add(new SearchOperator(c, columnName, restrictions[1]));
+              }
+            }
+          }
+        }
+
+        return ops;
+      }
+    }
+
+    private String searchByOperators(String query, List<SearchOperator> ops) throws CommandFailedException {
+      String[] preOptions = query.split(OPTIONS_START)[0].split(" ");
+
+      if (preOptions.length < 2) {
+        // means no table name was given, since "search" is already the first
+        // index
+        return "";
+      }
+
+      String tableName = preOptions[1];
+      List<? extends QueryResult> result;
+      try {
+        result = Database.searchTable(ops, tableName);
+      } catch (SQLException e) {
+        throw new CommandFailedException("ERROR: " + e.getMessage());
+      }
+
+      return prettifyResults(result);
+    }
+
+    private String searchByName(String[] args) throws CommandFailedException {
       List<? extends QueryResult> result;
 
-      // no table specified, only a search term.. will have to account for
-      // quotes here
+      // no table specified, only a search term.
       if (args.length == 2) {
         try {
           result = Database.searchSRD(args[1]);
@@ -47,14 +141,14 @@ public class SearchHandler implements Handler {
           throw new CommandFailedException("ERROR: " + e.getMessage());
         }
       } else {
-        // todo account for single search term / multiple words??
-        // todo: syntax: search "mage hand" vs search in spells "mage hand"
-        // todo: allow search for other conditions as well?
+        // TODO account for "search in spells fireball" vs "search spells for
+        //  fireball"??
+
         String table = args[1];
         String term = args[2];
 
         List<SearchOperator> operators = new ArrayList<>();
-        operators.add(new SearchOperator(Comparator.IS, "name", term, true));
+        operators.add(new SearchOperator(Comparator.IS, "name", term));
 
         try {
           result = Database.searchTable(operators, table);
@@ -63,6 +157,10 @@ public class SearchHandler implements Handler {
         }
       }
 
+      return prettifyResults(result);
+    }
+
+    private String prettifyResults(List<? extends QueryResult> result) {
       if (result.isEmpty()) {
         return "Didn't find anything :(\n";
       } else {
