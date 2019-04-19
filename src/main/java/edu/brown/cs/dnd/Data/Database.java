@@ -112,7 +112,19 @@ public class Database {
       int intelligence = (Integer) result[12];
       int wis = (Integer) result[13];
       int cha = (Integer) result[14];
-      int cr = (Integer) result[15];
+
+      double cr;
+      if ((result[15].toString()).split("/").length > 1) {
+        // the CR is a fraction
+        double numerator =
+            Double.parseDouble(((String) result[15]).split("/")[0]);
+        double denominator = Double.parseDouble(((String) result[15]).split(
+            "/")[1]);
+        cr = numerator / denominator;
+      } else {
+        cr = (Integer) result[15];
+      }
+
       HashMap<String, String> traits =
           Database.sqlStringToMap((String) result[16]);
       HashMap<String, String> actions =
