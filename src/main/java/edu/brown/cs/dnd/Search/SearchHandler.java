@@ -17,6 +17,10 @@ import java.util.List;
  * Class that handles REPL queries involving search.
  */
 public class SearchHandler implements Handler {
+  private String OPTIONS_START = "|";
+  private String OPTIONS_DELIMITER = ",";
+  private String OPTIONS_NAME_BREAK = ":";
+
   public SearchHandler() {
     Database.load("data/srd.db");
   }
@@ -31,15 +35,61 @@ public class SearchHandler implements Handler {
     @Override
     public String run(String[] args) throws CommandFailedException {
       args = sanitize(args);
+      List<SearchOperator> operators = findOperators(args);
 
       if (args.length < 2) {
         return "";
       }
 
+      // if there's no terms, we only care about name
+      if (operators.isEmpty()) {
+        return searchByName(args);
+      } else {
+        return searchByOperators(args, operators);
+      }
+    }
+
+    private List<SearchOperator> findOperators(String[] args) {
+      String query = args[0];
+      for (int i = 1; i < args.length; i++) {
+        query += " " + args[i];
+      }
+
+      if (!query.contains(OPTIONS_START)) {
+        return new ArrayList<>();
+      } else {
+        String[] options =
+            query.split(OPTIONS_START)[1].split(OPTIONS_DELIMITER);
+
+        for (String o : options) {
+          o = o.replace(" ", ""); // clear whitespace
+          String[] delimited = o.split(OPTIONS_NAME_BREAK); // turns
+          // class:wizard into [class][wizard]
+
+          // should have at least two things in it
+          if (delimited.length < 2) {
+            String columnName = delimited[0];
+            String[] restrictions = delimited[1].split(" ");
+
+            if (restrictions.length == 1) {
+              // this is an equality comparison, such as level: 3
+
+            }
+          }
+        }
+
+        return new ArrayList<>();
+      }
+    }
+
+    private String searchByOperators(String[] args, List<SearchOperator> ops) {
+      return null;
+    }
+
+    private String searchByName(String[] args) throws CommandFailedException {
       List<? extends QueryResult> result;
 
-      // no table specified, only a search term.. will have to account for
-      // quotes here
+      // no table specified, only a search term.
       if (args.length == 2) {
         try {
           result = Database.searchSRD(args[1]);
@@ -47,9 +97,9 @@ public class SearchHandler implements Handler {
           throw new CommandFailedException("ERROR: " + e.getMessage());
         }
       } else {
-        // todo account for single search term / multiple words??
-        // todo: syntax: search "mage hand" vs search in spells "mage hand"
-        // todo: allow search for other conditions as well?
+        // TODO account for "search in spells fireball" vs "search spells for
+        //  fireball"??
+
         String table = args[1];
         String term = args[2];
 

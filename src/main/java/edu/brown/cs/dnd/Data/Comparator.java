@@ -6,5 +6,4 @@ public enum Comparator {
   GREATER_THAN,
   LESS_THAN_OR_EQUALS,
   GREATER_THAN_OR_EQUALS,
-  CONTAINS
 }
