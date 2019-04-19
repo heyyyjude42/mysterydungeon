@@ -27,7 +27,7 @@ public class SearchOperator {
       case GREATER_THAN_OR_EQUALS:
         return this.columnName + " >= " + this.term;
       case IS:
-        return "instr(" + this.columnName + ", \"?\") > 0";
+        return "instr(" + this.columnName + ", ?) > 0";
       default:
         return "";
     }

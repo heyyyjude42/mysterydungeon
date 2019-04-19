@@ -35,7 +35,12 @@ public class SearchHandler implements Handler {
     @Override
     public String run(String[] args) throws CommandFailedException {
       args = sanitize(args);
-      List<SearchOperator> operators = findOperators(args);
+
+      String query = args[0];
+      for (int i = 1; i < args.length; i++) {
+        query += " " + args[i];
+      }
+      List<SearchOperator> operators = findOperators(query);
 
       if (args.length < 2) {
         return "";
@@ -45,21 +50,17 @@ public class SearchHandler implements Handler {
       if (operators.isEmpty()) {
         return searchByName(args);
       } else {
-        return searchByOperators(args, operators);
+        return searchByOperators(query, operators);
       }
     }
 
-    private List<SearchOperator> findOperators(String[] args) {
-      String query = args[0];
-      for (int i = 1; i < args.length; i++) {
-        query += " " + args[i];
-      }
-
+    private List<SearchOperator> findOperators(String query) {
       if (!query.contains(OPTIONS_START)) {
         return new ArrayList<>();
       } else {
         String[] options =
             query.split(OPTIONS_START)[1].split(OPTIONS_DELIMITER);
+        List<SearchOperator> ops = new ArrayList<>();
 
         for (String o : options) {
           o = o.replace(" ", ""); // clear whitespace
@@ -73,17 +74,57 @@ public class SearchHandler implements Handler {
 
             if (restrictions.length == 1) {
               // this is an equality comparison, such as level: 3
-
+              ops.add(new SearchOperator(Comparator.IS, columnName,
+                  restrictions[0]));
+            } else {
+              restrictions = sanitize(restrictions); // this gives us quotes
+              if (restrictions.length == 2) {
+                // the first is the comparator, and the second is the term
+                Comparator c;
+                switch (restrictions[0]) {
+                  case "<=":
+                    c = Comparator.LESS_THAN_OR_EQUALS;
+                    break;
+                  case "<":
+                    c = Comparator.LESS_THAN;
+                    break;
+                  case ">=":
+                    c = Comparator.GREATER_THAN_OR_EQUALS;
+                    break;
+                  case ">":
+                    c = Comparator.GREATER_THAN;
+                    break;
+                  default:
+                    c = Comparator.IS;
+                }
+                ops.add(new SearchOperator(c, columnName, restrictions[1]));
+              }
             }
           }
         }
 
-        return new ArrayList<>();
+        return ops;
       }
     }
 
-    private String searchByOperators(String[] args, List<SearchOperator> ops) {
-      return null;
+    private String searchByOperators(String query, List<SearchOperator> ops) throws CommandFailedException {
+      String[] preOptions = query.split(OPTIONS_START)[0].split(" ");
+
+      if (preOptions.length < 2) {
+        // means no table name was given, since "search" is already the first
+        // index
+        return "";
+      }
+
+      String tableName = preOptions[1];
+      List<? extends QueryResult> result;
+      try {
+        result = Database.searchTable(ops, tableName);
+      } catch (SQLException e) {
+        throw new CommandFailedException("ERROR: " + e.getMessage());
+      }
+
+      return prettifyResults(result);
     }
 
     private String searchByName(String[] args) throws CommandFailedException {
@@ -113,6 +154,10 @@ public class SearchHandler implements Handler {
         }
       }
 
+      return prettifyResults(result);
+    }
+
+    private String prettifyResults(List<? extends QueryResult> result) {
       if (result.isEmpty()) {
         return "Didn't find anything :(\n";
       } else {
