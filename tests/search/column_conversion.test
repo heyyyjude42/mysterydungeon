@@ -1,0 +1,5 @@
+INPUT
+search monsters | int: 10, wisdom: 8
+OUTPUT
+NO_ERROR
+END
