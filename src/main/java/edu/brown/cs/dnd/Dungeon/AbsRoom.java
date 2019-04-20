@@ -13,6 +13,7 @@ public class AbsRoom {
   private int width;
   private int height;
   private List<RoomElement> elements;
+  private boolean isMainRoom = false;
 
   public AbsRoom(int width, int height, Location loc) {
     this.width = width;
@@ -44,5 +45,13 @@ public class AbsRoom {
    */
   public Location getTopLeft() {
     return this.topLeftCorner;
+  }
+
+  public boolean isMainRoom() {
+    return isMainRoom;
+  }
+
+  public void setMainRoom(boolean mainRoom) {
+    isMainRoom = mainRoom;
   }
 }

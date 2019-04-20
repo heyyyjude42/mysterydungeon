@@ -9,7 +9,7 @@ public interface IDungeon {
      * Gets the rooms that make up this dungeon.
      * @return - the list of rooms.
      */
-  List<Room> getRooms();
+  List<AbsRoom> getRooms();
 
   int getArea();
 
