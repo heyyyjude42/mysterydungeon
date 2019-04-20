@@ -8,7 +8,7 @@ import java.util.Random;
 /**
  * Class representing the dungeon and its utilities.
  */
-public class Dungeon extends IDungeon {
+public class Dungeon implements IDungeon {
 
   private List<AbsRoom> rooms;
   private int width;
@@ -30,5 +30,10 @@ public class Dungeon extends IDungeon {
       rooms.add(r);
       areaUsed += r.getArea() / (this.height * this.width);
     }
+  }
+
+  @Override
+  public List<Room> getRooms() {
+    return null;
   }
 }

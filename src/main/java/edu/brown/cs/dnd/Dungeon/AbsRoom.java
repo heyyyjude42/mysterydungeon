@@ -20,5 +20,5 @@ public class AbsRoom {
     this.topLeftCorner = loc;
   }
 
-  public int getArea() {return width * height};
+  public int getArea() {return width * height; }
 }

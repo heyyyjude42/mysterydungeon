@@ -17,7 +17,7 @@ import java.util.List;
  * Class that handles REPL queries involving search.
  */
 public class SearchHandler implements Handler {
-  private String OPTIONS_START = "|";
+  private String OPTIONS_START = "\\|";
   private String OPTIONS_DELIMITER = ",";
   private String OPTIONS_NAME_BREAK = ":";
 
@@ -55,25 +55,22 @@ public class SearchHandler implements Handler {
     }
 
     private List<SearchOperator> findOperators(String query) {
-      if (!query.contains(OPTIONS_START)) {
+      if (query.split(OPTIONS_START).length == 1) {
         return new ArrayList<>();
       } else {
         String[] options =
             query.split(OPTIONS_START)[1].split(OPTIONS_DELIMITER);
+
         List<SearchOperator> ops = new ArrayList<>();
 
         for (String o : options) {
-          o = o.replace(" ", ""); // clear whitespace
-          System.out.println("Option w/o whitespace: " + o);
           String[] delimited = o.split(OPTIONS_NAME_BREAK); // turns
-          // class:wizard into [class][wizard]
-
-          System.out.println("Size after : split is " + delimited.length);
+          // class: wizard into [class][ wizard]
 
           // should have at least two things in it
           if (delimited.length >= 2) {
-            String columnName = delimited[0];
-            String[] restrictions = delimited[1].split(" "); // whitespace
+            String columnName = delimited[0].replace(" ", "");
+            String[] restrictions = delimited[1].substring(1).split(" "); // whitespace
 
             if (restrictions.length == 1) {
               // this is an equality comparison, such as level: 3
@@ -141,9 +138,6 @@ public class SearchHandler implements Handler {
           throw new CommandFailedException("ERROR: " + e.getMessage());
         }
       } else {
-        // TODO account for "search in spells fireball" vs "search spells for
-        //  fireball"??
-
         String table = args[1];
         String term = args[2];
 
@@ -163,10 +157,16 @@ public class SearchHandler implements Handler {
     private String prettifyResults(List<? extends QueryResult> result) {
       if (result.isEmpty()) {
         return "Didn't find anything :(\n";
+      } else if (result.size() < 5) {
+        String toReturn = "";
+        for (QueryResult r : result) {
+          toReturn += r.prettify() + "\n\n";
+        }
+        return toReturn;
       } else {
         String toReturn = "";
         for (QueryResult r : result) {
-          toReturn += r.prettify() + "\n";
+          toReturn += "* " + r.simplify() + "\n";
         }
         return toReturn;
       }
@@ -211,6 +211,4 @@ public class SearchHandler implements Handler {
       return results.toArray(new String[results.size()]);
     }
   }
-
-
 }

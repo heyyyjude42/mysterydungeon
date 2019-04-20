@@ -7,4 +7,6 @@ public interface QueryResult {
    * @return
    */
   String prettify();
+
+  String simplify();
 }

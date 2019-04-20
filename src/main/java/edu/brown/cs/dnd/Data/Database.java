@@ -112,7 +112,19 @@ public class Database {
       int intelligence = (Integer) result[12];
       int wis = (Integer) result[13];
       int cha = (Integer) result[14];
-      int cr = (Integer) result[15];
+
+      double cr;
+      if ((result[15].toString()).split("/").length > 1) {
+        // the CR is a fraction
+        double numerator =
+            Double.parseDouble(((String) result[15]).split("/")[0]);
+        double denominator = Double.parseDouble(((String) result[15]).split(
+            "/")[1]);
+        cr = numerator / denominator;
+      } else {
+        cr = (Integer) result[15];
+      }
+
       HashMap<String, String> traits =
           Database.sqlStringToMap((String) result[16]);
       HashMap<String, String> actions =
@@ -160,12 +172,11 @@ public class Database {
     String query = "SELECT * FROM " + table + " WHERE";
 
     for (SearchOperator o : operators) {
-      query += " " + o.toString();
+      query += " " + o.toString() + " AND";
     }
 
-    query += " COLLATE NOCASE;";
-
-    System.out.println(query);
+    query = query.substring(0, query.length() - 4); // gets rid of the last "
+    // AND "
 
     PreparedStatement prep;
     prep = conn.prepareStatement(query);

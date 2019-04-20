@@ -19,14 +19,14 @@ public class Monster extends RoomElement implements QueryResult {
   private int intelligence;
   private int wis;
   private int cha;
-  private int cr;
+  private double cr;
   private HashMap<String, String> traits;
   private HashMap<String, String> actions;
   private HashMap<String, String> legendaryActions;
 
   public Monster(String name, String size, String type, String alignment,
-                 int ac, int hp, String hpDice, int speed, int str,
-                 int dex, int con, int intelligence, int wis, int cha, int cr,
+                 int ac, int hp, String hpDice, String speed, int str,
+                 int dex, int con, int intelligence, int wis, int cha, double cr,
                  HashMap<String, String> traits,
                  HashMap<String, String> actions,
                  HashMap<String, String> legendaryActions) {
@@ -69,16 +69,20 @@ public class Monster extends RoomElement implements QueryResult {
     str += "—————\n";
     str += "Challenge:    " + this.cr + "\n";
 
-    for (String key : traits.keySet()) {
-      str += "* " + key.toUpperCase() + ": " + traits.get(key) + "\n";
+    if (traits != null) {
+      for (String key : traits.keySet()) {
+        str += "* " + key.toUpperCase() + ": " + traits.get(key) + "\n";
+      }
     }
 
     str += "—————\n";
     str += "ACTIONS\n";
     str += "—————\n";
 
-    for (String key : actions.keySet()) {
-      str += "* " + key.toUpperCase() + ": " + actions.get(key) + "\n";
+    if (actions != null) {
+      for (String key : actions.keySet()) {
+        str += "* " + key.toUpperCase() + ": " + actions.get(key) + "\n";
+      }
     }
 
     // only add legendary actions if they actually exist for this monster
@@ -93,6 +97,11 @@ public class Monster extends RoomElement implements QueryResult {
     }
 
     return str;
+  }
+
+  @Override
+  public String simplify() {
+    return this.name + " | CR " + this.cr;
   }
 
   public String getName() {
@@ -151,7 +160,7 @@ public class Monster extends RoomElement implements QueryResult {
     return cha;
   }
 
-  public int getCr() {
+  public double getCr() {
     return cr;
   }
 

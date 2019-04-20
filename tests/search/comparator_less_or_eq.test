@@ -1,0 +1,5 @@
+INPUT
+search spells | level: <= 0
+OUTPUT
+RESULTS
+END
