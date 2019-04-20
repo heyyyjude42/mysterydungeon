@@ -1,7 +1,6 @@
 package edu.brown.cs.dnd.Generate;
 
-import edu.brown.cs.dnd.Data.Database;
-import edu.brown.cs.dnd.Data.Monster;
+import edu.brown.cs.dnd.Data.*;
 import edu.brown.cs.dnd.REPL.*;
 
 import java.sql.Connection;
@@ -9,7 +8,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import java.util.Map;
 import java.util.HashMap;
 import java.util.List;
 import java.util.ArrayList;
@@ -51,7 +49,7 @@ public class GenerateNPCHandler implements Handler {
         int ac = rs.getInt(6);
         int hp = rs.getInt(7);
         String hpDice = rs.getString(8);
-        int speed = rs.getInt(9);
+        String speed = rs.getString(9);
         int str = rs.getInt(10);
         int dex = rs.getInt(11);
         int con = rs.getInt(12);
@@ -85,19 +83,19 @@ public class GenerateNPCHandler implements Handler {
   private class GenerateNPCCommand implements Command {
 
     @Override
-    public String run(String[] args) throws
+    public Result run(String[] args) throws
             InvalidInputException, CommandFailedException {
       Monster m;
-      StringBuilder sb = new StringBuilder();
+      List<QueryResult> sb = new ArrayList<>();
       // No flags
       if (args.length == 1) {
         m = randomNPC();
-        sb.append(m.prettify());
+        sb.add(m);
       } else {
         m = randomNPCFlags(args);
       }
 
-      return sb.toString();
+      return new Result(ReturnType.NPC, sb);
     }
 
     /**

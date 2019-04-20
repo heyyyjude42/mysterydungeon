@@ -2,6 +2,8 @@ package edu.brown.cs.dnd.Generate;
 
 import edu.brown.cs.dnd.Data.Database;
 import edu.brown.cs.dnd.Data.Monster;
+import edu.brown.cs.dnd.Data.Result;
+import edu.brown.cs.dnd.Data.ReturnType;
 import edu.brown.cs.dnd.REPL.*;
 
 import java.sql.Connection;
@@ -31,7 +33,7 @@ public class GenerateEncounterHandler implements Handler {
   private class GenerateEncounter implements Command {
 
     @Override
-    public String run(String[] args) throws
+    public Result run(String[] args) throws
             InvalidInputException, CommandFailedException {
 
       if (args.length != 2) {
@@ -48,14 +50,7 @@ public class GenerateEncounterHandler implements Handler {
 
       List<Monster> encounter = createEncounter(partySize);
 
-      StringBuilder sb = new StringBuilder();
-
-      for (Monster m : encounter) {
-        sb.append("\n\n\n");
-        sb.append(m.prettify());
-      }
-
-      return sb.toString();
+      return new Result(ReturnType.ENCOUNTER, encounter);
     }
 
     /**

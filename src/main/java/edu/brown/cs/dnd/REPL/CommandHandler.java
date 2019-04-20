@@ -1,5 +1,10 @@
 package edu.brown.cs.dnd.REPL;
 
+import edu.brown.cs.dnd.Data.Result;
+import edu.brown.cs.dnd.Data.ReturnType;
+import edu.brown.cs.dnd.Data.StringResult;
+
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,7 +19,7 @@ public class CommandHandler {
     this.commands.put(name, cmd);
   }
 
-  String runCommand(String[] args) throws InvalidInputException {
+  Result runCommand(String[] args) throws InvalidInputException {
     if (args == null || args.length == 0) {
       throw new InvalidInputException("ERROR: no arguments given");
     }
@@ -29,7 +34,8 @@ public class CommandHandler {
     try {
       return cmd.run(args);
     } catch (CommandFailedException | InvalidInputException e) {
-      return e.getMessage();
+      return new Result(ReturnType.STRING,
+          Arrays.asList(new StringResult(e.getMessage())));
     }
   }
 }

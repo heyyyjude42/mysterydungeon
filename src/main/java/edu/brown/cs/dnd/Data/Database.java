@@ -31,14 +31,14 @@ public class Database {
    *
    * @param term
    */
-  public static List<? extends QueryResult> searchSRD(String term) throws SQLException {
-    List<? extends QueryResult> result = new ArrayList<>();
+  public static Result searchSRD(String term) throws SQLException {
     int index = 0;
+    Result result = new Result(ReturnType.NONE, new ArrayList<>());
 
     List<SearchOperator> o = new ArrayList<>();
     o.add(new SearchOperator(Comparator.IS, "name", term));
 
-    while (result.isEmpty() && index < TABLES.length) {
+    while (result.getResults().isEmpty() && index < TABLES.length) {
       try {
         result = searchTable(o, TABLES[index]);
       } catch (CommandFailedException e) {
@@ -60,20 +60,20 @@ public class Database {
    * @throws CommandFailedException
    * @throws SQLException
    */
-  public static List<? extends QueryResult> searchTable(List<SearchOperator> o,
+  public static Result searchTable(List<SearchOperator> o,
                                                         String table) throws CommandFailedException, SQLException {
     switch (table.toLowerCase()) {
       case "spell":
       case "spells":
-        return searchSpells(o);
+        return new Result(ReturnType.SPELL, searchSpells(o));
       case "monster":
       case "monsters":
       case "creature":
       case "creatures":
-        return searchMonsters(o);
+        return new Result(ReturnType.MONSTER, searchMonsters(o));
       case "feats":
       case "feat":
-        return searchFeats(o);
+        return new Result(ReturnType.FEAT, searchFeats(o));
       default:
         throw new CommandFailedException("ERROR: did not find the table named" +
             " " + table);
@@ -105,7 +105,7 @@ public class Database {
       int ac = (Integer) result[5];
       int hp = (Integer) result[6];
       String hpDice = (String) result[7];
-      int speed = (Integer) result[8];
+      String speed = (String) result[8];
       int str = (Integer) result[9];
       int dex = (Integer) result[10];
       int con = (Integer) result[11];

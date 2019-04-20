@@ -1,6 +1,11 @@
 package edu.brown.cs.dnd.Roll;
 
+import edu.brown.cs.dnd.Data.Result;
+import edu.brown.cs.dnd.Data.ReturnType;
+import edu.brown.cs.dnd.Data.StringResult;
 import edu.brown.cs.dnd.REPL.*;
+
+import java.util.Arrays;
 
 public class RollHandler implements Handler {
   private String SYNTAX_ERROR_MESSAGE = "ERROR: expected syntax in the form " +
@@ -13,7 +18,7 @@ public class RollHandler implements Handler {
 
   private class RollCommand implements Command {
     @Override
-    public String run(String[] args) throws InvalidInputException {
+    public Result run(String[] args) throws InvalidInputException {
       if (args.length != 2) {
         throw new InvalidInputException(SYNTAX_ERROR_MESSAGE);
       }
@@ -21,7 +26,8 @@ public class RollHandler implements Handler {
       String dice = args[1];
 
       try {
-        return "Result: " + rollDice(dice) + "\n";
+        return new Result(ReturnType.STRING, Arrays.asList(new StringResult(
+            "Result: " + rollDice(dice) + "\n")));
       } catch (NumberFormatException e) {
         throw new InvalidInputException(SYNTAX_ERROR_MESSAGE);
       }

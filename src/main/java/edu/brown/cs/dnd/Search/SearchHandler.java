@@ -1,13 +1,7 @@
 package edu.brown.cs.dnd.Search;
 
-import edu.brown.cs.dnd.Data.Comparator;
-import edu.brown.cs.dnd.Data.QueryResult;
-import edu.brown.cs.dnd.Data.Database;
-import edu.brown.cs.dnd.Data.SearchOperator;
-import edu.brown.cs.dnd.REPL.Command;
-import edu.brown.cs.dnd.REPL.CommandFailedException;
-import edu.brown.cs.dnd.REPL.CommandHandler;
-import edu.brown.cs.dnd.REPL.Handler;
+import edu.brown.cs.dnd.Data.*;
+import edu.brown.cs.dnd.REPL.*;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -25,6 +19,10 @@ public class SearchHandler implements Handler {
     Database.load("data/srd.db");
   }
 
+  /**
+   * Registers the search commands to the REPL.
+   * @param handler the handler to register commands to.
+   */
   @Override
   public void registerCommands(CommandHandler handler) {
     handler.register("search", new SearchCommand());
@@ -33,7 +31,7 @@ public class SearchHandler implements Handler {
 
   private class SearchCommand implements Command {
     @Override
-    public String run(String[] args) throws CommandFailedException {
+    public Result run(String[] args) throws CommandFailedException {
       args = sanitize(args);
 
       String query = args[0];
@@ -43,7 +41,7 @@ public class SearchHandler implements Handler {
       List<SearchOperator> operators = findOperators(query);
 
       if (args.length < 2) {
-        return "";
+        return new Result(ReturnType.NONE, new ArrayList<>());
       }
 
       // if there's no terms, we only care about name
@@ -107,33 +105,30 @@ public class SearchHandler implements Handler {
       }
     }
 
-    private String searchByOperators(String query, List<SearchOperator> ops) throws CommandFailedException {
+    private Result searchByOperators(String query, List<SearchOperator> ops) throws CommandFailedException {
       String[] preOptions = query.split(OPTIONS_START)[0].split(" ");
 
       if (preOptions.length < 2) {
         // means no table name was given, since "search" is already the first
         // index
-        return "";
+        return new Result(ReturnType.NONE, new ArrayList<>());
       }
 
       String tableName = preOptions[1];
-      List<? extends QueryResult> result;
       try {
-        result = Database.searchTable(ops, tableName);
+        return Database.searchTable(ops, tableName);
       } catch (SQLException e) {
         throw new CommandFailedException("ERROR: " + e.getMessage());
       }
-
-      return prettifyResults(result);
     }
 
-    private String searchByName(String[] args) throws CommandFailedException {
+    private Result searchByName(String[] args) throws CommandFailedException {
       List<? extends QueryResult> result;
 
       // no table specified, only a search term.
       if (args.length == 2) {
         try {
-          result = Database.searchSRD(args[1]);
+          return Database.searchSRD(args[1]);
         } catch (SQLException e) {
           throw new CommandFailedException("ERROR: " + e.getMessage());
         }
@@ -145,30 +140,10 @@ public class SearchHandler implements Handler {
         operators.add(new SearchOperator(Comparator.IS, "name", term));
 
         try {
-          result = Database.searchTable(operators, table);
+          return Database.searchTable(operators, table);
         } catch (SQLException e) {
           throw new CommandFailedException("ERROR: " + e.getMessage());
         }
-      }
-
-      return prettifyResults(result);
-    }
-
-    private String prettifyResults(List<? extends QueryResult> result) {
-      if (result.isEmpty()) {
-        return "Didn't find anything :(\n";
-      } else if (result.size() < 5) {
-        String toReturn = "";
-        for (QueryResult r : result) {
-          toReturn += r.prettify() + "\n\n";
-        }
-        return toReturn;
-      } else {
-        String toReturn = "";
-        for (QueryResult r : result) {
-          toReturn += "* " + r.simplify() + "\n";
-        }
-        return toReturn;
       }
     }
 

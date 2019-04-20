@@ -12,7 +12,7 @@ public class Monster extends RoomElement implements QueryResult {
   private int ac;
   private int hp;
   private String hpDice;
-  private int speed;
+  private String speed;
   private int str;
   private int dex;
   private int con;
@@ -25,7 +25,7 @@ public class Monster extends RoomElement implements QueryResult {
   private HashMap<String, String> legendaryActions;
 
   public Monster(String name, String size, String type, String alignment,
-                 int ac, int hp, String hpDice, int speed, int str,
+                 int ac, int hp, String hpDice, String speed, int str,
                  int dex, int con, int intelligence, int wis, int cha, double cr,
                  HashMap<String, String> traits,
                  HashMap<String, String> actions,
@@ -132,7 +132,7 @@ public class Monster extends RoomElement implements QueryResult {
     return hpDice;
   }
 
-  public int getSpeed() {
+  public String getSpeed() {
     return speed;
   }
 
