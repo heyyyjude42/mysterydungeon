@@ -14,14 +14,14 @@ public class Dungeon implements IDungeon {
   private int width;
   private int height;
 
-  private static final int TOLERANCE = 20;
+  private static final int TOLERANCE = 100;
 
   public Dungeon(int width, int height) {
     this.width = width;
     this.height = height;
     this.occupiedCells = new boolean[height][width];
     this.rooms = new ArrayList<>();
-    generateRooms(0.6, RoomSize.SMALL);
+    generateRooms(0.8, RoomSize.SMALL);
   }
 
   private void generateRooms(double dungeonDensity, RoomSize averageRoomSize) {
@@ -101,7 +101,7 @@ public class Dungeon implements IDungeon {
         if (this.occupiedCells[i][j]) {
           System.out.print("x ");
         } else {
-          System.out.print(" ");
+          System.out.print("  ");
         }
       }
       System.out.println("");

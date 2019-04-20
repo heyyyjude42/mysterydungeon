@@ -21,6 +21,15 @@ public class Room extends AbsRoom {
     NormalDistribution N = new NormalDistribution(averageDim, averageDim * STD_DEV_RATIO);
     int width = (int) Math.round(N.draw());
     int height = (int) Math.round(N.draw());
+
+    if (width < 3) {
+      width = 3;
+    }
+
+    if (height < 3) {
+      height = 3;
+    }
+
     return new Room(width, height, loc);
   }
 }
