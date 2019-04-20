@@ -192,8 +192,16 @@ public class Database {
     return results;
   }
 
-  private static HashMap<String, String> sqlStringToMap(String term) {
+  public static HashMap<String, String> sqlStringToMap(String term) {
     return new Gson().fromJson(term, new TypeToken<HashMap<String, String>>() {
     }.getType());
+  }
+
+  /**
+   * Method gets the connection to the database.
+   * @return    A Connection that is the connection to the database
+   */
+  public static Connection getConnection() {
+    return conn;
   }
 }
