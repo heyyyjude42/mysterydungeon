@@ -15,6 +15,7 @@ public class Dungeon implements IDungeon {
   private int height;
 
   private static final int TOLERANCE = 100;
+  private static final double MAIN_ROOM_FACTOR = 1.25;
 
   public Dungeon(int width, int height) {
     this.width = width;
@@ -22,6 +23,7 @@ public class Dungeon implements IDungeon {
     this.occupiedCells = new boolean[height][width];
     this.rooms = new ArrayList<>();
     generateRooms(0.8, RoomSize.SMALL);
+    selectMainRooms();
   }
 
   private void generateRooms(double dungeonDensity, RoomSize averageRoomSize) {
@@ -45,10 +47,23 @@ public class Dungeon implements IDungeon {
     }
   }
 
+  private void selectMainRooms() {
+    double totalRoomArea = 0;
+    for (AbsRoom r : rooms) {
+      totalRoomArea += r.getArea();
+    }
+    double averageRoomSize = totalRoomArea / (double) rooms.size();
+    for (AbsRoom r : rooms) {
+      if (r.getArea() > averageRoomSize * MAIN_ROOM_FACTOR) {
+        r.setMainRoom(true);
+      }
+    }
+  }
+
 
   @Override
-  public List<Room> getRooms() {
-    return null;
+  public List<AbsRoom> getRooms() {
+    return this.rooms;
   }
 
   @Override

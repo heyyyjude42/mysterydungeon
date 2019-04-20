@@ -16,7 +16,7 @@ public class Room extends AbsRoom {
   }
 
 
-  public static Room randomRoom(double averageArea, Location loc) {
+  static Room randomRoom(double averageArea, Location loc) {
     double averageDim = Math.sqrt(averageArea);
     NormalDistribution N = new NormalDistribution(averageDim, averageDim * STD_DEV_RATIO);
     int width = (int) Math.round(N.draw());
@@ -32,4 +32,5 @@ public class Room extends AbsRoom {
 
     return new Room(width, height, loc);
   }
+
 }

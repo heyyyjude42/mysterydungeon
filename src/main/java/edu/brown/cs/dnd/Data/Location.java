@@ -48,4 +48,12 @@ public class Location {
     Random rand = new Random();
     return new Location(rand.nextInt(xBound), rand.nextInt(yBound));
   }
+
+  @Override
+  public String toString() {
+    return "Location{" +
+            "x=" + x +
+            ", y=" + y +
+            '}';
+  }
 }
