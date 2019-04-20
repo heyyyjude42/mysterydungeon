@@ -9,7 +9,7 @@ import edu.brown.cs.dnd.RandomTools.NormalDistribution;
  */
 public class Room extends AbsRoom {
 
-  private static final double STD_DEV_RATIO = .5;
+  private static final double STD_DEV_RATIO = 1.3;
 
   public Room(int width, int height, Location loc) {
     super(width, height, loc);

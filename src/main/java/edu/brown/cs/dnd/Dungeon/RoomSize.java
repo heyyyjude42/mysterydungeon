@@ -1,7 +1,7 @@
 package edu.brown.cs.dnd.Dungeon;
 
 public enum RoomSize {
-  SMALL(.02), MEDIUM(.05), LARGE(.1);
+  SMALL(.01), MEDIUM(.02), LARGE(.05);
 
   private final double roomRatio;
 
