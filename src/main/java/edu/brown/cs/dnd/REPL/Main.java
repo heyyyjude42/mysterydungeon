@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import edu.brown.cs.dnd.Generate.GenerateEncounterHandler;
+import edu.brown.cs.dnd.Generate.GenerateNPCHandler;
 import edu.brown.cs.dnd.Roll.RollHandler;
 import edu.brown.cs.dnd.Search.SearchHandler;
 import joptsimple.OptionParser;
@@ -64,7 +66,9 @@ public final class Main {
     CommandHandler handler = new CommandHandler();
     List<Handler> handlers = new ArrayList<>(Arrays.asList(
         new SearchHandler(),
-        new RollHandler()
+        new RollHandler(),
+        new GenerateNPCHandler(),
+        new GenerateEncounterHandler()
     ));
 
     for (Handler h : handlers) {
@@ -73,7 +77,6 @@ public final class Main {
 
     repl = new REPL(handler);
     repl.beginParsing();
-
   }
 
   /**
