@@ -20,20 +20,29 @@ public class Dungeon implements IDungeon {
 
   }
 
-  private void generateRooms() {
+  private void generateRooms(double dungeonDensity, RoomSize averageRoomSize) {
+    assert dungeonDensity >= 0 && dungeonDensity < 1;
     Random rand = new Random();
     double areaUsed = 0;
-    while (areaUsed < .6) {
-      Room r = new Room(rand.nextInt(Math.floorDiv(width, 10)),
-              rand.nextInt(Math.floorDiv(height, 10)),
-              Location.randLocation(width, height));
-      rooms.add(r);
-      areaUsed += r.getArea() / (this.height * this.width);
+    while (areaUsed < dungeonDensity) {
+      Location loc = Location.randLocation(width, height);
+      Room r = Room.randomRoom(getArea() * averageRoomSize.getRoomRatio(), loc);
+      // Replace this with the condition for if the room does not intersect any already existing rooms.
+      if (true) {
+        rooms.add(r);
+        areaUsed += r.getArea() / ((double) this.height * (double) this.width);
+      }
     }
   }
+
 
   @Override
   public List<Room> getRooms() {
     return null;
+  }
+
+  @Override
+  public int getArea() {
+    return width * height;
   }
 }
