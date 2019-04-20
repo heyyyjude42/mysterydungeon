@@ -105,7 +105,7 @@ public class Database {
       int ac = (Integer) result[5];
       int hp = (Integer) result[6];
       String hpDice = (String) result[7];
-      String speed = (String) result[8];
+      int speed = (Integer) result[8];
       int str = (Integer) result[9];
       int dex = (Integer) result[10];
       int con = (Integer) result[11];

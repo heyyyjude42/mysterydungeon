@@ -42,6 +42,8 @@ public class GenerateNPCHandler implements Handler {
       } else {
 
       }
+
+      return null;
     }
 
     /**
@@ -109,6 +111,8 @@ public class GenerateNPCHandler implements Handler {
       } catch (SQLException e) {
         System.out.println("ERROR: " + e.getMessage());
       }
+
+      return null;
     }
   }
 }
