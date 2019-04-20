@@ -105,7 +105,7 @@ public class Database {
       int ac = (Integer) result[5];
       int hp = (Integer) result[6];
       String hpDice = (String) result[7];
-      String speed = (String) result[8];
+      int speed = (Integer) result[8];
       int str = (Integer) result[9];
       int dex = (Integer) result[10];
       int con = (Integer) result[11];
@@ -203,8 +203,16 @@ public class Database {
     return results;
   }
 
-  private static HashMap<String, String> sqlStringToMap(String term) {
+  public static HashMap<String, String> sqlStringToMap(String term) {
     return new Gson().fromJson(term, new TypeToken<HashMap<String, String>>() {
     }.getType());
+  }
+
+  /**
+   * Method gets the connection to the database.
+   * @return    A Connection that is the connection to the database
+   */
+  public static Connection getConnection() {
+    return conn;
   }
 }

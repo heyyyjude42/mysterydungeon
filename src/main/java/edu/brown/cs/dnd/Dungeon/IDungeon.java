@@ -11,5 +11,7 @@ public interface IDungeon {
      */
   List<Room> getRooms();
 
+  int getArea();
+
 
 }

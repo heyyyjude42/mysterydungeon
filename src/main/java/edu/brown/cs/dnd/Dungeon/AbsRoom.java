@@ -21,4 +21,28 @@ public class AbsRoom {
   }
 
   public int getArea() {return width * height; }
+
+  /**
+   * Method gets the width of the room.
+   * @return    An int that is the width of the room
+   */
+  public int getWidth() {
+    return this.width;
+  }
+
+  /**
+   * Method gets the height of the room.
+   * @return    An int that is the height of the room
+   */
+  public int getHeight() {
+    return this.height;
+  }
+
+  /**
+   * Method gets the top left point of the room.
+   * @return    A Location that is the top left point of the room
+   */
+  public Location getTopLeft() {
+    return this.topLeftCorner;
+  }
 }
