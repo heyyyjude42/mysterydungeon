@@ -6,7 +6,7 @@ public class UndirectedGraph<T> {
 
   private Set<Edge> edges;
 
-  class Edge<T> implements Comparable {
+  class Edge<T> implements Comparable<Edge<T>> {
     T v1;
     T v2;
     Double weight;
@@ -133,7 +133,11 @@ public class UndirectedGraph<T> {
     Collection<T> vertices = this.getVertices();
     int verticesSize = vertices.size();
     DisjointSet<T> components = new DisjointSet<>(vertices);
-    PriorityQueue<Edge<T>> pq = new PriorityQueue<>(this.edges);
+    PriorityQueue<Edge<T>> pq = new PriorityQueue<Edge<T>>();
+
+    for (Edge<T> e : this.edges) {
+      pq.add(e);
+    }
 
     UndirectedGraph ug = new UndirectedGraph();
     while (ug.edges.size() < verticesSize - 1) {

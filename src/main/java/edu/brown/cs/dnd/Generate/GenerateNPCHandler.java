@@ -127,6 +127,11 @@ public class GenerateNPCHandler implements Handler {
      * @return
      */
     Monster randomNPCFlags(String[] args) {
+//      StringBuilder sb = new StringBuilder();
+//
+//      sb.append("WHERE ");
+//
+//      for (int i = 1; i < )
       return null;
     }
   }
