@@ -3,10 +3,12 @@ edu/brown/cs/dnd/REPL/InvalidInputException.class
 edu/brown/cs/dnd/Search/SearchHandler.class
 edu/brown/cs/dnd/Generate/GenerateNPCHandler.class
 edu/brown/cs/dnd/Data/SearchOperator.class
+edu/brown/cs/dnd/REPL/Main$QueryHandler.class
 edu/brown/cs/dnd/REPL/CommandHandler.class
 edu/brown/cs/dnd/RandomTools/NormalDistribution.class
 edu/brown/cs/dnd/Data/Feat.class
 edu/brown/cs/dnd/Data/StringResult.class
+edu/brown/cs/dnd/REPL/Main$FrontHandler.class
 edu/brown/cs/dnd/Roll/RollHandler$RollCommand.class
 edu/brown/cs/dnd/Dungeon/Room.class
 edu/brown/cs/dnd/Data/Location.class

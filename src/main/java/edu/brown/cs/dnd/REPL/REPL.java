@@ -18,6 +18,10 @@ public class REPL {
     this.handler = handler;
   }
 
+  public CommandHandler getHandler() {
+    return handler;
+  }
+
   /**
    * Begins parsing user input using a while loop.
    */

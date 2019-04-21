@@ -24,9 +24,14 @@ public class Monster extends RoomElement implements QueryResult {
   private HashMap<String, String> actions;
   private HashMap<String, String> legendaryActions;
 
+  // empty constructor for GSON serialization
+  public Monster() {
+  }
+
   public Monster(String name, String size, String type, String alignment,
                  int ac, int hp, String hpDice, String speed, int str,
-                 int dex, int con, int intelligence, int wis, int cha, double cr,
+                 int dex, int con, int intelligence, int wis, int cha,
+                 double cr,
                  HashMap<String, String> traits,
                  HashMap<String, String> actions,
                  HashMap<String, String> legendaryActions) {
@@ -92,7 +97,8 @@ public class Monster extends RoomElement implements QueryResult {
       str += "—————\n";
 
       for (String key : legendaryActions.keySet()) {
-        str += "* " + key.toUpperCase() + ": " + legendaryActions.get(key) + "\n";
+        str += "* " + key.toUpperCase() + ": " + legendaryActions.get(key) +
+            "\n";
       }
     }
 

@@ -6,6 +6,11 @@ public class Result {
   private ReturnType type;
   private List<? extends QueryResult> results;
 
+  // empty constructor for GSON serialization
+  public Result() {
+
+  }
+
   public Result(ReturnType type, List<? extends QueryResult> results) {
     this.type = type;
     this.results = results;
