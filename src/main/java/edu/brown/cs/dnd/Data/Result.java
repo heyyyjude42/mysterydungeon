@@ -1,21 +1,28 @@
 package edu.brown.cs.dnd.Data;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Result {
   private ReturnType type;
-  private List<? extends QueryResult> results;
+  private List<QueryResult> results;
+
+  // empty constructor for GSON serialization
+  public Result() {
+
+  }
 
   public Result(ReturnType type, List<? extends QueryResult> results) {
     this.type = type;
-    this.results = results;
+    this.results = new ArrayList<>();
+    this.results.addAll(results);
   }
 
   public ReturnType getType() {
     return type;
   }
 
-  public List<? extends QueryResult> getResults() {
+  public List<QueryResult> getResults() {
     return results;
   }
 

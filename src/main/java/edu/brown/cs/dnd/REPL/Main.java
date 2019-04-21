@@ -4,10 +4,9 @@ import java.io.IOException;
 import java.io.StringWriter;
 import java.io.PrintWriter;
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
+import edu.brown.cs.dnd.Data.*;
 import edu.brown.cs.dnd.Dungeon.AbsRoom;
 import edu.brown.cs.dnd.Dungeon.Dungeon;
 import edu.brown.cs.dnd.Generate.GenerateEncounterHandler;
@@ -114,7 +113,8 @@ public final class Main {
     FreeMarkerEngine freeMarker = createEngine();
 
     // Setup Spark Routes
-    // Spark.get("/stars", new FrontHandler(), freeMarker);
+    Spark.get("/d&d", new FrontHandler(), freeMarker);
+    Spark.post("/query", new QueryHandler());
   }
 
   /**
@@ -136,4 +136,38 @@ public final class Main {
     }
   }
 
+  private class FrontHandler implements TemplateViewRoute, Route {
+    @Override
+    public ModelAndView handle(Request request, Response response) throws Exception {
+      Map<String, Object> variables = ImmutableMap.of("title", "Mystery " +
+          "Dungeon");
+      return new ModelAndView(variables, "mysteryDungeon.ftl");
+    }
+  }
+
+  private class QueryHandler implements Route {
+    @Override
+    public String handle(Request request, Response response) throws Exception {
+      QueryParamsMap qm = request.queryMap();
+      String userInput = qm.value("input");
+
+      CommandHandler handler = repl.getHandler();
+      Result result;
+      try {
+        result = handler.runCommand(userInput.split("\\s+"));
+      } catch (InvalidInputException e) {
+        result = new Result(ReturnType.STRING,
+            Collections.singletonList(new StringResult(e.getMessage())));
+      }
+
+      List<String> prettified = new ArrayList<>();
+      for (QueryResult r : result.getResults()) {
+        prettified.add(r.prettify());
+      }
+
+      Map<String, Object> variables = ImmutableMap.of("result",
+          result, "prettified", prettified);
+      return GSON.toJson(variables);
+    }
+  }
 }

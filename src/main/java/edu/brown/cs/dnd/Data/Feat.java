@@ -4,6 +4,11 @@ public class Feat implements QueryResult {
   private String name;
   private String desc;
 
+  // empty constructor for GSON serialization
+  public Feat() {
+
+  }
+
   public Feat(String name, String desc) {
     this.name = name;
     this.desc = desc;

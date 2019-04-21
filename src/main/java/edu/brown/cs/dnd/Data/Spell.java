@@ -15,6 +15,11 @@ public class Spell implements QueryResult {
   private String description;
   private String classes;
 
+  // empty constructor for GSON serialization
+  public Spell() {
+
+  }
+
   public Spell(String name, String school, int level, boolean ritual,
                String range, String castingTime, boolean verbal,
                boolean somatic, boolean concentration, String materials,
