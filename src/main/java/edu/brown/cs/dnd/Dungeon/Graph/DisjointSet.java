@@ -2,12 +2,13 @@ package edu.brown.cs.dnd.Dungeon.Graph;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Collection;
 
-public class DisjointSets<T> {
+public class DisjointSet<T> {
 
   private Map<T,T> parents;
 
-  public DisjointSets(List<T> elements) {
+  public DisjointSet(Collection<T> elements) {
     for (T e : elements) {
       parents.put(e,e);
     }
@@ -34,6 +35,14 @@ public class DisjointSets<T> {
     if (parents.containsKey(b) && parents.containsKey(b)) {
       parents.put(b, a);
       return true;
+    } else {
+      return false;
+    }
+  }
+
+  public boolean inSameSet(T a, T b) {
+    if (parents.containsKey(b) && parents.containsKey(b)) {
+      return find(a).equals(find(b));
     } else {
       return false;
     }
