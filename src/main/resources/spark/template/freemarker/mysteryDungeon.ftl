@@ -1,9 +1,7 @@
 <#assign content>
     <div>
-        <ul id="output">
-            <li>test</li>
-            <li>test2</li>
-        </ul>
+        <div id="output">
+        </div>
     </div>
 
     <input type="text" id="console">

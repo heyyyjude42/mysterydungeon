@@ -160,8 +160,13 @@ public final class Main {
             Collections.singletonList(new StringResult(e.getMessage())));
       }
 
+      List<String> prettified = new ArrayList<>();
+      for (QueryResult r : result.getResults()) {
+        prettified.add(r.prettify());
+      }
+
       Map<String, Object> variables = ImmutableMap.of("result",
-          result);
+          result, "prettified", prettified);
       return GSON.toJson(variables);
     }
   }

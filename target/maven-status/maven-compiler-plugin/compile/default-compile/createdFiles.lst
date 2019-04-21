@@ -1,5 +1,7 @@
 edu/brown/cs/dnd/REPL/Main$ExceptionPrinter.class
 edu/brown/cs/dnd/REPL/InvalidInputException.class
+edu/brown/cs/dnd/Dungeon/Graph/DisjointSets.class
+edu/brown/cs/dnd/Dungeon/Graph/Graph$Edge.class
 edu/brown/cs/dnd/Search/SearchHandler.class
 edu/brown/cs/dnd/Generate/GenerateNPCHandler.class
 edu/brown/cs/dnd/Data/SearchOperator.class
@@ -37,6 +39,7 @@ edu/brown/cs/dnd/Data/Spell.class
 edu/brown/cs/dnd/Data/Database$1.class
 edu/brown/cs/dnd/Data/Comparator.class
 edu/brown/cs/dnd/REPL/Handler.class
+edu/brown/cs/dnd/Dungeon/Graph/Graph.class
 edu/brown/cs/dnd/Dungeon/IDungeon.class
 edu/brown/cs/dnd/Dungeon/AbsRoom.class
 edu/brown/cs/dnd/Data/ColumnConverter.class
