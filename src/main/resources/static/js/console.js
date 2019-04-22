@@ -49,11 +49,20 @@ function query(line) {
         const responseObject = JSON.parse(responseJSON);
         const result = responseObject.result.results; // this gets the actual data properties
         const prettified = responseObject.prettified;
+        const simplified = responseObject.simplified;
 
-        for (let i = 0; i < prettified.length; i++) {
-            output.append("<p>" + prettified[i] + "</p>");
-            resultList.push(prettified[i]);
+        // if there's only one result, display the whole thing. Otherwise, display a shortened list.
+        if (result.length === 1) {
+            output.append("<p>" + prettified[0] + "</p>"); // TODO: make this custom for each data type later
+        } else {
+            for (let i = 0; i < prettified.length; i++) {
+                output.append("<div class='tooltip'>" + simplified[i] +
+                    "<div class='right'>" + prettified[i] + "<i></i></div>" +
+                    "</div></br>");
+                resultList.push(prettified[i]);
+            }
         }
+
         resultIndex++;
         // scroll to bottom
         output.scrollTop(output[0].scrollHeight);
