@@ -1,0 +1,5 @@
+INPUT
+roll 2d4 + 3 - 2d10
+OUTPUT
+RESULTS
+END

@@ -1,0 +1,5 @@
+INPUT
+roll 2d6 + 4 6 - 10d10 4 +
+OUTPUT
+RESULTS
+END

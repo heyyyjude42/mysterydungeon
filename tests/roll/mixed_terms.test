@@ -1,0 +1,5 @@
+INPUT
+roll 2d1 + 4 - 1d1 + 9d1
+OUTPUT
+Result: 14
+END

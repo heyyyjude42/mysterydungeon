@@ -18,7 +18,8 @@ body {
 }
 
 #output p {
-    width: 60%;
+    width: fit-content;
+    max-width: 60%;
 }
 
 #console {
