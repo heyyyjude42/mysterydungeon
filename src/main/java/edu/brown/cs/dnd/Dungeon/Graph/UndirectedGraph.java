@@ -4,59 +4,15 @@ import java.util.*;
 
 public class UndirectedGraph<T> {
 
-  private Set<Edge> edges;
+  private Set<UndirectedEdge<T>> edges;
 
-  class Edge<T> implements Comparable<Edge<T>> {
-    T v1;
-    T v2;
-    Double weight;
-
-    Edge(T t1, T t2, double weight) {
-      this.v1 = t1;
-      this.v2 = t2;
-      this.weight = weight;
-    }
-
-    @Override
-    public int hashCode() {
-      return 7 * v1.hashCode() + 7 * v2.hashCode() + 17 * weight.hashCode();
-    }
-
-    @Override
-    public boolean equals(Object o) {
-      if (o == this) {
-        return true;
-      }
-
-      if (!(o instanceof Edge)) {
-        return false;
-      }
-
-      Edge e = (Edge) o;
-
-      return ((this.v1.equals(e.v1) && this.v2.equals(e.v2))
-              || (this.v1.equals(e.v2) && this.v2.equals(e.v1)))
-              && this.weight.equals(e.weight);
-    }
-
-    @Override
-    public int compareTo(Edge<T> e) {
-      if (this.weight > e.weight) {
-        return 1;
-      } else if (e.weight > this.weight) {
-        return -1;
-      } else {
-        return 0;
-      }
-    }
-  }
 
   public void addEdge(T src, T dest, double weight) {
-    Edge<T> toAdd = new Edge(src, dest, weight);
+    UndirectedEdge<T> toAdd = new UndirectedEdge<>(src, dest, weight);
     edges.add(toAdd);
   }
 
-  public void addEdge(Edge<T> e) {
+  public void addEdge(UndirectedEdge<T> e) {
     edges.add(e);
   }
 
@@ -67,7 +23,7 @@ public class UndirectedGraph<T> {
   public Collection<T> getVertices() {
     Set<T> vertices = new HashSet<>();
 
-    for (Edge<T> e : this.edges) {
+    for (UndirectedEdge<T> e : this.edges) {
       vertices.add(e.v1);
       vertices.add(e.v2);
     }
@@ -75,7 +31,11 @@ public class UndirectedGraph<T> {
     return vertices;
   }
 
-//  /**
+  public Set<UndirectedEdge<T>> getEdges() {
+    return edges;
+  }
+
+  //  /**
 //   * Method counts how many vertices there are in the graph.
 //   */
 //  public int getNumVertices() {
@@ -133,15 +93,15 @@ public class UndirectedGraph<T> {
     Collection<T> vertices = this.getVertices();
     int verticesSize = vertices.size();
     DisjointSet<T> components = new DisjointSet<>(vertices);
-    PriorityQueue<Edge<T>> pq = new PriorityQueue<Edge<T>>();
+    PriorityQueue<UndirectedEdge<T>> pq = new PriorityQueue<UndirectedEdge<T>>();
 
-    for (Edge<T> e : this.edges) {
+    for (UndirectedEdge<T> e : this.edges) {
       pq.add(e);
     }
 
     UndirectedGraph ug = new UndirectedGraph();
     while (ug.edges.size() < verticesSize - 1) {
-      Edge<T> e = pq.poll();
+      UndirectedEdge<T> e = pq.poll();
       if (!components.inSameSet(e.v1, e.v2)) {
         components.union(e.v1, e.v2);
         ug.addEdge(e);

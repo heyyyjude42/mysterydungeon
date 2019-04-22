@@ -1,6 +1,9 @@
 package edu.brown.cs.dnd.Dungeon;
 
+import com.sun.javafx.geom.Edge;
 import edu.brown.cs.dnd.Data.Location;
+import edu.brown.cs.dnd.Dungeon.Graph.UndirectedGraph;
+import edu.brown.cs.dnd.Dungeon.Graph.UndirectedEdge;
 
 import java.util.*;
 
@@ -13,22 +16,24 @@ public class Dungeon implements IDungeon {
   private boolean[][] occupiedCells;
   private int width;
   private int height;
+  private Random rand;
 
   private static final int TOLERANCE = 100;
   private static final double MAIN_ROOM_FACTOR = 1.25;
+  private static final int RAND_ROOM_LEVEL = 50;
 
   public Dungeon(int width, int height) {
     this.width = width;
     this.height = height;
     this.occupiedCells = new boolean[height][width];
+    this.rand = new Random();
     this.rooms = new ArrayList<>();
     generateRooms(0.8, RoomSize.SMALL);
-    selectMainRooms();
+    filterRooms();
   }
 
   private void generateRooms(double dungeonDensity, RoomSize averageRoomSize) {
     assert dungeonDensity >= 0 && dungeonDensity < 1;
-    Random rand = new Random();
     double areaUsed = 0;
 
     int numFailed = 0;
@@ -47,17 +52,41 @@ public class Dungeon implements IDungeon {
     }
   }
 
-  private void selectMainRooms() {
+  private void filterRooms() {
     double totalRoomArea = 0;
     for (AbsRoom r : rooms) {
       totalRoomArea += r.getArea();
     }
     double averageRoomSize = totalRoomArea / (double) rooms.size();
     for (AbsRoom r : rooms) {
-      if (r.getArea() > averageRoomSize * MAIN_ROOM_FACTOR) {
-        r.setMainRoom(true);
+      if (r.getArea() < averageRoomSize * MAIN_ROOM_FACTOR) {
+        if (rand.nextInt(100) < RAND_ROOM_LEVEL) {
+          rooms.remove(r);
+        }
       }
     }
+  }
+
+  private void connectRooms() {
+    UndirectedGraph<AbsRoom> roomUndirectedGraph = new UndirectedGraph<>();
+    for (AbsRoom r1 : rooms) {
+      for (AbsRoom r2 : rooms) {
+        if (!r1.equals(r2)) {
+          roomUndirectedGraph.addEdge(r1, r2, r1.distanceTo(r2));
+        }
+      }
+    }
+    UndirectedGraph<AbsRoom> mst = roomUndirectedGraph.mst();
+    for (UndirectedEdge<AbsRoom> e : mst.getEdges()) {
+      Path toAdd = getPathFromEdge(e);
+      rooms.add(toAdd);
+      fillCells(toAdd);
+    }
+  }
+
+  private static Path getPathFromEdge(UndirectedEdge<AbsRoom> edge) {
+    
+    return null;
   }
 
 
@@ -73,9 +102,9 @@ public class Dungeon implements IDungeon {
 
   /**
    * Method sets the cells of the dungeon to true or false given a room.
-   * @param r   A Room to fill the dungeon with
+   * @param r   An Absroom to fill the dungeon with
    */
-  public void fillCells(Room r) {
+  public void fillCells(AbsRoom r) {
     int x = r.getTopLeft().getX();
     int y = r.getTopLeft().getY();
 

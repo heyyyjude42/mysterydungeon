@@ -18,7 +18,6 @@ edu/brown/cs/dnd/REPL/Main.class
 edu/brown/cs/dnd/Dungeon/Graph/DisjointSet.class
 edu/brown/cs/dnd/Dungeon/RoomSize.class
 edu/brown/cs/dnd/Data/ReturnType.class
-edu/brown/cs/dnd/Generate/GenerateNPCHandler$1.class
 edu/brown/cs/dnd/Dungeon/RoomElement.class
 edu/brown/cs/dnd/Search/SearchHandler$SearchCommand.class
 edu/brown/cs/dnd/Data/Database.class

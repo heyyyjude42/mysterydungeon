@@ -1,5 +1,6 @@
 package edu.brown.cs.dnd.Data;
 
+import java.util.Objects;
 import java.util.Random;
 
 /**
@@ -49,11 +50,29 @@ public class Location {
     return new Location(rand.nextInt(xBound), rand.nextInt(yBound));
   }
 
+  public double distanceTo(Location that) {
+    return Math.sqrt(Math.pow(this.x - that.x, 2.0) + Math.pow(this.y - that.y, 2.0));
+  }
+
   @Override
   public String toString() {
     return "Location{" +
             "x=" + x +
             ", y=" + y +
             '}';
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    Location location = (Location) o;
+    return x == location.x &&
+            y == location.y;
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(x, y);
   }
 }
