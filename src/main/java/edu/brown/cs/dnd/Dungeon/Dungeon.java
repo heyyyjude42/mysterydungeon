@@ -53,19 +53,36 @@ public class Dungeon implements IDungeon {
     }
   }
 
+//  private void filterRooms() {
+//    double totalRoomArea = 0;
+//    for (AbsRoom r : rooms) {
+//      totalRoomArea += r.getArea();
+//    }
+//    double averageRoomSize = totalRoomArea / (double) rooms.size();
+//    for (AbsRoom r : rooms) {
+//      if (r.getArea() < averageRoomSize * MAIN_ROOM_FACTOR) {
+//        if (rand.nextInt(100) < RAND_ROOM_LEVEL) {
+//          rooms.remove(r);
+//        }
+//      }
+//    }
+//  }
+
   private void filterRooms() {
     double totalRoomArea = 0;
+    List<AbsRoom> untouched = new ArrayList<>();
     for (AbsRoom r : rooms) {
       totalRoomArea += r.getArea();
     }
     double averageRoomSize = totalRoomArea / (double) rooms.size();
     for (AbsRoom r : rooms) {
       if (r.getArea() < averageRoomSize * MAIN_ROOM_FACTOR) {
-        if (rand.nextInt(100) < RAND_ROOM_LEVEL) {
-          rooms.remove(r);
+        if (rand.nextInt(100) >= RAND_ROOM_LEVEL) {
+          untouched.add(r);
         }
       }
     }
+    rooms = untouched;
   }
 
   private void connectRooms() {
@@ -154,6 +171,7 @@ public class Dungeon implements IDungeon {
                             - leftMost.getBottomRight().getY() - pathSize)
                             + leftMost.getBottomRight().getY() + pathSize));
 
+    // TODO: Orientation can be so that path1 is below
     AbsRoom path2 = new Path(pathSize, path1.getBottomRight().getY()
             - rightMost.getTopLeft().getY(),
             new Location(path1.getBottomRight().getX() + 1,

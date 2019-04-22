@@ -6,6 +6,10 @@ public class UndirectedGraph<T> {
 
   private Set<UndirectedEdge<T>> edges;
 
+  public UndirectedGraph() {
+    this.edges = new HashSet<>();
+  }
+
 
   public void addEdge(T src, T dest, double weight) {
     UndirectedEdge<T> toAdd = new UndirectedEdge<>(src, dest, weight);

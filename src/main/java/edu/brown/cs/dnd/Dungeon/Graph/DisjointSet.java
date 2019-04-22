@@ -1,5 +1,6 @@
 package edu.brown.cs.dnd.Dungeon.Graph;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Collection;
@@ -9,8 +10,10 @@ public class DisjointSet<T> {
   private Map<T,T> parents;
 
   public DisjointSet(Collection<T> elements) {
+    this.parents = new HashMap<>();
+
     for (T e : elements) {
-      parents.put(e,e);
+      parents.put(e, e);
     }
   }
 
