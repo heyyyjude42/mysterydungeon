@@ -4,39 +4,44 @@ const output = $("#output");
 let resultIndex = 0;
 const resultList = [];
 
+let lastLine = "";
+
 $(document).ready(() => {
     const $userInput = $("#console");
 
     $userInput.keydown((e) => {
-        if (e.keyCode === 13) {
-            query($userInput[0].value);
-            $userInput[0].value = "";
+        switch (e.keyCode) {
+            case 13:
+                lastLine = $userInput[0].value;
+                query(lastLine);
+                $userInput[0].value = "";
+                break;
+            case 38:
+                $userInput[0].value = lastLine;
+                break;
         }
     });
-    const drawerHandle =  $("#pushSide");
+    const drawerHandle = $("#pushSide");
     const stickyNotes = $("#drawer");
     drawerHandle.click(() => {
         console.log(output.length);
-        if (resultIndex == 0){
+        if (resultIndex == 0) {
             console.log("Nothing to add.");
-        }
-        else{
+        } else {
             console.log("Storing result.");
         }
-        stickyNotes.append("<p>" + resultList[resultIndex-1] +"</p>");
+        stickyNotes.append("<p>" + resultList[resultIndex - 1] + "</p>");
         console.log("appending:");
         console.log(resultList);
     });
-    
+
     //drawerHandle.addEventListener("click", onclick);
-    
+
 });
-
-
 
 function query(line) {
     const postParameters = {input: line};
-    
+
 
     output.append("<p>" + line + "</p>");
 
@@ -47,7 +52,7 @@ function query(line) {
 
         for (let i = 0; i < prettified.length; i++) {
             output.append("<p>" + prettified[i] + "</p>");
-            resultList.push(prettified[i]); 
+            resultList.push(prettified[i]);
         }
         resultIndex++;
         // scroll to bottom
