@@ -51,16 +51,21 @@ function query(line) {
         const simplified = responseObject.simplified;
 
         // if there's only one result, display the whole thing. Otherwise, display a shortened list.
+        let append = "<div class='queryResults'>";
         if (result.length === 1) {
-            output.append("<p>" + prettified[0] + "</p>"); // TODO: make this custom for each data type later
+            append += "<div>" + prettified[0] + "</div>"; // TODO: make this custom for each data type later
+        } else if (result.length === 0) {
+            append += "<div>Didn't find anything :(</div>";
         } else {
             for (let i = 0; i < prettified.length; i++) {
-                output.append("<div class='tooltip'>" + "<div class='displayText'>" + simplified[i] + "</div>" +
+                append += "<div class='tooltip'>" + "<div class='displayText'>" + simplified[i] + "</div>" +
                     "<div class='right'><div class='tooltipText'>" + prettified[i] + "</div><i></i></div>" +
-                    "</div></br>");
+                    "</div></br>";
                 resultList.push(prettified[i]);
             }
         }
+        append += "</div>";
+        output.append(append);
 
         resultIndex++;
         // scroll to bottom
