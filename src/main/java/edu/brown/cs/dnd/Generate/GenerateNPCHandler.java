@@ -14,6 +14,8 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
 import java.util.HashSet;
+import java.util.Map;
+import java.util.HashMap;
 
 /**
  * Class representing a handler to support generating an NPC based on user
@@ -85,14 +87,10 @@ public class GenerateNPCHandler implements Handler {
    */
   private class GenerateNPCCommand implements Command {
 
-    Set<String> possibleTraits = new HashSet<>();
+    Map<String, String> flagValues;
 
     GenerateNPCCommand() {
-      this.possibleTraits.add("type");
-      this.possibleTraits.add("name");
-      this.possibleTraits.add("size");
-      this.possibleTraits.add("alignment");
-      this.possibleTraits.add("background");
+      this.flagValues = new HashMap<>();
     }
 
     @Override
@@ -162,7 +160,7 @@ public class GenerateNPCHandler implements Handler {
         }
 
       } catch (SQLException e) {
-        throw new CommandFailedException("Could not generate NPC");
+        return customNPC(args);
       }
 
       return m;
@@ -181,24 +179,24 @@ public class GenerateNPCHandler implements Handler {
 
       for (int i = 1; i < args.length - 1; i++) {
         String flag = args[i];
-        StringBuilder value = new StringBuilder();
-
-        value.append(args[i + 1]);
-        i++;
-        // Accumulate the attribute value if it's multiple words
-        while (i < args.length - 1
-                && args[i + 1].charAt(args[i + 1].length() - 1) != ':') {
-          value.append(" ");
-          value.append(args[i + 1]);
-          i++;
-        }
 
         if (flag.charAt(flag.length() - 1) != ':') {
           throw new InvalidInputException("Flag format should be "
                   + "<Attribute>: <Attribute Value>");
         }
 
+        StringBuilder value = new StringBuilder();
+        value.append(args[i + 1]); i++;
+
+        // Accumulate the attribute value if it's multiple words
+        while (i < args.length - 1
+                && args[i + 1].charAt(args[i + 1].length() - 1) != ':') {
+          value.append(" ");
+          value.append(args[i + 1]); i++;
+        }
         flag = flag.substring(0, flag.length() - 1);
+
+        this.flagValues.put(flag, value.toString());
 
         if (iteration == 0) {
           result.append(flag + " LIKE '%" + value.toString() + "%'");
@@ -210,16 +208,45 @@ public class GenerateNPCHandler implements Handler {
 
       return result.toString();
     }
+
+
+    /**
+     * Method generates a random NPC customized with the user's exact values.
+     * @param args    A String array that are contain the values of the user's
+     *                flags
+     * @return    A Monster that is the customized NPC
+     */
+    private Monster customNPC(String[] args) throws
+            InvalidInputException, CommandFailedException {
+      Monster m = randomNPC();
+
+      for (String flag : this.flagValues.keySet()) {
+       String value = this.flagValues.get(flag);
+
+       switch(flag) {
+         case "type":
+           m.setType(value);
+           break;
+         case "name":
+           m.setName(value);
+           break;
+         case "size":
+           m.setSize(value);
+           break;
+         case "alignment":
+           m.setAlignment(value);
+           break;
+         case "background":
+           m.setBackground(value);
+           break;
+         default:
+           throw new InvalidInputException("Flag not valid");
+       }
+      }
+
+      return m;
+    }
+
   }
 
-  /**
-   * Method generates a random NPC customized with the user's exact values.
-   * @param args    A String array that are contain the values of the user's
-   *                flags
-   * @return    A Monster that is the customized NPC
-   */
-  public Monster customNPC(String[] args) throws
-          InvalidInputException, CommandFailedException {
-    return null;
-  }
 }

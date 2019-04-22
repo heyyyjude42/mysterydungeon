@@ -54,6 +54,30 @@ public class Location {
     return Math.sqrt(Math.pow(this.x - that.x, 2.0) + Math.pow(this.y - that.y, 2.0));
   }
 
+  public Location plus(Location that) {
+    return new Location(this.x + that.x, this.y + that.y);
+  }
+
+  public Location minus(Location that) {
+    return new Location(this.x - that.x, this.y - that.y);
+  }
+
+  public Location addX(int toAdd) {
+    return new Location(this.x + toAdd, this.y);
+  }
+
+  public Location addY(int toAdd) {
+    return new Location(this.x, this.y + toAdd);
+  }
+
+  public Location minusX(int toAdd) {
+    return new Location(this.x - toAdd, this.y);
+  }
+
+  public Location minusY(int toAdd) {
+    return new Location(this.x, this.y - toAdd);
+  }
+
   @Override
   public String toString() {
     return "Location{" +
