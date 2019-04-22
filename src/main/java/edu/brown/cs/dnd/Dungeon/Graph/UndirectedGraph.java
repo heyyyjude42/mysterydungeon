@@ -24,8 +24,8 @@ public class UndirectedGraph<T> {
     Set<T> vertices = new HashSet<>();
 
     for (UndirectedEdge<T> e : this.edges) {
-      vertices.add(e.v1);
-      vertices.add(e.v2);
+      vertices.add(e.getV1());
+      vertices.add(e.getV2());
     }
 
     return vertices;
@@ -102,8 +102,8 @@ public class UndirectedGraph<T> {
     UndirectedGraph ug = new UndirectedGraph();
     while (ug.edges.size() < verticesSize - 1) {
       UndirectedEdge<T> e = pq.poll();
-      if (!components.inSameSet(e.v1, e.v2)) {
-        components.union(e.v1, e.v2);
+      if (!components.inSameSet(e.getV1(), e.getV2())) {
+        components.union(e.getV1(), e.getV2());
         ug.addEdge(e);
       }
     }

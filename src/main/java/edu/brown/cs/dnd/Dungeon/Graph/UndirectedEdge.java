@@ -43,4 +43,12 @@ public class UndirectedEdge<T> implements Comparable<UndirectedEdge<T>> {
       return 0;
     }
   }
+
+  public T getV1() {
+    return v1;
+  }
+
+  public T getV2() {
+    return v2;
+  }
 }

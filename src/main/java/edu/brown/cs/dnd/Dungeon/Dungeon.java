@@ -84,9 +84,25 @@ public class Dungeon implements IDungeon {
     }
   }
 
-  private static Path getPathFromEdge(UndirectedEdge<AbsRoom> edge) {
-    
-    return null;
+  private Collection<Path> getPathFromEdge(UndirectedEdge<AbsRoom> edge) {
+    AbsRoom r1 = edge.getV1();
+    AbsRoom r2 = edge.getV2();
+
+    int pathSize = this.rand.nextInt(Math.min(Math.min(r1.getWidth(),
+            r1.getHeight()), Math.min(r2.getWidth(), r2.getHeight())) - 1) + 1;
+
+    AbsRoom higher = r1.getTopLeft().getY() >= r2.getTopLeft().getY()
+            ? r1 : r2;
+    AbsRoom lower = r1.getTopLeft().getY() < r2.getTopLeft().getY()
+            ? r1: r2;
+
+    AbsRoom leftMost = r1.getTopLeft().getX() <= r2.getTopLeft().getX()
+            ? r1 : r2;
+    AbsRoom rightMost = r1.getTopLeft().getX() > r2.getTopLeft().getX()
+            ? r1 : r2;
+
+    int b = higher.getTopLeft().getY() - higher.getHeight();
+    int c = lower.getTopLeft().getY();
   }
 
 
