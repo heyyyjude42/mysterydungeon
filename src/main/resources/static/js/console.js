@@ -29,21 +29,38 @@ $(document).ready(() => {
             console.log("Nothing to add.");
         } else {
             console.log("Storing result.");
+            //stickyTrack = resultIndex-1;
+            const removeTag = $("<li>" + resultList[resultIndex - 1] + "</li>");
+            stickyNotes.append(removeTag);
+            let button = document.createElement("button");
+            button.innerHTML = "X";
+            //button.addEventListener("click", deleteEntry(removeTag));
+            //button.addEventListener("click", onclick());
+            button.addEventListener("click", function () {
+                deleteEntry(removeTag);
+                button.remove();
+            });
+            stickyNotes.append(button);
+
+            console.log(stickyNotes);
         }
-        stickyNotes.append("<p>" + resultList[resultIndex - 1] + "</p>");
+        //stickyNotes.append("<p>" + resultList[resultIndex - 1] + "</p>");
         console.log("appending:");
         console.log(resultList);
     });
 
-    //drawerHandle.addEventListener("click", onclick);
 
 });
+
+function deleteEntry(removeTag) {
+    console.log("Remove is triggered.")
+    removeTag.remove();
+}
 
 function query(line) {
     const postParameters = {input: line};
 
-
-    output.append("<p>" + line + "</p>");
+    output.append("<div class='query'>" + line + "</div>");
 
     $.post("/query", postParameters, responseJSON => {
         const responseObject = JSON.parse(responseJSON);
@@ -52,18 +69,22 @@ function query(line) {
         const simplified = responseObject.simplified;
 
         // if there's only one result, display the whole thing. Otherwise, display a shortened list.
+        let append = "<div class='queryResults'>";
         if (result.length === 1) {
-            output.append("<p>" + prettified[0] + "</p>"); // TODO: make this custom for each data type later
+            append += "<div>" + prettified[0] + "</div>"; // TODO: make this custom for each data type later
+        } else if (result.length === 0) {
+            append += "<div>Didn't find anything :(</div>";
         } else {
             for (let i = 0; i < prettified.length; i++) {
-                output.append("<div class='tooltip'>" + simplified[i] +
-                    "<div class='right'>" + prettified[i] + "<i></i></div>" +
-                    "</div></br>");
+                append += "<div class='tooltip'>" + "<div class='displayText'>" + simplified[i] + "</div>" +
+                    "<div class='right'><div class='tooltipText'>" + prettified[i] + "</div><i></i></div>" +
+                    "</div></br>";
                 resultList.push(prettified[i]);
+                resultIndex++;
             }
         }
-
-        resultIndex++;
+        append += "</div>";
+        output.append(append);
         // scroll to bottom
         output.scrollTop(output[0].scrollHeight);
     });
