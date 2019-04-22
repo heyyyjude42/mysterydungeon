@@ -7,6 +7,6 @@ public enum ReturnType {
   DUNGEON,
   NPC,
   ENCOUNTER,
-  STRING, // for really simple things like help commands and roll amounts
-  NONE
+  STRING, // for really simple things like errors and roll amounts
+  NONE // empty
 }
