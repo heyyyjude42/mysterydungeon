@@ -56,8 +56,8 @@ function query(line) {
             output.append("<p>" + prettified[0] + "</p>"); // TODO: make this custom for each data type later
         } else {
             for (let i = 0; i < prettified.length; i++) {
-                output.append("<div class='tooltip'>" + simplified[i] +
-                    "<div class='right'>" + prettified[i] + "<i></i></div>" +
+                output.append("<div class='tooltip'>" + "<div class='displayText'>" + simplified[i] + "</div>" +
+                    "<div class='right'><div class='tooltipText'>" + prettified[i] + "</div><i></i></div>" +
                     "</div></br>");
                 resultList.push(prettified[i]);
             }

@@ -3,16 +3,21 @@
 .tooltip {
     display: inline-block;
     position: relative;
-    border-bottom: 1px dotted #666;
     text-align: left;
+    padding-right: 15px;
+}
+
+.tooltip .displayText {
+    border-bottom: 1px dotted #666;
 }
 
 .tooltip .right {
-    min-width: 600px;
-    max-width: 700px;
+    min-width: 0px;
+    max-width: 0px;
+    max-height: 0px;
     top: 50%;
     left: 100%;
-    margin-left: 20px;
+    /*margin-left: 15px;*/
     transform: translate(0, -10%);
     padding: 15px;
     color: #EEEEEE;
@@ -26,11 +31,27 @@
     box-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
     visibility: hidden;
     opacity: 0;
-    transition: opacity 0.8s;
+    transition: opacity 0.2s;
+}
+
+.tooltip .right .tooltipText {
+    overflow-y: scroll;
+    min-width: 0px;
+    max-width: 0px;
+    max-height: 0px;
+}
+
+.tooltip:hover .right .tooltipText {
+    min-width: 600px;
+    max-width: 700px;
+    max-height: 520px;
 }
 
 .tooltip:hover .right {
     visibility: visible;
+    min-width: 600px;
+    max-width: 700px;
+    max-height: 550px;
     opacity: 1;
 }
 
@@ -41,7 +62,6 @@
     margin-top: -12px;
     width: 12px;
     height: 24px;
-    overflow: scroll;
 }
 
 .tooltip .right i::after {
@@ -53,6 +73,6 @@
     top: 50%;
     transform: translate(50%, -50%) rotate(-45deg);
     background-color: #444444;
-    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
+    /*box-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);*/
 }
 
