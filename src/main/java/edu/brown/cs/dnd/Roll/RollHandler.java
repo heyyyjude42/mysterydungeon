@@ -5,11 +5,14 @@ import edu.brown.cs.dnd.Data.ReturnType;
 import edu.brown.cs.dnd.Data.StringResult;
 import edu.brown.cs.dnd.REPL.*;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class RollHandler implements Handler {
   private String SYNTAX_ERROR_MESSAGE = "ERROR: expected syntax in the form " +
-      "of roll xdy, such as 4d6 or 1d8.";
+      "of roll xdy, such as 4d6, or an integer.";
 
   @Override
   public void registerCommands(CommandHandler handler) {
@@ -19,15 +22,43 @@ public class RollHandler implements Handler {
   private class RollCommand implements Command {
     @Override
     public Result run(String[] args) throws InvalidInputException {
-      if (args.length != 2) {
-        throw new InvalidInputException(SYNTAX_ERROR_MESSAGE);
+      if (args.length <= 1) {
+        return new Result(ReturnType.NONE, new ArrayList<>());
       }
 
-      String dice = args[1];
+      StringBuilder roll = new StringBuilder();
+
+      for (int i = 1; i < args.length; i++) {
+        roll.append(args[i]);
+      }
+
+      String[] dice = roll.toString().split("[+\\-]");
 
       try {
+        int[] diceRolls = rollDice(dice);
+        Pattern plusOrMinus = Pattern.compile("[+\\-]"); // get list of all +  and -'s
+        Matcher m = plusOrMinus.matcher(roll);
+
+        int result = diceRolls[0];
+        int nextIndex = 1;
+        while (m.find() && nextIndex < diceRolls.length) {
+          String nextOperator = m.group();
+
+          switch (nextOperator) {
+            case "+":
+              result += diceRolls[nextIndex];
+              break;
+            case "-":
+              result -= diceRolls[nextIndex];
+              break;
+            default:
+              break;
+          }
+          nextIndex++;
+        }
+
         return new Result(ReturnType.STRING, Arrays.asList(new StringResult(
-            "Result: " + rollDice(dice) + "\n")));
+            "Result: " + result)));
       } catch (NumberFormatException e) {
         throw new InvalidInputException(SYNTAX_ERROR_MESSAGE);
       }
@@ -40,11 +71,25 @@ public class RollHandler implements Handler {
      * @param dice String representation of dice to be rolled.
      * @return The final roll in form of an int.
      */
-    private int rollDice(String dice) throws InvalidInputException {
-      String[] nums = dice.split("d");
+    private int[] rollDice(String[] dice) throws InvalidInputException {
+      int[] sums = new int[dice.length];
 
-      if (nums.length != 2) {
-        throw new InvalidInputException(SYNTAX_ERROR_MESSAGE);
+      for (int i = 0; i < dice.length; i++) {
+        sums[i] = rollDie(dice[i]);
+      }
+
+      return sums;
+    }
+
+    private int rollDie(String die) throws InvalidInputException {
+      String[] nums = die.split("d");
+
+      if (nums.length == 1) {
+        try {
+          return Integer.parseInt(die);
+        } catch (NumberFormatException e) {
+          throw new InvalidInputException(SYNTAX_ERROR_MESSAGE);
+        }
       }
 
       int numDice = Integer.parseInt(nums[0]);

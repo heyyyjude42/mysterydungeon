@@ -35,13 +35,13 @@ public class Result {
       for (QueryResult r : this.results) {
         toReturn += r.prettify() + "\n\n";
       }
-      return toReturn.substring(0, toReturn.length() - 4);
+      return toReturn.substring(0, toReturn.length() - 2);
     } else {
       String toReturn = "";
       for (QueryResult r : this.results) {
         toReturn += "* " + r.simplify() + "\n";
       }
-      return toReturn.substring(0, toReturn.length() - 2);
+      return toReturn.substring(0, toReturn.length() - 1);
     }
   }
 }

@@ -77,9 +77,9 @@ public final class Main {
     }
 
     repl = new REPL(handler);
-//    repl.beginParsing();
-    Dungeon d = new Dungeon(100, 100);
-    d.printDungeon();
+    repl.beginParsing();
+//    Dungeon d = new Dungeon(100, 100);
+//    d.printDungeon();
   }
 
   /**
@@ -161,12 +161,14 @@ public final class Main {
       }
 
       List<String> prettified = new ArrayList<>();
+      List<String> simplified = new ArrayList<>();
       for (QueryResult r : result.getResults()) {
         prettified.add(r.prettify());
+        simplified.add(r.simplify());
       }
 
       Map<String, Object> variables = ImmutableMap.of("result",
-          result, "prettified", prettified);
+          result, "prettified", prettified, "simplified", simplified);
       return GSON.toJson(variables);
     }
   }

@@ -1,5 +1,5 @@
 INPUT
-roll
+roll 4
 OUTPUT
-NO_ERROR
+RESULTS
 END
