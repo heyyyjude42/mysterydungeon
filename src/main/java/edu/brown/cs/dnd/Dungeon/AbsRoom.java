@@ -57,6 +57,14 @@ public class AbsRoom {
     return this.topLeftCorner;
   }
 
+  /**
+   * Method gets the bottom right point of the room.
+   * @return    A Location that is the bottom right point of the room
+   */
+  public Location getBottomRight() {
+    return this.topLeftCorner.addX(width).addY(height);
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;

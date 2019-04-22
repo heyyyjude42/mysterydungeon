@@ -30,6 +30,7 @@ public class Dungeon implements IDungeon {
     this.rooms = new ArrayList<>();
     generateRooms(0.8, RoomSize.SMALL);
     filterRooms();
+    connectRooms();
   }
 
   private void generateRooms(double dungeonDensity, RoomSize averageRoomSize) {
@@ -79,9 +80,9 @@ public class Dungeon implements IDungeon {
     UndirectedGraph<AbsRoom> mst = roomUndirectedGraph.mst();
     for (UndirectedEdge<AbsRoom> e : mst.getEdges()) {
       // HI DONNIE & ANDREW sorry i commented this out bc it wasn't compiling
-//      Path toAdd = getPathFromEdge(e);
-//      rooms.add(toAdd);
-//      fillCells(toAdd);
+      Collection<Path> toAdd = getPathFromEdge(e);
+      rooms.addAll(toAdd);
+      //fillCells(toAdd);
     }
   }
 
@@ -104,6 +105,12 @@ public class Dungeon implements IDungeon {
 
     int b = higher.getTopLeft().getY() - higher.getHeight();
     int c = lower.getTopLeft().getY();
+    if (c - b > pathSize) {
+      // Generates a random number between b + pathSize and c inclusive
+      Location pathTopLeft = leftMost.getTopLeft().addX(width).addY(rand.nextInt(c - b - pathSize + 1) + b + pathSize);
+    } else {
+      // do things here...
+    }
 
     return null;
   }
