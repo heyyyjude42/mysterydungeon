@@ -9,4 +9,9 @@ public class Path extends AbsRoom {
   public Path(int width, int height, Location loc) {
     super(width, height, loc);
   }
+
+  @Override
+  public String getSymbol() {
+    return "o ";
+  }
 }

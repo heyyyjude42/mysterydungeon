@@ -62,7 +62,27 @@ public class AbsRoom {
    * @return    A Location that is the bottom right point of the room
    */
   public Location getBottomRight() {
-    return this.topLeftCorner.addX(width).addY(height);
+    return this.topLeftCorner.addX(width - 1).minusY(height - 1);
+  }
+
+  /**
+   * Method gets the top right point of the room.
+   * @return    A Location that is the top right point of the room
+   */
+  public Location getTopRight() {
+    return this.topLeftCorner.addX(width - 1);
+  }
+
+  /**
+   * Method gets the top right point of the room.
+   * @return    A Location that is the top right point of the room
+   */
+  public Location getBottomLeft() {
+    return this.topLeftCorner.minusY(height - 1);
+  }
+
+  public String getSymbol() {
+    return "r ";
   }
 
   @Override
@@ -79,5 +99,15 @@ public class AbsRoom {
   @Override
   public int hashCode() {
     return Objects.hash(topLeftCorner, width, height, elements);
+  }
+
+  @Override
+  public String toString() {
+    return "AbsRoom{" +
+            "topLeftCorner=" + topLeftCorner +
+            ", width=" + width +
+            ", height=" + height +
+            ", elements=" + elements +
+            '}';
   }
 }

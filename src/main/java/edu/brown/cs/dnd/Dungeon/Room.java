@@ -15,6 +15,11 @@ public class Room extends AbsRoom {
     super(width, height, loc);
   }
 
+  @Override
+  public String getSymbol() {
+    return "x ";
+  }
+
 
   static Room randomRoom(double averageArea, Location loc) {
     double averageDim = Math.sqrt(averageArea);

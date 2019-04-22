@@ -113,4 +113,11 @@ public class UndirectedGraph<T> {
     }
     return ug;
   }
+
+  @Override
+  public String toString() {
+    return "UndirectedGraph{" +
+            "edges=" + edges +
+            '}';
+  }
 }

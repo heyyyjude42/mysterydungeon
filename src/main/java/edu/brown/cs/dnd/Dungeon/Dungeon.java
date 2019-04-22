@@ -13,7 +13,7 @@ import java.util.*;
 public class Dungeon implements IDungeon {
 
   private List<AbsRoom> rooms;
-  private boolean[][] occupiedCells;
+  private AbsRoom[][] occupiedCells;
   private int width;
   private int height;
   private Random rand;
@@ -25,12 +25,17 @@ public class Dungeon implements IDungeon {
   public Dungeon(int width, int height) {
     this.width = width;
     this.height = height;
-    this.occupiedCells = new boolean[height][width];
+    this.occupiedCells = new AbsRoom[height][width];
     this.rand = new Random();
     this.rooms = new ArrayList<>();
-    generateRooms(0.8, RoomSize.SMALL);
+    generateRooms(0.8, RoomSize.MEDIUM);
     filterRooms();
     connectRooms();
+    for (AbsRoom r : rooms) {
+      System.out.println(r);
+    }
+    fillAllRooms();
+
   }
 
   private void generateRooms(double dungeonDensity, RoomSize averageRoomSize) {
@@ -44,11 +49,9 @@ public class Dungeon implements IDungeon {
 
       if (isValidRoom(r)) {
         rooms.add(r);
-        fillCells(r);
         areaUsed += r.getArea() / ((double) this.height * (double) this.width);
       } else {
         numFailed++;
-        System.out.println(numFailed);
       }
     }
   }
@@ -95,13 +98,16 @@ public class Dungeon implements IDungeon {
       }
     }
     UndirectedGraph<AbsRoom> mst = roomUndirectedGraph.mst();
+    System.out.println(mst);
     for (UndirectedEdge<AbsRoom> e : mst.getEdges()) {
       Collection<AbsRoom> toAdd = getPathFromEdge(e);
       rooms.addAll(toAdd);
+    }
+  }
 
-      for (AbsRoom room : toAdd) {
-        fillCells(room);
-      }
+  private void fillAllRooms() {
+    for (AbsRoom r : rooms) {
+      fillCells(r);
     }
   }
 
@@ -110,8 +116,10 @@ public class Dungeon implements IDungeon {
     AbsRoom r1 = edge.getV1();
     AbsRoom r2 = edge.getV2();
 
-    int pathSize = this.rand.nextInt(Math.min(Math.min(r1.getWidth(),
-            r1.getHeight()), Math.min(r2.getWidth(), r2.getHeight())) - 1) + 1;
+//    int pathSize = this.rand.nextInt(Math.min(Math.min(r1.getWidth(),
+//            r1.getHeight()), Math.min(r2.getWidth(), r2.getHeight())) - 1) + 1;
+    // experimentation
+    int pathSize = 1;
 
     AbsRoom higher = r1.getTopLeft().getY() >= r2.getTopLeft().getY()
             ? r1 : r2;
@@ -123,22 +131,22 @@ public class Dungeon implements IDungeon {
     AbsRoom rightMost = r1.getTopLeft().getX() > r2.getTopLeft().getX()
             ? r1 : r2;
 
-    int b = higher.getTopLeft().getY() - higher.getHeight();
+    int b = higher.getTopLeft().getY() - (higher.getHeight() - 1) ;
     int c = lower.getTopLeft().getY();
 
-    int a = leftMost.getTopLeft().getX() + leftMost.getWidth();
+    int a = leftMost.getTopLeft().getX() + (leftMost.getWidth() - 1);
     int d = rightMost.getTopLeft().getX();
 
-    if (c - b > pathSize) {
+    if (c - b + 1 > pathSize) {
       // Generates a random number between b + pathSize and c inclusive
       Location pathTopLeft = new Location(leftMost.getTopLeft().getX()
-              + leftMost.getWidth(),
+              + (leftMost.getWidth() - 1),
               rand.nextInt(c - b - pathSize + 1) + b + pathSize);
       Path p = new Path(rightMost.getTopLeft().getX()
               - leftMost.getTopLeft().getX()
               + leftMost.getWidth(), pathSize, pathTopLeft);
       result.add(p);
-    } else if (a - d > pathSize){
+    } else if (a - d + 1 > pathSize){
       Location pathTopLeft = new Location(
               rand.nextInt(a - d - pathSize + 1) + d + pathSize,
               higher.getBottomRight().getY());
@@ -146,7 +154,10 @@ public class Dungeon implements IDungeon {
               - lower.getTopLeft().getY(), pathTopLeft);
       result.add(p);
     } else {
-      result.addAll(getExtendedPath(leftMost, rightMost, pathSize));
+      // don't add the extended edges.
+      return result;
+
+      //result.addAll(getExtendedPath(leftMost, rightMost, pathSize));
     }
 
     return result;
@@ -172,10 +183,17 @@ public class Dungeon implements IDungeon {
                             + leftMost.getBottomRight().getY() + pathSize));
 
     // TODO: Orientation can be so that path1 is below
-    AbsRoom path2 = new Path(pathSize, path1.getBottomRight().getY()
-            - rightMost.getTopLeft().getY(),
-            new Location(path1.getBottomRight().getX() + 1,
-                    path1.getTopLeft().getY()));
+    AbsRoom path2;
+    if (rightMost.getTopLeft().getY() <= leftMost.getTopLeft().getY()) {
+      path2 = new Path(pathSize, path1.getBottomRight().getY()
+              - rightMost.getTopLeft().getY(),
+              new Location(path1.getBottomRight().getX() + 1,
+                      path1.getTopLeft().getY()));
+    } else {
+      int height = path1.getBottomRight().getY() - rightMost.getTopLeft().getY();
+      path2 = new Path(pathSize, height, path1.getBottomRight().addX(1).addY(height));
+
+    }
 
     result.add(path1);
     result.add(path2);
@@ -206,7 +224,7 @@ public class Dungeon implements IDungeon {
 
     for (int i = y; i < y + r.getHeight(); i++) {
       for (int j = x; j < x + r.getWidth(); j++) {
-        this.occupiedCells[i][j] = true;
+        this.occupiedCells[i][j] = r;
       }
     }
   }
@@ -226,7 +244,7 @@ public class Dungeon implements IDungeon {
           return false;
         }
 
-        if (this.occupiedCells[i][j]) {
+        if (this.occupiedCells[i][j] != null) {
           return false;
         }
       }
@@ -238,8 +256,8 @@ public class Dungeon implements IDungeon {
   public void printDungeon() {
     for (int i = 0; i < this.occupiedCells.length; i++) {
       for (int j = 0; j < this.occupiedCells[i].length; j++) {
-        if (this.occupiedCells[i][j]) {
-          System.out.print("x ");
+        if (this.occupiedCells[i][j] != null) {
+          System.out.print(this.occupiedCells[i][j].getSymbol());
         } else {
           System.out.print("  ");
         }
