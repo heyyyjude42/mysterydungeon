@@ -21,6 +21,7 @@ edu/brown/cs/dnd/Data/ReturnType.class
 edu/brown/cs/dnd/Dungeon/RoomElement.class
 edu/brown/cs/dnd/Search/SearchHandler$SearchCommand.class
 edu/brown/cs/dnd/Data/Database.class
+edu/brown/cs/dnd/Dungeon/Graph/UndirectedEdge.class
 edu/brown/cs/dnd/REPL/REPL.class
 edu/brown/cs/dnd/Data/Monster.class
 edu/brown/cs/dnd/Data/QueryResult.class
@@ -38,7 +39,6 @@ edu/brown/cs/dnd/Data/Spell.class
 edu/brown/cs/dnd/Data/Database$1.class
 edu/brown/cs/dnd/Data/Comparator.class
 edu/brown/cs/dnd/REPL/Handler.class
-edu/brown/cs/dnd/Dungeon/Graph/UndirectedGraph$Edge.class
 edu/brown/cs/dnd/Dungeon/IDungeon.class
 edu/brown/cs/dnd/Dungeon/AbsRoom.class
 edu/brown/cs/dnd/Data/ColumnConverter.class

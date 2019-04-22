@@ -78,9 +78,9 @@ public class Dungeon implements IDungeon {
     }
     UndirectedGraph<AbsRoom> mst = roomUndirectedGraph.mst();
     for (UndirectedEdge<AbsRoom> e : mst.getEdges()) {
-      Path toAdd = getPathFromEdge(e);
-      rooms.add(toAdd);
-      fillCells(toAdd);
+//      Path toAdd = getPathFromEdge(e);
+//      rooms.add(toAdd);
+//      fillCells(toAdd);
     }
   }
 
@@ -103,6 +103,8 @@ public class Dungeon implements IDungeon {
 
     int b = higher.getTopLeft().getY() - higher.getHeight();
     int c = lower.getTopLeft().getY();
+
+    return null;
   }
 
 
