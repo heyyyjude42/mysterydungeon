@@ -23,6 +23,7 @@ public class Monster extends RoomElement implements QueryResult {
   private HashMap<String, String> traits;
   private HashMap<String, String> actions;
   private HashMap<String, String> legendaryActions;
+  private String background;
 
   // empty constructor for GSON serialization
   public Monster() {
@@ -180,5 +181,69 @@ public class Monster extends RoomElement implements QueryResult {
 
   public HashMap<String, String> getLegendaryActions() {
     return legendaryActions;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public void setSize(String size) {
+    this.size = size;
+  }
+
+  public void setType(String type) {
+    this.type = type;
+  }
+
+  public void setAlignment(String alignment) {
+    this.alignment = alignment;
+  }
+
+  public void setAc(int ac) {
+    this.ac = ac;
+  }
+
+  public void setHp(int hp) {
+    this.hp = hp;
+  }
+
+  public void setHpDice(String hpDice) {
+    this.hpDice = hpDice;
+  }
+
+  public void setSpeed(String speed) {
+    this.speed = speed;
+  }
+
+  public void setStr(int str) {
+    this.str = str;
+  }
+
+  public void setDex(int dex) {
+    this.dex = dex;
+  }
+
+  public void setCon(int con) {
+    this.con = con;
+  }
+
+  public void setIntelligence(int intelligence) {
+    this.intelligence = intelligence;
+  }
+
+  public void setWis(int wis) {
+    this.wis = wis;
+  }
+
+  public void setCha(int cha) {
+    this.cha = cha;
+  }
+
+  public void setCr(double cr) {
+    this.cr = cr;
+  }
+
+  public void setBackground(String background) {
+    this.background = background;
   }
 }
