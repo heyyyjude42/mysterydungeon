@@ -52,7 +52,7 @@ public class RollHandler implements Handler {
       int sum = 0;
 
       for (int i = 0; i < numDice; i++) {
-        sum += Math.random() * diceFaces;
+        sum += Math.random() * diceFaces + 1;
       }
 
       return sum;
