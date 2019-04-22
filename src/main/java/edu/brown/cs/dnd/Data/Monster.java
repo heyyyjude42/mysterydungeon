@@ -68,8 +68,8 @@ public class Monster extends RoomElement implements QueryResult {
     str += "Speed:        " + this.speed + "\n";
 
     str += "—————\n";
-    str += "STR " + this.str + " | DEX " + this.dex + " | CON " + this.con +
-        " | INT " + this.intelligence + " | WIS " + this.wis + " | CHA " +
+    str += "STR " + this.str + "  |  DEX " + this.dex + "  |  CON " + this.con +
+        "  |  INT " + this.intelligence + "  |  WIS " + this.wis + "  |  CHA " +
         this.cha + "\n";
 
     str += "—————\n";

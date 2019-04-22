@@ -42,8 +42,7 @@ $(document).ready(() => {
 function query(line) {
     const postParameters = {input: line};
 
-
-    output.append("<p>" + line + "</p>");
+    output.append("<div class='query'>" + line + "</div>");
 
     $.post("/query", postParameters, responseJSON => {
         const responseObject = JSON.parse(responseJSON);
