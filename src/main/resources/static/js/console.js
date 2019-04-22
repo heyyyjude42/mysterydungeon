@@ -29,15 +29,33 @@ $(document).ready(() => {
             console.log("Nothing to add.");
         } else {
             console.log("Storing result.");
+            //stickyTrack = resultIndex-1;
+            const removeTag = $("<li>" + resultList[resultIndex - 1] + "</li>");
+            stickyNotes.append(removeTag);
+            let button = document.createElement("button");
+            button.innerHTML = "X";
+            //button.addEventListener("click", deleteEntry(removeTag));
+            //button.addEventListener("click", onclick());
+            button.addEventListener("click", function () {
+                deleteEntry(removeTag);
+                button.remove();
+            });
+            stickyNotes.append(button);
+
+            console.log(stickyNotes);
         }
-        stickyNotes.append("<p>" + resultList[resultIndex - 1] + "</p>");
+        //stickyNotes.append("<p>" + resultList[resultIndex - 1] + "</p>");
         console.log("appending:");
         console.log(resultList);
     });
 
-    //drawerHandle.addEventListener("click", onclick);
 
 });
+
+function deleteEntry(removeTag) {
+    console.log("Remove is triggered.")
+    removeTag.remove();
+}
 
 function query(line) {
     const postParameters = {input: line};
@@ -62,12 +80,11 @@ function query(line) {
                     "<div class='right'><div class='tooltipText'>" + prettified[i] + "</div><i></i></div>" +
                     "</div></br>";
                 resultList.push(prettified[i]);
+                resultIndex++;
             }
         }
         append += "</div>";
         output.append(append);
-
-        resultIndex++;
         // scroll to bottom
         output.scrollTop(output[0].scrollHeight);
     });

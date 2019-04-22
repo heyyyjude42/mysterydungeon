@@ -50,6 +50,11 @@ input[type="text"] {
     outline: none;
 }
 
+#pushSide{
+    position: absolute;
+    right: 5px;
+}
+
 #drawer {
     position: absolute;
     right: 10px;
