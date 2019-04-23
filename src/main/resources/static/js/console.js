@@ -22,7 +22,6 @@ $(document).ready(() => {
         }
     });
     const drawerHandle = $("#pushSide");
-    
     drawerHandle.click(() => {
         console.log(output.length);
         if (resultIndex == 0) {
@@ -39,7 +38,6 @@ $(document).ready(() => {
                 button.remove();
             });
             stickyNotes.append(button);
-            
             console.log(stickyNotes);
         }
         //stickyNotes.append("<p>" + resultList[resultIndex - 1] + "</p>");
@@ -51,23 +49,45 @@ $(document).ready(() => {
 
 });
 
+//Main clicking function after list has been retrieved.
 function clickFun(id){
-    //console.log(id)
     console.log("Clicking on list text works.");
+
+    //Find the relevant text that is spit out by prettified.
     let x = document.getElementById(id + " ID");
-    
     let holder = x.innerHTML;
     let note = $("<li>" + holder + "</li>");
-    stickyNotes.append(note);
+    //Set up delete button.
     let button = document.createElement("button");
     button.innerHTML = "X";
+    //Set up minimize/maximize button.
+    let minButton = document.createElement("button");
+    minButton.innerHTML = "▲";
+    stickyNotes.append(minButton);
+    stickyNotes.append(button);
+    stickyNotes.append(note);
+    let minimized = false;
+    minButton.addEventListener ("click", function() {
+      if(minimized){
+        minButton.innerHTML = "▲"
+        note.html((holder));
+        minimized = false;
+      }else{
+        //console.log(note);
+        minimized = true;
+        minButton.innerHTML = "▼"
+        //deleteEntry(note);
+        //note = $("<li>" + id + "</li>");
+        note.html(id);
+        //console.log(note);
+      }
+    });
     button.addEventListener ("click", function() {
-
       deleteEntry(note);
       button.remove();
-      });
-    stickyNotes.append(button);
-    console.log(x);
+      minButton.remove();
+    });
+    
   }
 
 function deleteEntry(removeTag){
@@ -97,12 +117,7 @@ function query(line) {
                     "<div class='right'><div class='tooltipText' id='toolTextID'>" + prettified[i] + "</div><i></i></div>" +
                     "</div></br>");
                 document.getElementById("resultIndex").setAttribute("id", simplified[i]);
-                document.getElementById("toolTextID").setAttribute("id", simplified[i] + " ID");
-                // let shortList = document.getElementsByClassName("tooltipText");
-                // for(let i = 0; i<shortList.length; i++){
-                //     shortList[i].setAttribute("id", simplified[i]);
-                // }
-                //.setAttribute("id", simplified[i]);    
+                document.getElementById("toolTextID").setAttribute("id", simplified[i] + " ID"); 
                 resultList.push(prettified[i]);
                 resultIndex++;
             }
