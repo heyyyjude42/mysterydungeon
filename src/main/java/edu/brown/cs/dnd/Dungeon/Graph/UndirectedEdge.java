@@ -44,6 +44,15 @@ public class UndirectedEdge<T> implements Comparable<UndirectedEdge<T>> {
     }
   }
 
+  @Override
+  public String toString() {
+    return "UndirectedEdge{" +
+            "v1=" + v1 +
+            ", v2=" + v2 +
+            ", weight=" + weight +
+            '}';
+  }
+
   public T getV1() {
     return v1;
   }
