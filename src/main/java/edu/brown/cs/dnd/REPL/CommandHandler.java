@@ -5,6 +5,7 @@ import edu.brown.cs.dnd.Data.ReturnType;
 import edu.brown.cs.dnd.Data.StringResult;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -35,7 +36,7 @@ public class CommandHandler {
       return cmd.run(args);
     } catch (CommandFailedException | InvalidInputException e) {
       return new Result(ReturnType.STRING,
-          Arrays.asList(new StringResult(e.getMessage())));
+          Collections.singletonList(new StringResult(e.getMessage())));
     }
   }
 }
