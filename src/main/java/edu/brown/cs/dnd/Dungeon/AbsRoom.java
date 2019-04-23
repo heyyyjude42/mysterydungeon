@@ -92,13 +92,12 @@ public class AbsRoom {
     AbsRoom absRoom = (AbsRoom) o;
     return width == absRoom.width &&
             height == absRoom.height &&
-            Objects.equals(topLeftCorner, absRoom.topLeftCorner) &&
-            Objects.equals(elements, absRoom.elements);
+            Objects.equals(topLeftCorner, absRoom.topLeftCorner);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(topLeftCorner, width, height, elements);
+    return Objects.hash(topLeftCorner, width, height);
   }
 
   @Override

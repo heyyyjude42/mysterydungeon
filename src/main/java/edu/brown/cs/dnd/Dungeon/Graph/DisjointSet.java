@@ -24,31 +24,33 @@ public class DisjointSet<T> {
   public T find(T element) {
     if (parents.containsKey(element)) {
       T parent = parents.get(element);
-      if (parents.get(element).equals(element)) {
+      if (parent.equals(element)) {
         return element;
       } else {
         return find(parent);
       }
     } else {
-      return null;
+      return element;
     }
   }
 
-  public boolean union(T a, T b) {
-    if (parents.containsKey(b) && parents.containsKey(b)) {
-      parents.put(b, a);
-      return true;
-    } else {
-      return false;
-    }
+  public void union(T a, T b) {
+//    if (parents.containsKey(b) && parents.containsKey(b)) {
+//      parents.put(b, a);
+//      return true;
+//    } else {
+//      return false;
+//    }
+    parents.put(b, a);
   }
 
   public boolean inSameSet(T a, T b) {
-    if (parents.containsKey(b) && parents.containsKey(b)) {
-      return find(a).equals(find(b));
-    } else {
-      return false;
-    }
+//    if (parents.containsKey(b) && parents.containsKey(b)) {
+//      return find(a).equals(find(b));
+//    } else {
+//      return false;
+//    }
+    return find(a).equals(find(b));
   }
 
 }

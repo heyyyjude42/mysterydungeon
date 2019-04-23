@@ -5,6 +5,7 @@ edu/brown/cs/dnd/Generate/GenerateNPCHandler.class
 edu/brown/cs/dnd/REPL/Main$QueryHandler.class
 edu/brown/cs/dnd/Data/SearchOperator.class
 edu/brown/cs/dnd/REPL/CommandHandler.class
+edu/brown/cs/dnd/Dungeon/Randomizer.class
 edu/brown/cs/dnd/Dungeon/Graph/UndirectedGraph.class
 edu/brown/cs/dnd/RandomTools/NormalDistribution.class
 edu/brown/cs/dnd/Data/Feat.class

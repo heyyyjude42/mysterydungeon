@@ -78,7 +78,7 @@ public final class Main {
 
     repl = new REPL(handler);
 //    repl.beginParsing();
-    Dungeon d = new Dungeon(10, 10);
+    Dungeon d = new Dungeon(30, 30);
     d.printDungeon();
   }
 
