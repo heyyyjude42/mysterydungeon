@@ -30,7 +30,7 @@ public class Dungeon implements IDungeon {
     this.occupiedCells = new AbsRoom[height][width];
     this.rand = new Random();
     this.rooms = new ArrayList<>();
-    generateRooms(0.8, RoomSize.MEDIUM);
+    generateRooms(0.8, RoomSize.SMALL);
     filterRooms();
     connectRooms();
     fillAllRooms();
@@ -97,6 +97,7 @@ public class Dungeon implements IDungeon {
       }
     }
     UndirectedGraph<AbsRoom> mst = roomUndirectedGraph.mst();
+    System.out.println(mst);
     for (UndirectedEdge<AbsRoom> e : mst.getEdges()) {
       Collection<Path> toAdd = getPathFromEdge(e);
       rooms.addAll(toAdd);
@@ -431,6 +432,8 @@ public class Dungeon implements IDungeon {
 
     if (x < 0 || y < 0) {return false;}
 
+
+
     for (int i = y; i < y + r.getHeight(); i++) {
       for (int j = x; j < x + r.getWidth(); j++) {
         if (i >= this.height || j >= this.width) {
@@ -446,8 +449,22 @@ public class Dungeon implements IDungeon {
     return true;
   }
 
+//  public void printDungeon() {
+//    for (int i = 0; i < this.occupiedCells.length; i++) {
+//      for (int j = 0; j < this.occupiedCells[i].length; j++) {
+//        if (this.occupiedCells[i][j] != null) {
+//          System.out.print(this.occupiedCells[i][j].getSymbol());
+//        } else {
+//          System.out.print("  ");
+//        }
+//      }
+//      System.out.println("");
+//    }
+//  }
+
+
   public void printDungeon() {
-    for (int i = 0; i < this.occupiedCells.length; i++) {
+    for (int i = this.occupiedCells.length - 1; i >= 0; i--) {
       for (int j = 0; j < this.occupiedCells[i].length; j++) {
         if (this.occupiedCells[i][j] != null) {
           System.out.print(this.occupiedCells[i][j].getSymbol());
