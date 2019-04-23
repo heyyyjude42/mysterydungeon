@@ -7,7 +7,7 @@
     </div>
 
     <input type="text" id="console">
-    <input type="button" id="pushSide" value = "Sticky The Last Result(s)">
+    <input type="button" id="pushSide" value = "Sticky Last Result(s)">
     
     
 </#assign>

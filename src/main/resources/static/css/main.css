@@ -52,7 +52,17 @@ input[type="text"] {
 
 #pushSide{
     position: absolute;
-    right: 5px;
+    top: 15px;
+    right: 15px;
+    outline: none;
+    border: 1px solid #8FC0A9;
+    color: #8FC0A9;
+    border-radius: 3px;
+    background-color: transparent;
+    padding: 7px 10px;
+    font-family: "Average Sans", sans-serif;
+    font-size: 15px;
+    letter-spacing: 0.7px;
 }
 
 #drawer {
