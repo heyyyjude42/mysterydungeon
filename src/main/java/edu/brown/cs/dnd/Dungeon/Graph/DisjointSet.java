@@ -41,7 +41,13 @@ public class DisjointSet<T> {
 //    } else {
 //      return false;
 //    }
-    parents.put(b, a);
+
+    T rootA = find(a);
+    T rootB = find(b);
+
+    if (rootA.equals(rootB)) {return;}
+
+    parents.put(rootA, rootB);
   }
 
   public boolean inSameSet(T a, T b) {

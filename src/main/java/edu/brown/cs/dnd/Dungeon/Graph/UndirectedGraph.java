@@ -97,13 +97,10 @@ public class UndirectedGraph<T> {
     Collection<T> vertices = this.getVertices();
     int verticesSize = vertices.size();
     DisjointSet<T> components = new DisjointSet<>(vertices);
-    PriorityQueue<UndirectedEdge<T>> pq = new PriorityQueue<UndirectedEdge<T>>();
-
-    for (UndirectedEdge<T> e : this.edges) {
-      pq.add(e);
-    }
+    PriorityQueue<UndirectedEdge<T>> pq = new PriorityQueue<UndirectedEdge<T>>(this.edges);
 
     UndirectedGraph ug = new UndirectedGraph();
+
     while (ug.edges.size() < verticesSize - 1) {
       UndirectedEdge<T> e = pq.poll();
       if (!components.inSameSet(e.getV1(), e.getV2())) {

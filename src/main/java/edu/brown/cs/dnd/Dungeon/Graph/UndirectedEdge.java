@@ -50,7 +50,7 @@ public class UndirectedEdge<T> implements Comparable<UndirectedEdge<T>> {
             "v1=" + v1 +
             ", v2=" + v2 +
             ", weight=" + weight +
-            '}';
+            "}\n";
   }
 
   public T getV1() {
