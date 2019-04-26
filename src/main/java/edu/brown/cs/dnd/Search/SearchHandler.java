@@ -160,7 +160,11 @@ public class SearchHandler implements Handler {
       String hold = "";
 
       for (String s : args) {
-        if (s.contains("\"")) {
+        int count = s.length() - s.replace("\"", "").length();
+
+        if (count == 2) {
+          results.add(s.split("\"")[1]); // get the middle one
+        } else if (count == 1) {
           if (inQuotes) {
             // if we're already in quotes, this closes it
             inQuotes = false;

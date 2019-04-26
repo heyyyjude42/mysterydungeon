@@ -108,10 +108,11 @@ function query(line) {
 
         // if there's only one result, display the whole thing. Otherwise, display a shortened list.
         if (result.length === 1) {
-            output.append("<p>" + prettified[0] + "</p>"); // TODO: make this custom for each data type later
+            output.append("<div class='queryResults'>" + prettified[0] + "</div>"); // TODO: make this custom for each data type later
             resultList.push(prettified[0]);
             resultIndex++;
         } else {
+            output.append("<div class='queryResults'>");
             for (let i = 0; i < prettified.length; i++) {
                 output.append("<div class='tooltip'>" + "<div class='displayText' id='resultIndex' onclick='clickFun(id)'>" + simplified[i] + "</div>" +
                     "<div class='right'><div class='tooltipText' id='toolTextID'>" + prettified[i] + "</div><i></i></div>" +
@@ -121,6 +122,7 @@ function query(line) {
                 resultList.push(prettified[i]);
                 resultIndex++;
             }
+            output.append("</div>");
         }        
         // scroll to bottom
         output.scrollTop(output[0].scrollHeight);
