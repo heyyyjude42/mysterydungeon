@@ -25,8 +25,16 @@ public class Dungeon implements IDungeon {
   private static final double MAIN_ROOM_FACTOR = 1.25;
   private static final int RAND_ROOM_LEVEL = 50;
 
+  /**
+   * A Default Constructor for a Dungeon
+   */
   public Dungeon() { }
 
+  /**
+   * A Constructor for a Dungeon.
+   * @param width   An int that is the width of the dungeon
+   * @param height    An int that is the height of the dungeon
+   */
   public Dungeon(int width, int height) {
     this.width = width;
     this.height = height;
@@ -39,6 +47,12 @@ public class Dungeon implements IDungeon {
     fillAllRooms();
   }
 
+  /**
+   * Method generates the rooms of the dungeon.
+   * @param dungeonDensity    A double that is the density of the dungeon
+   * @param averageRoomSize   A RoomSize enum that is the average room size of
+   *                          the dungeon
+   */
   private void generateRooms(double dungeonDensity, RoomSize averageRoomSize) {
     assert dungeonDensity >= 0 && dungeonDensity < 1;
     double areaUsed = 0;
@@ -57,21 +71,11 @@ public class Dungeon implements IDungeon {
     }
   }
 
-//  private void filterRooms() {
-//    double totalRoomArea = 0;
-//    for (AbsRoom r : rooms) {
-//      totalRoomArea += r.getArea();
-//    }
-//    double averageRoomSize = totalRoomArea / (double) rooms.size();
-//    for (AbsRoom r : rooms) {
-//      if (r.getArea() < averageRoomSize * MAIN_ROOM_FACTOR) {
-//        if (rand.nextInt(100) < RAND_ROOM_LEVEL) {
-//          rooms.remove(r);
-//        }
-//      }
-//    }
-//  }
 
+  /**
+   * Method filters out the smaller rooms of the dungeon, while keeping
+   * a fraction of the discarded rooms.
+   */
   private void filterRooms() {
     double totalRoomArea = 0;
     List<AbsRoom> untouched = new ArrayList<>();
@@ -89,6 +93,10 @@ public class Dungeon implements IDungeon {
     this.rooms = untouched;
   }
 
+  /**
+   * Method connects the rooms of the dungeon by generating paths between
+   * rooms in the mst.
+   */
   private void connectRooms() {
     UndirectedGraph<AbsRoom> roomUndirectedGraph = new UndirectedGraph<>();
     for (AbsRoom r1 : rooms) {
@@ -125,8 +133,6 @@ public class Dungeon implements IDungeon {
     AbsRoom r1 = edge.getV1();
     AbsRoom r2 = edge.getV2();
 
-    int pathSize = 1;
-
     AbsRoom higher = r1.getTopLeft().getY() >= r2.getTopLeft().getY()
             ? r1 : r2;
     AbsRoom lower = r1.getTopLeft().getY() < r2.getTopLeft().getY()
@@ -139,102 +145,118 @@ public class Dungeon implements IDungeon {
     // For checking horizontal connection
     int b = higher.getBottomRight().getY();
     int c = lower.getTopLeft().getY();
+    int horizAligned = numHorizAligned(higher, lower);
 
     // For checking vertical connection
     int a = rightMost.getTopLeft().getX();
     int d = leftMost.getBottomRight().getX();
+    int vertAligned = numVertAligned(leftMost, rightMost);
 
-    if (c - b >= pathSize - 1) {
+    // Set path size to be random for horizontal and vertical connections
+    int horizPathSize = Randomizer.generate(1, horizAligned);
+    int vertPathSize = Randomizer.generate(1, vertAligned);
+
+    if (c - b >= horizPathSize - 1) {
       // If not horizontally adjacent, then connect
       if (!adjacentHoriz(leftMost, rightMost)) {
-        int horizAligned = numHorizAligned(higher, lower);
-        Location pathTopLeft = new Location(leftMost.getBottomRight().getX() + 1,
-                Randomizer.generate(c - horizAligned + 1, c));
+        Location pathTopLeft = new Location(leftMost.getBottomRight().getX()
+                + 1, Randomizer.generate(c - horizAligned + horizPathSize, c));
 
         Path p = new Path(rightMost.getTopLeft().getX()
-                - leftMost.getBottomRight().getX() - 1, pathSize, pathTopLeft);
+                - leftMost.getBottomRight().getX() - 1, horizPathSize,
+                pathTopLeft);
         result.add(p);
       }
-    } else if (d - a >= pathSize - 1) {
+    } else if (d - a >= vertPathSize - 1) {
       // If not vertically adjacent, then connect
       if (!adjacentVert(higher, lower)) {
-        int vertAligned = numVertAligned(leftMost, rightMost);
-        Location pathTopLeft = new Location(Randomizer.generate(d - vertAligned + 1, d),
+        Location pathTopLeft = new Location(Randomizer.generate(
+                d - vertAligned + 1, d - vertPathSize + 1),
                 higher.getBottomRight().getY() - 1);
 
-        Path p = new Path(pathSize, higher.getBottomRight().getY()
+        Path p = new Path(vertPathSize, higher.getBottomRight().getY()
                 - lower.getTopLeft().getY() - 1, pathTopLeft);
         result.add(p);
       }
     } else {
-      result.addAll(extendedHorizPath(leftMost, rightMost, pathSize));
+      // Flip a coin to decide which extended path method to use
+      int decider = Randomizer.generate(1, 100);
+      
+      if (decider <= 50) {
+        result.addAll(extendedVertPath(leftMost, rightMost));
+      } else {
+        result.addAll(extendedHorizPath(leftMost, rightMost));
+      }
     }
 
     return result;
   }
 
   /**
-   * Method generates a path of size two that connects two rooms.
+   * Method generates a two-segment path that connects two rooms, with the
+   * first segment extending horizontally.
    * @param leftMost    An AbsRoom that is the leftmost room
    * @param rightMost   An AbsRoom that is the rightmost room
-   * @return    A Set of Paths that is the connection between the two rooms
+   * @return    A Set of Paths that is the two-segment connection between
+   * the two rooms
    */
   public Set<Path> extendedHorizPath(AbsRoom leftMost,
-                                     AbsRoom rightMost,
-                                     int pathSize) {
+                                     AbsRoom rightMost) {
     Set<Path> result = new HashSet<>();
     Path p1;
     Path p2;
 
+    int pathSize = Randomizer.generate(1,
+            Math.min(leftMost.getHeight(), rightMost.getWidth()));
+
     // If rightmost room is above the leftmost room
-    if (leftMost.getTopLeft().getY() < rightMost.getTopLeft().getY()) {
-      Location pathTopLeft;
-      if (adjacentVert(leftMost, rightMost)) {
-        pathTopLeft = new Location(leftMost.getBottomRight().getX() + 1,
-                Randomizer.generate(leftMost.getTopRight().getY()
-                        - leftMost.getHeight() + 1,
+    if (rightMost.getTopLeft().getY() > leftMost.getTopLeft().getY()) {
+      Location p1TopLeft;
+      // If adjacent, make initial segment approach lower so second segment
+      // can extend upwards
+      if (adjacentVert(leftMost, rightMost)
+              && pathSize != leftMost.getHeight()) {
+        p1TopLeft = new Location(leftMost.getBottomRight().getX() + 1,
+                Randomizer.generate(
+                        leftMost.getBottomRight().getY() + pathSize - 1,
                         leftMost.getTopRight().getY() - 1));
       } else {
-        pathTopLeft = new Location(leftMost.getBottomRight().getX() + 1,
-                Randomizer.generate(leftMost.getTopRight().getY()
-                                - leftMost.getHeight() + 1,
+        p1TopLeft = new Location(leftMost.getBottomRight().getX() + 1,
+                Randomizer.generate(
+                        leftMost.getBottomRight().getY() + pathSize - 1,
                         leftMost.getTopRight().getY()));
       }
 
       p1 = new Path(rightMost.getTopLeft().getX()
               - leftMost.getBottomRight().getX() - 1
-              + Randomizer.generate(1, rightMost.getWidth() - 1 - pathSize),
-              pathSize,
-              pathTopLeft);
+              + Randomizer.generate(0, rightMost.getWidth() - pathSize),
+              pathSize, p1TopLeft);
 
       p2 = new Path(pathSize, rightMost.getBottomRight().getY()
               - p1.getBottomRight().getY(),
               new Location(p1.getBottomRight().getX() + 1,
-                      p1.getBottomRight().getY()
-                              + rightMost.getBottomRight().getY()
-                              - p1.getBottomRight().getY() - 1));
+                      rightMost.getBottomRight().getY() - 1));
     } else {
-      // rightmost room is below leftmost room
-      Location pathTopLeft;
-      if (adjacentVert(leftMost, rightMost)) {
-        pathTopLeft = new Location(leftMost.getBottomRight().getX() + 1,
-                Randomizer.generate(leftMost.getTopRight().getY()
-                        - leftMost.getHeight() + 2,
-                        leftMost.getTopRight().getY()));
+      // If rightmost room is below the leftmost room
+      Location p1TopLeft;
+
+      if (adjacentVert(leftMost, rightMost)
+              && pathSize != leftMost.getHeight()) {
+        p1TopLeft = new Location(leftMost.getBottomRight().getX() + 1,
+                Randomizer.generate(leftMost.getBottomRight().getY()
+                        + pathSize, leftMost.getTopRight().getY()));
       } else {
-        pathTopLeft = new Location(leftMost.getBottomRight().getX() + 1,
-                Randomizer.generate(leftMost.getTopRight().getY()
-                                - leftMost.getHeight() + 1,
-                        leftMost.getTopRight().getY()));
+        p1TopLeft = new Location(leftMost.getBottomRight().getX() + 1,
+                Randomizer.generate(leftMost.getBottomRight().getY()
+                        + pathSize - 1, leftMost.getTopRight().getY()));
       }
 
       p1 = new Path(rightMost.getTopLeft().getX()
               - leftMost.getBottomRight().getX() - 1
-              + Randomizer.generate(1, rightMost.getWidth() - 1 - pathSize),
-              pathSize,
-              pathTopLeft);
+              + Randomizer.generate(0, rightMost.getWidth() - pathSize),
+              pathSize, p1TopLeft);
 
-      p2 = new Path(pathSize, leftMost.getTopLeft().getY()
+      p2 = new Path(pathSize, p1.getTopRight().getY()
               - rightMost.getTopLeft().getY(),
               new Location(p1.getTopRight().getX() + 1,
                       p1.getTopRight().getY()));
@@ -245,6 +267,246 @@ public class Dungeon implements IDungeon {
 
     return result;
   }
+
+
+  /**
+   * Method generates a two-segment path that connects two rooms, with the
+   * first segment extending vertically.
+   * @param leftMost    An AbsRoom that is the leftmost room
+   * @param rightMost   An AbsRoom that is the rightmost room
+   * @return    A Set of Paths that is the two-segment connection between
+   * the two rooms
+   */
+  public Set<Path> extendedVertPath(AbsRoom leftMost,
+                                    AbsRoom rightMost) {
+    Set<Path> result = new HashSet<>();
+    Path p1;
+    Path p2;
+
+    int pathSize = Randomizer.generate(1,
+            Math.min(leftMost.getWidth(), rightMost.getHeight()));
+
+    // If rightmost room is above the leftmost room
+    if (rightMost.getTopLeft().getY() > leftMost.getTopLeft().getY()) {
+      Location p1TopLeft;
+      if (adjacentVert(leftMost, rightMost)
+              && pathSize != leftMost.getWidth()) {
+        p1TopLeft = new Location(Randomizer.generate(
+                leftMost.getTopLeft().getX(),
+                leftMost.getTopRight().getX() - pathSize),
+                Randomizer.generate(
+                        rightMost.getBottomLeft().getY() + pathSize - 1,
+                        rightMost.getTopLeft().getY()));
+      } else {
+        p1TopLeft = new Location(Randomizer.generate(
+                leftMost.getTopLeft().getX(),
+                leftMost.getTopRight().getX() - pathSize + 1),
+                Randomizer.generate(
+                        rightMost.getBottomLeft().getY() + pathSize - 1,
+                        rightMost.getTopLeft().getY()));
+      }
+
+      p1 = new Path(pathSize, p1TopLeft.getY()
+              - leftMost.getTopRight().getY(), p1TopLeft);
+
+      p2 = new Path(rightMost.getTopLeft().getX()
+              - p1.getTopRight().getX() - 1, pathSize,
+              new Location(p1.getTopRight().getX() + 1,
+                      p1.getTopRight().getY()));
+    } else {
+      // If rightmost room is below the leftmost room
+      Location p1TopLeft;
+      if (adjacentVert(leftMost, rightMost)
+              && pathSize != leftMost.getWidth()) {
+        p1TopLeft = new Location(Randomizer.generate(
+                leftMost.getTopLeft().getX(),
+                leftMost.getTopRight().getX() - pathSize),
+                leftMost.getBottomRight().getY() - 1);
+      } else {
+        p1TopLeft = new Location(Randomizer.generate(
+                leftMost.getTopLeft().getX(),
+                leftMost.getTopRight().getX() - pathSize + 1),
+                leftMost.getBottomRight().getY() - 1);
+      }
+
+      p1 = new Path(pathSize, leftMost.getBottomRight().getY()
+              - rightMost.getTopLeft().getY() - 1
+              + Randomizer.generate(pathSize, rightMost.getHeight()),
+              p1TopLeft);
+
+      p2 = new Path(rightMost.getTopLeft().getX()
+              - p1.getBottomRight().getX() - 1, pathSize,
+              new Location(p1.getBottomRight().getX() + 1,
+                      p1.getBottomRight().getY() + pathSize - 1));
+    }
+    result.add(p1);
+    result.add(p2);
+
+    return result;
+  }
+
+//  /**
+//   * Method creates a path between two rooms based on the edge between them.
+//   * @param edge    The edge between the two rooms in the mst
+//   * @return    A Collection of AbsRooms that is either of sizes 1 or 2, which
+//   * is the path between the two rooms
+//   */
+//  public Collection<Path> getPathFromEdge(UndirectedEdge<AbsRoom> edge) {
+//    Set<Path> result = new HashSet<>();
+//    AbsRoom r1 = edge.getV1();
+//    AbsRoom r2 = edge.getV2();
+//
+//    int pathSize = 1;
+//
+//    AbsRoom higher = r1.getTopLeft().getY() >= r2.getTopLeft().getY()
+//            ? r1 : r2;
+//    AbsRoom lower = r1.getTopLeft().getY() < r2.getTopLeft().getY()
+//            ? r1 : r2;
+//    AbsRoom leftMost = r1.getBottomRight().getX() <= r2.getBottomRight().getX()
+//            ? r1 : r2;
+//    AbsRoom rightMost = r1.getBottomRight().getX() > r2.getBottomRight().getX()
+//            ? r1 : r2;
+//
+//    // For checking horizontal connection
+//    int b = higher.getBottomRight().getY();
+//    int c = lower.getTopLeft().getY();
+//
+//    // For checking vertical connection
+//    int a = rightMost.getTopLeft().getX();
+//    int d = leftMost.getBottomRight().getX();
+//
+//    if (c - b >= pathSize - 1) {
+//      // If not horizontally adjacent, then connect
+//      if (!adjacentHoriz(leftMost, rightMost)) {
+//        int horizAligned = numHorizAligned(higher, lower);
+//        Location pathTopLeft = new Location(leftMost.getBottomRight().getX() + 1,
+//                Randomizer.generate(c - horizAligned + 1, c));
+//
+//        Path p = new Path(rightMost.getTopLeft().getX()
+//                - leftMost.getBottomRight().getX() - 1, pathSize, pathTopLeft);
+//        result.add(p);
+//      }
+//    } else if (d - a >= pathSize - 1) {
+//      // If not vertically adjacent, then connect
+//      if (!adjacentVert(higher, lower)) {
+//        int vertAligned = numVertAligned(leftMost, rightMost);
+//        Location pathTopLeft = new Location(Randomizer.generate(d - vertAligned + 1, d),
+//                higher.getBottomRight().getY() - 1);
+//
+//        Path p = new Path(pathSize, higher.getBottomRight().getY()
+//                - lower.getTopLeft().getY() - 1, pathTopLeft);
+//        result.add(p);
+//      }
+//    } else {
+//      result.addAll(extendedHorizPath(leftMost, rightMost, pathSize));
+//    }
+//
+//    return result;
+//  }
+//
+//  /**
+//   * Method generates a path of size two that connects two rooms.
+//   * @param leftMost    An AbsRoom that is the leftmost room
+//   * @param rightMost   An AbsRoom that is the rightmost room
+//   * @return    A Set of Paths that is the connection between the two rooms
+//   */
+//  public Set<Path> extendedHorizPath(AbsRoom leftMost,
+//                                     AbsRoom rightMost,
+//                                     int pathSize) {
+//    Set<Path> result = new HashSet<>();
+//    Path p1;
+//    Path p2;
+//
+//    // If rightmost room is above the leftmost room
+//    if (leftMost.getTopLeft().getY() < rightMost.getTopLeft().getY()) {
+//      Location pathTopLeft;
+//      if (adjacentVert(leftMost, rightMost)) {
+//        pathTopLeft = new Location(leftMost.getBottomRight().getX() + 1,
+//                Randomizer.generate(leftMost.getTopRight().getY()
+//                        - leftMost.getHeight() + 1,
+//                        leftMost.getTopRight().getY() - 1));
+//      } else {
+//        pathTopLeft = new Location(leftMost.getBottomRight().getX() + 1,
+//                Randomizer.generate(leftMost.getTopRight().getY()
+//                                - leftMost.getHeight() + 1,
+//                        leftMost.getTopRight().getY()));
+//      }
+//
+//      p1 = new Path(rightMost.getTopLeft().getX()
+//              - leftMost.getBottomRight().getX() - 1
+//              + Randomizer.generate(1, rightMost.getWidth() - 1 - pathSize),
+//              pathSize,
+//              pathTopLeft);
+//
+//      p2 = new Path(pathSize, rightMost.getBottomRight().getY()
+//              - p1.getBottomRight().getY(),
+//              new Location(p1.getBottomRight().getX() + 1,
+//                      p1.getBottomRight().getY()
+//                              + rightMost.getBottomRight().getY()
+//                              - p1.getBottomRight().getY() - 1));
+//    } else {
+//      // rightmost room is below leftmost room
+//      Location pathTopLeft;
+//      if (adjacentVert(leftMost, rightMost)) {
+//        pathTopLeft = new Location(leftMost.getBottomRight().getX() + 1,
+//                Randomizer.generate(leftMost.getTopRight().getY()
+//                        - leftMost.getHeight() + 2,
+//                        leftMost.getTopRight().getY()));
+//      } else {
+//        pathTopLeft = new Location(leftMost.getBottomRight().getX() + 1,
+//                Randomizer.generate(leftMost.getTopRight().getY()
+//                                - leftMost.getHeight() + 1,
+//                        leftMost.getTopRight().getY()));
+//      }
+//
+//      p1 = new Path(rightMost.getTopLeft().getX()
+//              - leftMost.getBottomRight().getX() - 1
+//              + Randomizer.generate(1, rightMost.getWidth() - 1 - pathSize),
+//              pathSize,
+//              pathTopLeft);
+//
+//      p2 = new Path(pathSize, leftMost.getTopLeft().getY()
+//              - rightMost.getTopLeft().getY(),
+//              new Location(p1.getTopRight().getX() + 1,
+//                      p1.getTopRight().getY()));
+//    }
+//
+//    result.add(p1);
+//    result.add(p2);
+//
+//    return result;
+//  }
+
+//  public Set<Path> extendedVerticalPath(AbsRoom leftMost,
+//                                        AbsRoom rightMost,
+//                                        int pathSize) {
+//    Set<Path> result = new HashSet<>();
+//    Path p1;
+//    Path p2;
+//
+//    // If rightmost room is above leftmost room
+//    if (leftMost.getTopLeft().getY() < rightMost.getTopLeft().getY()) {
+//      Location pathTopLeft;
+//
+//      if (adjacentHoriz(leftMost, rightMost)) {
+//        pathTopLeft = new Location(Randomizer.generate(
+//                leftMost.getTopLeft().getX(),
+//                leftMost.getTopLeft().getX() + leftMost.getWidth() - 2),
+//                Randomizer.generate(rightMost.getBottomLeft().getY(),
+//                        rightMost.getBottomLeft().getY()
+//                                + rightMost.getHeight() - 1));
+//      } else {
+//        pathTopLeft = new Location(Randomizer.generate(
+//                leftMost.getTopLeft().getX(),
+//                leftMost.getTopLeft().getX() + leftMost.getWidth() - 1),
+//                Randomizer.generate(rightMost.getBottomLeft().getY(),
+//                        rightMost.getBottomLeft().getY()
+//                                + rightMost.getHeight() - 1));
+//      }
+//
+//      p1 = new Path(pathSize, )
+//    }
+//  }
 
   /**
    * Method checks if two rooms are adjacent or not horizontally.
@@ -362,20 +624,6 @@ public class Dungeon implements IDungeon {
 
     return true;
   }
-
-//  public void printDungeon() {
-//    for (int i = 0; i < this.occupiedCells.length; i++) {
-//      for (int j = 0; j < this.occupiedCells[i].length; j++) {
-//        if (this.occupiedCells[i][j] != null) {
-//          System.out.print(this.occupiedCells[i][j].getSymbol());
-//        } else {
-//          System.out.print("  ");
-//        }
-//      }
-//      System.out.println("");
-//    }
-//  }
-
 
   public void printDungeon() {
     for (int i = this.occupiedCells.length - 1; i >= 0; i--) {

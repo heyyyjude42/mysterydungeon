@@ -42,8 +42,23 @@ public class DungeonTest {
     UndirectedEdge<AbsRoom> ue5 = new UndirectedEdge<>(r1, r6, 5);
     Collection<Path> paths5 = d.getPathFromEdge(ue5);
     assertNotNull(paths5);
+//
+//    for (Path p : paths5) {
+//      System.out.println(p);
+//    }
+  }
 
-    for (Path p : paths5) {
+  @Test
+  public void testAdjacentRooms() {
+    Dungeon d = new Dungeon();
+
+    Room r1 = new Room(3, 3, new Location(10, 10));
+    Room r2= new Room(3, 3, new Location(13, 13));
+    UndirectedEdge<AbsRoom> ue = new UndirectedEdge<>(r1, r2, 5);
+    Collection<Path> paths = d.getPathFromEdge(ue);
+    assertNotNull(paths);
+
+    for (Path p : paths) {
       System.out.println(p);
     }
   }
