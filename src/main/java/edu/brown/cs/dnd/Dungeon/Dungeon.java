@@ -1,9 +1,12 @@
 package edu.brown.cs.dnd.Dungeon;
 
-import com.sun.javafx.geom.Edge;
 import edu.brown.cs.dnd.Data.Location;
 import edu.brown.cs.dnd.Dungeon.Graph.UndirectedGraph;
 import edu.brown.cs.dnd.Dungeon.Graph.UndirectedEdge;
+import edu.brown.cs.dnd.Dungeon.Rooms.AbsRoom;
+import edu.brown.cs.dnd.Dungeon.Rooms.Path;
+import edu.brown.cs.dnd.Dungeon.Rooms.Room;
+import edu.brown.cs.dnd.Dungeon.Rooms.RoomSize;
 
 import java.util.*;
 
@@ -30,7 +33,7 @@ public class Dungeon implements IDungeon {
     this.occupiedCells = new AbsRoom[height][width];
     this.rand = new Random();
     this.rooms = new ArrayList<>();
-    generateRooms(0.8, RoomSize.SMALL);
+    generateRooms(0.8, RoomSize.MEDIUM);
     filterRooms();
     connectRooms();
     fillAllRooms();

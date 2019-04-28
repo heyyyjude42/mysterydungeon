@@ -1,4 +1,4 @@
-package edu.brown.cs.dnd.Dungeon;
+package edu.brown.cs.dnd.Dungeon.Rooms;
 
 import edu.brown.cs.dnd.Data.Location;
 import edu.brown.cs.dnd.RandomTools.NormalDistribution;
@@ -21,7 +21,7 @@ public class Room extends AbsRoom {
   }
 
 
-  static Room randomRoom(double averageArea, Location loc) {
+  public static Room randomRoom(double averageArea, Location loc) {
     double averageDim = Math.sqrt(averageArea);
     NormalDistribution N = new NormalDistribution(averageDim, averageDim * STD_DEV_RATIO);
     int width = (int) Math.round(N.draw());

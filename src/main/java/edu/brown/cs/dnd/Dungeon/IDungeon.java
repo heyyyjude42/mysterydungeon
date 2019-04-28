@@ -1,4 +1,6 @@
 package edu.brown.cs.dnd.Dungeon;
+import edu.brown.cs.dnd.Dungeon.Rooms.AbsRoom;
+
 import java.util.List;
 /**
  * The required functionality for a Dungeon, which is nothing more than the

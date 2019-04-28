@@ -1,4 +1,4 @@
-package edu.brown.cs.dnd.Dungeon;
+package edu.brown.cs.dnd.Dungeon.Rooms;
 
 import edu.brown.cs.dnd.Data.Location;
 
@@ -8,7 +8,7 @@ import java.util.Objects;
 /**
  * An open space in a dungeon. May contain traps, monsters, doors, etc.
  */
-public class AbsRoom {
+public abstract class AbsRoom {
 
   private Location topLeftCorner;
   private int width;

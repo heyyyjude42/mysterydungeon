@@ -1,4 +1,4 @@
-package edu.brown.cs.dnd.Dungeon;
+package edu.brown.cs.dnd.Dungeon.Rooms;
 
 import edu.brown.cs.dnd.Data.Location;
 
@@ -7,5 +7,6 @@ import edu.brown.cs.dnd.Data.Location;
  */
 public abstract class RoomElement {
 
-  private Location coordinate; // A relative location to the room
+  // A relative location to the room
+  protected Location coordinate;
 }

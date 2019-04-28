@@ -1,6 +1,6 @@
 package edu.brown.cs.dnd.Data;
 
-import edu.brown.cs.dnd.Dungeon.RoomElement;
+import edu.brown.cs.dnd.Dungeon.Rooms.RoomElement;
 
 import java.util.HashMap;
 
