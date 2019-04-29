@@ -8,6 +8,7 @@ import java.util.*;
 
 import edu.brown.cs.dnd.Data.*;
 import edu.brown.cs.dnd.Dungeon.Dungeon;
+import edu.brown.cs.dnd.Dungeon.Rooms.RoomSize;
 import edu.brown.cs.dnd.Generate.GenerateEncounterHandler;
 import edu.brown.cs.dnd.Generate.GenerateNPCHandler;
 import edu.brown.cs.dnd.Roll.RollHandler;
@@ -78,7 +79,7 @@ public final class Main {
     repl = new REPL(handler);
     repl = new REPL(handler);
     repl.beginParsing();
-//    Dungeon d = new Dungeon(100, 100);
+//    Dungeon d = new Dungeon(100, 100, RoomSize.MEDIUM);
 //    d.printDungeon();
   }
 
@@ -181,6 +182,28 @@ public final class Main {
       Map<String, Object> variables = ImmutableMap.of("title", "DummyPage");
 
       return new ModelAndView(variables, "dummypage.ftl");
+    }
+  }
+
+
+  private class DungeonHandler implements Route {
+    @Override
+    public String handle(Request request, Response response) throws Exception {
+      QueryParamsMap qm = request.queryMap();
+      int width = Integer.parseInt(qm.value("width"));
+      int height = Integer.parseInt(qm.value("height"));
+      String roomSizeString = qm.value("avgRoomSize");
+      RoomSize size;
+      if (roomSizeString.equals("large")) {
+        size = RoomSize.LARGE;
+      } else if (roomSizeString.equals("medium")) {
+        size = RoomSize.MEDIUM;
+      } else {
+        size = RoomSize.SMALL;
+      }
+      Dungeon d = new Dungeon(width, height, size);
+      Map<String, Object> variables = ImmutableMap.of("dungeon", d);
+      return Main.GSON.toJson(variables);
     }
   }
 }

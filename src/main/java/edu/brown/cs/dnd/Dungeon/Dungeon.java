@@ -34,14 +34,15 @@ public class Dungeon implements IDungeon {
    * A Constructor for a Dungeon.
    * @param width   An int that is the width of the dungeon
    * @param height    An int that is the height of the dungeon
+   * @param roomSize  The average roomsize of rooms in this dungeon.
    */
-  public Dungeon(int width, int height) {
+  public Dungeon(int width, int height, RoomSize roomSize) {
     this.width = width;
     this.height = height;
     this.occupiedCells = new AbsRoom[height][width];
     this.rand = new Random();
     this.rooms = new ArrayList<>();
-    generateRooms(0.8, RoomSize.MEDIUM);
+    generateRooms(0.8, roomSize);
     filterRooms();
     connectRooms();
     fillAllRooms();
