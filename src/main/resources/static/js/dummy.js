@@ -6,10 +6,13 @@ $(document).ready(() => {
 
         const postParameters = {width: 100, height: 100, avgRoomSize: "small"};
 
-        $.post("", postParameters, responseJSON => {
+        $.post("/dungeon", postParameters, responseJSON => {
             const responseObject = JSON.parse(responseJSON);
 
-            console.log(responseObject);
+            let dungeon = responseObject.dungeon;
+            let rooms = dungeon.rooms;
+
+            console.log(dungeon);
         });
     });
 });

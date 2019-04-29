@@ -118,6 +118,7 @@ public final class Main {
     Spark.post("/query", new QueryHandler());
 
     Spark.get("/dummy", new DummyFrontHandler(), freeMarker);
+    Spark.post("/dungeon", new DungeonHandler());
   }
 
   /**
