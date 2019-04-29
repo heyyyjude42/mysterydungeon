@@ -118,7 +118,6 @@ public class Dungeon implements IDungeon {
     }
   }
 
-
   /**
    * Method creates a path between two rooms based on the edge between them.
    * @param edge    The edge between the two rooms in the mst
@@ -178,7 +177,7 @@ public class Dungeon implements IDungeon {
     } else {
       // Flip a coin to decide which extended path method to use
       int decider = Randomizer.generate(1, 100);
-      
+
       if (decider <= 50) {
         result.addAll(extendedVertPath(leftMost, rightMost));
       } else {
