@@ -15,4 +15,5 @@ public class Path extends AbsRoom {
   public String getSymbol() {
     return "o ";
   }
+
 }
