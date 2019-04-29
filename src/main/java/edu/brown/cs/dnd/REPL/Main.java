@@ -76,10 +76,10 @@ public final class Main {
     }
 
     repl = new REPL(handler);
-//    repl = new REPL(handler);
-//    repl.beginParsing();
-    Dungeon d = new Dungeon(100, 100);
-    d.printDungeon();
+    repl = new REPL(handler);
+    repl.beginParsing();
+//    Dungeon d = new Dungeon(100, 100);
+//    d.printDungeon();
   }
 
   /**
@@ -115,6 +115,8 @@ public final class Main {
     // Setup Spark Routes
     Spark.get("/d&d", new FrontHandler(), freeMarker);
     Spark.post("/query", new QueryHandler());
+
+    Spark.get("/dummy", new DummyFrontHandler(), freeMarker);
   }
 
   /**
@@ -170,6 +172,15 @@ public final class Main {
       Map<String, Object> variables = ImmutableMap.of("result",
           result, "prettified", prettified, "simplified", simplified);
       return GSON.toJson(variables);
+    }
+  }
+
+  private class DummyFrontHandler implements TemplateViewRoute, Route {
+    @Override
+    public ModelAndView handle(Request request, Response response) {
+      Map<String, Object> variables = ImmutableMap.of("title", "DummyPage");
+
+      return new ModelAndView(variables, "dummypage.ftl");
     }
   }
 }
