@@ -1,7 +1,9 @@
-package edu.brown.cs.dnd.Dungeon;
+package edu.brown.cs.dnd.Dungeon.Rooms;
 
 import edu.brown.cs.dnd.Data.Location;
 import edu.brown.cs.dnd.RandomTools.NormalDistribution;
+
+import java.util.Random;
 
 
 /**
@@ -10,6 +12,7 @@ import edu.brown.cs.dnd.RandomTools.NormalDistribution;
 public class Room extends AbsRoom {
 
   private static final double STD_DEV_RATIO = 1.3;
+
 
   public Room(int width, int height, Location loc) {
     super(width, height, loc);
@@ -21,7 +24,7 @@ public class Room extends AbsRoom {
   }
 
 
-  static Room randomRoom(double averageArea, Location loc) {
+  public static Room randomRoom(double averageArea, Location loc) {
     double averageDim = Math.sqrt(averageArea);
     NormalDistribution N = new NormalDistribution(averageDim, averageDim * STD_DEV_RATIO);
     int width = (int) Math.round(N.draw());
@@ -37,6 +40,5 @@ public class Room extends AbsRoom {
 
     return new Room(width, height, loc);
   }
-
 
 }

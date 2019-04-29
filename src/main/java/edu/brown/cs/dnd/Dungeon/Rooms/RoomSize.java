@@ -1,4 +1,4 @@
-package edu.brown.cs.dnd.Dungeon;
+package edu.brown.cs.dnd.Dungeon.Rooms;
 
 public enum RoomSize {
   SMALL(.001), MEDIUM(.003), LARGE(.005);
@@ -9,7 +9,7 @@ public enum RoomSize {
     this.roomRatio = roomRatio;
   }
 
-  double getRoomRatio() {
+  public double getRoomRatio() {
     return this.roomRatio;
   }
 }
