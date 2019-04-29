@@ -9,4 +9,12 @@ public abstract class RoomElement {
 
   // A relative location to the room
   protected Location coordinate;
+
+  /**
+   * A constructor for a RoomElement.
+   * @param coordinate - a Location, the coordinate of this element relative to the room it's in.
+   */
+  public RoomElement(Location coordinate) {
+    this.coordinate = coordinate;
+  }
 }
