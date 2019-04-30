@@ -112,8 +112,8 @@ function populateExistingTiles(terrain) {
         const tileStyleName = sheet.cssRules[i].selectorText.split(".")[1];
         let tileStyle = sheet.cssRules[i].cssText;
         tileStyle = tileStyle.split("{ ")[1].split(" }")[0];
-        tileStyle = tileStyle.replace("background:", "background: url('https://www.spriters-resource.com/resources/sheets/82/85135.png')");
-        //tileStyle = tileStyle.replace("background:", "background: url('file://spritepacks\/" + terrain + "')");
+        //tileStyle = tileStyle.replace("background:", "background: url('https://www.spriters-resource.com/resources/sheets/82/85135.png')");
+        tileStyle = tileStyle.replace("background:", "background: url('css/spritepacks\/" + terrain + "')");
         existingTileStyles[tileStyleName] = tileStyle;
     }
 }
