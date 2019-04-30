@@ -35,7 +35,10 @@
             <option value="nightmare">The Nightmare</option>
         </select> <br/><br/>
 
-        <button id="generateButton">Generate!</button>
+        <button id="generateButton">Generate!</button><br/><br/>
+
+        <input type="checkbox" id="genTraps" name="genTraps" value="true">
+        <label for="genTraps">Generate traps</label>
     </div>
 
 
