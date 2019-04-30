@@ -3,8 +3,8 @@
 }
 
 .dungeonRow .tile {
-    width: 24px;
-    height: 24px;
+    min-width: 24px;
+    min-height: 24px;
 }
 
 /* MEADOW WALLS */
@@ -62,7 +62,7 @@
 }
 
 .meadow-TTTTFTTTT {
-    background: url('tinymeadow.png') no-repeat -84px -263px;
+    background: url('tinymeadow.png') no-repeat -109px -263px;
 }
 
 .meadow-TFTTFFTTT {
@@ -389,4 +389,33 @@
 
 .meadow-TTFTTTFTT {
     background: url('tinymeadow.png') no-repeat -334px -738px;
+}
+
+/* MEADOW ALTS */
+.meadow-TFFTFFTFF-alt {
+    background: url('tinymeadow.png') no-repeat -159px -188px;
+}
+
+.meadow-FFFFFFFFF-alt {
+    background: url('tinymeadow.png') no-repeat -184px -188px;
+}
+
+.meadow-FFTFFTFFT-alt {
+    background: url('tinymeadow.png') no-repeat -209px -188px;
+}
+
+.meadow-FFFFFFTTT-alt {
+    background: url('tinymeadow.png') no-repeat -184px -213px;
+}
+
+.meadow-FFFFFFFFF-alt2 {
+    background: url('tinymeadow.png') no-repeat -259px -188px;
+}
+
+.meadow-TTTTTTTTT-alt {
+    background: url('tinymeadow.png') no-repeat -409px -188px;
+}
+
+.meadow-TTTTTTTTT-alt2 {
+    background: url('tinymeadow.png') no-repeat -484px -188px;
 }

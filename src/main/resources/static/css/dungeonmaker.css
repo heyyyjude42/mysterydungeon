@@ -1,0 +1,117 @@
+@import url('https://fonts.googleapis.com/css?family=Average+Sans|Inconsolata');
+
+body {
+    background-color: #2A2B30;
+    color: #D3D1CF;
+    font-family: "Average Sans", sans-serif;
+}
+
+#sidebar {
+    overflow-y: scroll;
+    position: fixed;
+    right: 0;
+    top: 0;
+    height: 100%;
+    width: 13%;
+    line-height: 1.5;
+    font-size: 15px;
+    background-color: #3b3d47;
+    padding-top: 30px;
+    padding-left: 2%;
+}
+
+#map {
+    position: fixed;
+    overflow: scroll;
+    top: 0;
+    left: 0;
+    min-width: 85%;
+    max-width: 85%;
+    height: 100%;
+}
+
+input[type="number"] {
+    font-family: "Inconsolata", sans-serif;
+    background-color: transparent;
+    color: #8FC0A9;
+    border: 0;
+    border-bottom: 1px dotted #76938D;
+    width: 50px;
+    font-size: 20px;
+    outline: none;
+}
+
+[type="radio"]:checked,
+[type="radio"]:not(:checked) {
+    position: absolute;
+    left: -9999px;
+}
+[type="radio"]:checked + label,
+[type="radio"]:not(:checked) + label
+{
+    position: relative;
+    padding-left: 25px;
+    cursor: pointer;
+    line-height: 24px;
+    display: inline-block;
+    color: #D3D1CF;
+}
+[type="radio"]:checked + label:before,
+[type="radio"]:not(:checked) + label:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 14px;
+    height: 14px;
+    margin-top: 4px;
+    border: 1px solid #D3D1CF;
+    border-radius: 100%;
+    background: transparent;
+}
+[type="radio"]:checked + label:after,
+[type="radio"]:not(:checked) + label:after {
+    content: '';
+    width: 8px;
+    height: 8px;
+    background: #8FC0A9;
+    position: absolute;
+    top: 7.5px;
+    left: 4px;
+    border-radius: 100%;
+    -webkit-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+}
+[type="radio"]:not(:checked) + label:after {
+    opacity: 0;
+    -webkit-transform: scale(0);
+    transform: scale(0);
+}
+[type="radio"]:checked + label:after {
+    opacity: 1;
+    -webkit-transform: scale(1);
+    transform: scale(1);
+}
+
+button {
+    outline: none;
+    border: 1px solid #8FC0A9;
+    color: #8FC0A9;
+    border-radius: 3px;
+    background-color: transparent;
+    padding: 7px 10px;
+    font-family: "Average Sans", sans-serif;
+    font-size: 15px;
+    letter-spacing: 0.7px;
+}
+
+select {
+    font-family: 'Average Sans', sans-serif;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background: transparent;
+    border: 0;
+    outline: none;
+    color: #8FC0A9;
+}

@@ -1,27 +1,85 @@
 let existingTileStyles = {};
 
 $(document).ready(() => {
+    populateExistingTiles();
+    $("#generateButton").on("click", () => {
+        let width = $("#widthForm").val();
+        let height = $("#heightForm").val();
+        let size = $("input[type='radio']:checked").val();
+        let terrain = $("#terrainForm").val();
 
-    $(document).on("click", () => {
+        // nullcheck
+        if (width == null) {
+            width = 60;
+        }
+        if (height == null) {
+            height = 60;
+        }
+        if (size == null) {
+            size = "medium";
+        }
+        if (terrain == null) {
+            terrain = "meadow";
+        }
 
-        const postParameters = {width: 100, height: 100, avgRoomSize: "medium"};
+        const postParameters = {
+            width: width,
+            height: height,
+            avgRoomSize: size
+        };
 
         $.post("/dungeon", postParameters, responseJSON => {
             const responseObject = JSON.parse(responseJSON);
 
             let dungeon = responseObject.dungeon;
-            let rooms = dungeon.rooms;
-
-            console.log(dungeon);
+            let cells = dungeon.occupiedCells;
+            drawMap(cells, terrain);
         });
     });
 });
 
-function getRowHTML(neighborsData) {
+function drawMap(cells, terrain) {
+    const $map = $("#map");
+    $map.empty();
+
+    for (let i = 0; i < cells.length; i++) {
+        const row = cells[i];
+        let rowNeighbors = [];
+
+        for (let col = 0; col < row.length; col++) {
+            rowNeighbors.push(getNeighbors(cells, i, col));
+        }
+
+        const rowHTML = getRowHTML(rowNeighbors, terrain);
+        $map.append(rowHTML);
+    }
+}
+
+function getNeighbors(allCells, row, col) {
+    let neighbors = [];
+    for (let rowOffset = -1; rowOffset < 2; rowOffset++) {
+        for (let colOffset = -1; colOffset < 2; colOffset++) {
+            neighbors.push(getTraversable(allCells, row + rowOffset, col + colOffset));
+        }
+    }
+
+    return neighbors;
+}
+
+function getTraversable(allCells, row, col) {
+    if (row < 0 || row >= allCells.length || col < 0 || col >= allCells[0].length) {
+        return false;
+    }
+
+    // if there is something in the array, then it's a room, so it's traversable.
+    return allCells[row][col] != null;
+}
+
+function getRowHTML(neighborsData, terrain) {
     let rowHTML = "<div class='dungeonRow'>";
 
     neighborsData.forEach(n => {
-       rowHTML += "<div class='tile meadow-" + neighborsToCssClass(n) + "'/>";
+        rowHTML += "<div class='tile " + terrain + "-" + neighborsToCssClass(n) + "'/>";
     });
 
     rowHTML += "</div>";
@@ -31,7 +89,7 @@ function getRowHTML(neighborsData) {
 function populateExistingTiles() {
     let sheet;
 
-    for (let i=0; i<document.styleSheets.length; i++) {
+    for (let i = 0; i < document.styleSheets.length; i++) {
         let s = document.styleSheets[i];
         if (s.title === "tiles") {
             sheet = s;
@@ -55,7 +113,7 @@ function neighborsToCssClass(neighbors) {
     }
 
     if (existingTileStyles[str] != null) {
-        return str;
+        return flavorTileWithAlts(str);
     }
 
     // otherwise, extrapolate a heuristic from only the direct top/bottom/left/right
@@ -92,7 +150,37 @@ function neighborsToCssClass(neighbors) {
     const br = boolToLetter(bottomRight);
     const bl = boolToLetter(bottomLeft);
 
-    return tl + top + tr + left + center + right + bl + bottom + br;
+    return flavorTileWithAlts(tl + top + tr + left + center + right + bl + bottom + br);
+}
+
+// randomize alts for flavor!
+function flavorTileWithAlts(concat) {
+    const rand = Math.floor((Math.random() * 100) + 1);
+    if (concat === "FFFFFFFFF") {
+        if (rand <= 1) {
+            return concat + "-alt2";
+        } else if (rand <= 2) {
+            return concat + "-alt";
+        } else {
+            return concat;
+        }
+    } else if (concat === "TTTTTTTTT") {
+        if (rand <= 6) {
+            return concat + "-alt2";
+        } else if (rand <= 12) {
+            return concat + "-alt";
+        } else {
+            return concat;
+        }
+    } else if (concat === "TFFTFFTFF" || concat === "FFTFFTFFT" || concat === "FFFFFFTTT") {
+        if (rand <= 40) {
+            return concat + "-alt";
+        } else {
+            return concat;
+        }
+    } else {
+        return concat;
+    }
 }
 
 function boolToLetter(b) {

@@ -117,7 +117,7 @@ public final class Main {
     Spark.get("/d&d", new FrontHandler(), freeMarker);
     Spark.post("/query", new QueryHandler());
 
-    Spark.get("/dungeonmaker", new DungeonFrontHandler(), freeMarker);
+    Spark.get("/dungeonmaker", new DummyFrontHandler(), freeMarker);
     Spark.post("/dungeon", new DungeonHandler());
   }
 
@@ -177,7 +177,7 @@ public final class Main {
     }
   }
 
-  private class DungeonFrontHandler implements TemplateViewRoute, Route {
+  private class DummyFrontHandler implements TemplateViewRoute, Route {
     @Override
     public ModelAndView handle(Request request, Response response) {
       Map<String, Object> variables = ImmutableMap.of("title", "Dungeon Generator");
