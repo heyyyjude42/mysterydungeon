@@ -19,13 +19,13 @@
         <select id="terrainForm">
             <option value="sidepath">Side Path</option>
             <option value="forestpath">Forest Path</option>
+            <option value="snowpoint">Snowpoint Pass</option>
             <option value="desert">Shimmer Desert</option>
-            <option value="aegis">Ice Aegis</option>
             <option value="bristle">Mt Bristle</option>
             <option value="qscave">Quicksand Cave</option>
             <option value="foggyforest">Foggy Forest</option>
             <option value="meadow">Tiny Meadow</option>
-            <option value="snowpoint">Snowpoint Pass</option>
+            <option value="aegis">Ice Aegis</option>
             <option value="ndesert">Northern Desert</option>
             <option value="brinecave">Brine Cave</option>
             <option value="tower">Temporal Tower</option>
