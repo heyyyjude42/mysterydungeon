@@ -1,3 +1,5 @@
+/* Textures from spriters-resource.com, from Pokemon Mystery Dungeon. Ripped by SilverDeoxy563. */
+
 .dungeonRow:nth-child(n+1) {
     display: flex;
 }
@@ -6500,4 +6502,437 @@
 
 .concealedruins-FFFFFFTTT-alt2 {
     background: url('spritepacks/concealedruins.png') no-repeat -259px -213px;
+}
+
+/* SNOWPOINT PASS WALLS */
+
+.snowpoint-TTTTFFTFF {
+    background: url('spritepacks/snowpointpass.png') no-repeat -84px -163px;
+}
+
+.snowpoint-TTTFFFFFF {
+    background: url('spritepacks/snowpointpass.png') no-repeat -109px -163px;
+}
+
+.snowpoint-TTTFFTFFT {
+    background: url('spritepacks/snowpointpass.png') no-repeat -134px -163px;
+}
+
+.snowpoint-TFFTFFTFF {
+    background: url('spritepacks/snowpointpass.png') no-repeat -84px -188px;
+}
+
+.snowpoint-FFFFFFFFF {
+    background: url('spritepacks/snowpointpass.png') no-repeat -109px -188px;
+}
+
+.snowpoint-FFTFFTFFT {
+    background: url('spritepacks/snowpointpass.png') no-repeat -134px -188px;
+}
+
+.snowpoint-TFFTFFTTT {
+    background: url('spritepacks/snowpointpass.png') no-repeat -84px -213px;
+}
+
+.snowpoint-FFFFFFTTT {
+    background: url('spritepacks/snowpointpass.png') no-repeat -109px -213px;
+}
+
+.snowpoint-FFTFFTTTT {
+    background: url('spritepacks/snowpointpass.png') no-repeat -134px -213px;
+}
+
+.snowpoint-TTTTFFTFT {
+    background: url('spritepacks/snowpointpass.png') no-repeat -84px -238px;
+}
+
+.snowpoint-TTTFFFTTT {
+    background: url('spritepacks/snowpointpass.png') no-repeat -109px -238px;
+}
+
+.snowpoint-TTTFFTTFT {
+    background: url('spritepacks/snowpointpass.png') no-repeat -134px -238px;
+}
+
+.snowpoint-TFTTFTTFT {
+    background: url('spritepacks/snowpointpass.png') no-repeat -84px -263px;
+}
+
+.snowpoint-TTTTFTTTT {
+    background: url('spritepacks/snowpointpass.png') no-repeat -109px -263px;
+}
+
+.snowpoint-TFTTFFTTT {
+    background: url('spritepacks/snowpointpass.png') no-repeat -84px -288px;
+}
+
+.snowpoint-TFTFFTTTT {
+    background: url('spritepacks/snowpointpass.png') no-repeat -134px -288px;
+}
+
+.snowpoint-TTTTFTTFT {
+    background: url('spritepacks/snowpointpass.png') no-repeat -109px -313px;
+}
+
+.snowpoint-TTTTFFTTT {
+    background: url('spritepacks/snowpointpass.png') no-repeat -84px -338px;
+}
+
+.snowpoint-TFTFFFTFT {
+    background: url('spritepacks/snowpointpass.png') no-repeat -109px -338px;
+}
+
+.snowpoint-TTTFFTTTT {
+    background: url('spritepacks/snowpointpass.png') no-repeat -134px -338px;
+}
+
+.snowpoint-TFTTFTTTT {
+    background: url('spritepacks/snowpointpass.png') no-repeat -109px -363px;
+}
+
+.snowpoint-TTTFFFTFT {
+    background: url('spritepacks/snowpointpass.png') no-repeat -109px -388px;
+}
+
+.snowpoint-TFTTFFTFT {
+    background: url('spritepacks/snowpointpass.png') no-repeat -84px -413px;
+}
+
+.snowpoint-TFTFFTTFT {
+    background: url('spritepacks/snowpointpass.png') no-repeat -134px -413px;
+}
+
+.snowpoint-TFTFFFTTT {
+    background: url('spritepacks/snowpointpass.png') no-repeat -109px -438px;
+}
+
+.snowpoint-FFFFFFTFT {
+    background: url('spritepacks/snowpointpass.png') no-repeat -109px -463px;
+}
+
+.snowpoint-FFTFFFFFT {
+    background: url('spritepacks/snowpointpass.png') no-repeat -84px -488px;
+}
+
+.snowpoint-TFFFFFTFF {
+    background: url('spritepacks/snowpointpass.png') no-repeat -134px -488px;
+}
+
+.snowpoint-TFTFFFFFF {
+    background: url('spritepacks/snowpointpass.png') no-repeat -109px -513px;
+}
+
+.snowpoint-FFFFFFFFT {
+    background: url('spritepacks/snowpointpass.png') no-repeat -84px -538px;
+}
+
+.snowpoint-FFFFFFTFF {
+    background: url('spritepacks/snowpointpass.png') no-repeat -109px -538px;
+}
+
+.snowpoint-FFTFFFFFF {
+    background: url('spritepacks/snowpointpass.png') no-repeat -84px -563px;
+}
+
+.snowpoint-TFFFFFFFF {
+    background: url('spritepacks/snowpointpass.png') no-repeat -109px -563px;
+}
+
+.snowpoint-TFFTFFTFT {
+    background: url('spritepacks/snowpointpass.png') no-repeat -84px -588px;
+}
+
+.snowpoint-FFTFFTTFT {
+    background: url('spritepacks/snowpointpass.png') no-repeat -109px -588px;
+}
+
+.snowpoint-TFTTFFTFF {
+    background: url('spritepacks/snowpointpass.png') no-repeat -84px -613px;
+}
+
+.snowpoint-TFTFFTFFT {
+    background: url('spritepacks/snowpointpass.png') no-repeat -109px -613px;
+}
+
+.snowpoint-TTTFFFFFT {
+    background: url('spritepacks/snowpointpass.png') no-repeat -84px -638px;
+}
+
+.snowpoint-TTTFFFTFF {
+    background: url('spritepacks/snowpointpass.png') no-repeat -109px -638px;
+}
+
+.snowpoint-FFTFFFTTT {
+    background: url('spritepacks/snowpointpass.png') no-repeat -84px -663px;
+}
+
+.snowpoint-TFFFFFTTT {
+    background: url('spritepacks/snowpointpass.png') no-repeat -109px -663px;
+}
+
+.snowpoint-TFTFFFTFF {
+    background: url('spritepacks/snowpointpass.png') no-repeat -84px -688px;
+}
+
+.snowpoint-TFTFFFFFT {
+    background: url('spritepacks/snowpointpass.png') no-repeat -109px -688px;
+}
+
+.snowpoint-TFFFFFTFT {
+    background: url('spritepacks/snowpointpass.png') no-repeat -84px -713px;
+}
+
+.snowpoint-FFTFFFTFT {
+    background: url('spritepacks/snowpointpass.png') no-repeat -109px -713px;
+}
+
+.snowpoint-FFTFFFTFT {
+    background: url('spritepacks/snowpointpass.png') no-repeat -109px -713px;
+}
+
+.snowpoint-TFFFFFFFT {
+    background: url('spritepacks/snowpointpass.png') no-repeat -84px -738px;
+}
+
+.snowpoint-FFTFFFTFF {
+    background: url('spritepacks/snowpointpass.png') no-repeat -109px -738px;
+}
+
+/* SNOWPOINT PASS PATHS */
+
+.snowpoint-FFFFTTFTT {
+    background: url('spritepacks/snowpointpass.png') no-repeat -309px -163px;
+}
+
+.snowpoint-FFFTTTTTT {
+    background: url('spritepacks/snowpointpass.png') no-repeat -334px -163px;
+}
+
+.snowpoint-FFFTTFTTF {
+    background: url('spritepacks/snowpointpass.png') no-repeat -359px -163px;
+}
+
+.snowpoint-FTTFTTFTT {
+    background: url('spritepacks/snowpointpass.png') no-repeat -309px -188px;
+}
+
+.snowpoint-TTTTTTTTT {
+    background: url('spritepacks/snowpointpass.png') no-repeat -334px -188px;
+}
+
+.snowpoint-TTFTTFTTF {
+    background: url('spritepacks/snowpointpass.png') no-repeat -359px -188px;
+}
+
+.snowpoint-FTTFTTFFF {
+    background: url('spritepacks/snowpointpass.png') no-repeat -309px -213px;
+}
+
+.snowpoint-TTTTTTFFF {
+    background: url('spritepacks/snowpointpass.png') no-repeat -334px -213px;
+}
+
+.snowpoint-TTFTTFFFF {
+    background: url('spritepacks/snowpointpass.png') no-repeat -359px -213px;
+}
+
+.snowpoint-FFFFTTFTF {
+    background: url('spritepacks/snowpointpass.png') no-repeat -309px -238px;
+}
+
+.snowpoint-FFFTTTFFF {
+    background: url('spritepacks/snowpointpass.png') no-repeat -334px -238px;
+}
+
+.snowpoint-FFFTTFFTF {
+    background: url('spritepacks/snowpointpass.png') no-repeat -359px -238px;
+}
+
+.snowpoint-FTFFTFFTF {
+    background: url('spritepacks/snowpointpass.png') no-repeat -309px -263px;
+}
+
+.snowpoint-FFFFTFFFF {
+    background: url('spritepacks/snowpointpass.png') no-repeat -309px -263px;
+}
+
+.snowpoint-FTFFTTFFF {
+    background: url('spritepacks/snowpointpass.png') no-repeat -309px -288px;
+}
+
+.snowpoint-FTFTTFFFF {
+    background: url('spritepacks/snowpointpass.png') no-repeat -359px -288px;
+}
+
+.snowpoint-FFFFTFFTF {
+    background: url('spritepacks/snowpointpass.png') no-repeat -334px -313px;
+}
+
+.snowpoint-FFFFTTFFF {
+    background: url('spritepacks/snowpointpass.png') no-repeat -309px -338px;
+}
+
+.snowpoint-FTFTTTFTF {
+    background: url('spritepacks/snowpointpass.png') no-repeat -334px -338px;
+}
+
+.snowpoint-FFFTTFFFF {
+    background: url('spritepacks/snowpointpass.png') no-repeat -359px -338px;
+}
+
+.snowpoint-FTFFTFFFF {
+    background: url('spritepacks/snowpointpass.png') no-repeat -334px -363px;
+}
+
+.snowpoint-FFFTTTFTF {
+    background: url('spritepacks/snowpointpass.png') no-repeat -334px -388px;
+}
+
+.snowpoint-FTFFTTFTF {
+    background: url('spritepacks/snowpointpass.png') no-repeat -309px -413px;
+}
+
+.snowpoint-FTFTTFTFT {
+    background: url('spritepacks/snowpointpass.png') no-repeat -359px -413px;
+}
+
+.snowpoint-FTFTTTFFF {
+    background: url('spritepacks/snowpointpass.png') no-repeat -334px -438px;
+}
+
+.snowpoint-TTTTTTFTF {
+    background: url('spritepacks/snowpointpass.png') no-repeat -334px -463px;
+}
+
+.snowpoint-TTFTTTTTF {
+    background: url('spritepacks/snowpointpass.png') no-repeat -309px -488px;
+}
+
+.snowpoint-FTTTTTFTT {
+    background: url('spritepacks/snowpointpass.png') no-repeat -359px -488px;
+}
+
+.snowpoint-FTFTTTTTT {
+    background: url('spritepacks/snowpointpass.png') no-repeat -334px -513px;
+}
+
+.snowpoint-TTTTTTTTF {
+    background: url('spritepacks/snowpointpass.png') no-repeat -309px -538px;
+}
+
+.snowpoint-TTTTTTFTT {
+    background: url('spritepacks/snowpointpass.png') no-repeat -334px -538px;
+}
+
+.snowpoint-TTFTTTTTT {
+    background: url('spritepacks/snowpointpass.png') no-repeat -309px -563px;
+}
+
+.snowpoint-FTTTTTTTT {
+    background: url('spritepacks/snowpointpass.png') no-repeat -334px -563px;
+}
+
+.snowpoint-FTTFTTFTF {
+    background: url('spritepacks/snowpointpass.png') no-repeat -309px -588px;
+}
+
+.snowpoint-TTFTTFFTF {
+    background: url('spritepacks/snowpointpass.png') no-repeat -334px -588px;
+}
+
+.snowpoint-FTFFTTFTT {
+    background: url('spritepacks/snowpointpass.png') no-repeat -309px -613px;
+}
+
+.snowpoint-FTFTTFTTF {
+    background: url('spritepacks/snowpointpass.png') no-repeat -334px -613px;
+}
+
+.snowpoint-FFFTTTTTF {
+    background: url('spritepacks/snowpointpass.png') no-repeat -309px -638px;
+}
+
+.snowpoint-FFFTTTFTT {
+    background: url('spritepacks/snowpointpass.png') no-repeat -334px -638px;
+}
+
+.snowpoint-TTFTTTFFF {
+    background: url('spritepacks/snowpointpass.png') no-repeat -309px -663px;
+}
+
+.snowpoint-FTTTTTFFF {
+    background: url('spritepacks/snowpointpass.png') no-repeat -334px -663px;
+}
+
+.snowpoint-FTFTTTFTT {
+    background: url('spritepacks/snowpointpass.png') no-repeat -309px -688px;
+}
+
+.snowpoint-FTFTTTTTF {
+    background: url('spritepacks/snowpointpass.png') no-repeat -334px -688px;
+}
+
+.snowpoint-FTTTTTFTF {
+    background: url('spritepacks/snowpointpass.png') no-repeat -309px -713px;
+}
+
+.snowpoint-TTFTTTFTF {
+    background: url('spritepacks/snowpointpass.png') no-repeat -334px -713px;
+}
+
+.snowpoint-FTTTTTTTF {
+    background: url('spritepacks/snowpointpass.png') no-repeat -309px -738px;
+}
+
+.snowpoint-TTFTTTFTT {
+    background: url('spritepacks/snowpointpass.png') no-repeat -334px -738px;
+}
+
+/* SNOWPOINT PASS ALTS */
+.snowpoint-TFFTFFTFF-alt {
+    background: url('spritepacks/snowpointpass.png') no-repeat -159px -188px;
+}
+
+.snowpoint-FFFFFFFFF-alt {
+    background: url('spritepacks/snowpointpass.png') no-repeat -184px -188px;
+}
+
+.snowpoint-FFTFFTFFT-alt {
+    background: url('spritepacks/snowpointpass.png') no-repeat -209px -188px;
+}
+
+.snowpoint-FFFFFFTTT-alt {
+    background: url('spritepacks/snowpointpass.png') no-repeat -184px -213px;
+}
+
+.snowpoint-FFFFFFFFF-alt2 {
+    background: url('spritepacks/snowpointpass.png') no-repeat -259px -188px;
+}
+
+.snowpoint-TTTTTTTTT-alt {
+    background: url('spritepacks/snowpointpass.png') no-repeat -409px -188px;
+}
+
+.snowpoint-TTTTTTTTT-alt2 {
+    background: url('spritepacks/snowpointpass.png') no-repeat -484px -188px;
+}
+
+.snowpoint-TTTFFFFFF-alt {
+    background: url('spritepacks/snowpointpass.png') no-repeat -184px -163px;
+}
+
+.snowpoint-TTTFFFFFF-alt2 {
+    background: url('spritepacks/snowpointpass.png') no-repeat -259px -163px;
+}
+
+.snowpoint-TFFTFFTFF-alt2 {
+    background: url('spritepacks/snowpointpass.png') no-repeat -234px -188px;
+}
+
+.snowpoint-FFTFFTFFT-alt2 {
+    background: url('spritepacks/snowpointpass.png') no-repeat -284px -188px;
+}
+
+.snowpoint-FFFFFFTTT-alt2 {
+    background: url('spritepacks/snowpointpass.png') no-repeat -259px -213px;
 }
