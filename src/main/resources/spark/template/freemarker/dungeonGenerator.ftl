@@ -17,7 +17,21 @@
 
         Terrain <br/>
         <select id="terrainForm">
-            <option value="meadow">Meadow</option>
+            <option value="concealedruins">Concealed Ruins</option>
+            <option value="forestpath">Forest Path</option>
+            <option value="foggyforest">Foggy Forest</option>
+            <option value="brinecave">Brine Cave</option>
+            <option value="qscave">Quicksand Cave</option>
+            <option value="ndesert">Northern Desert</option>
+            <option value="sidepath">Side Path</option>
+            <option value="tower">Temporal Tower</option>
+            <option value="bristle">Mt Bristle</option>
+            <option value="nightmare">The Nightmare</option>
+            <option value="desert">Shimmer Desert</option>
+            <option value="meadow">Tiny Meadow</option>
+            <option value="mystforest">Mystifying Forest</option>
+            <option value="steamcave">Steam Cave</option>
+            <option value="aegis">Ice Aegis</option>
         </select> <br/><br/>
 
         <button id="generateButton">Generate!</button>

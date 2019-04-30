@@ -133,16 +133,16 @@ function neighborsToCssClass(neighbors) {
     }
 
     if (top === right && right === center) {
-        topRight = !topRight;
+        topRight = neighbors[2];
     }
     if (top === left && left === center) {
-        topLeft = !topLeft;
+        topLeft = neighbors[0];
     }
     if (bottom === right && right === center) {
-        bottomRight = !bottomRight;
+        bottomRight = neighbors[8];
     }
     if (bottom === left && left === center) {
-        bottomLeft = !bottomLeft;
+        bottomLeft = neighbors[6];
     }
 
     const tr = boolToLetter(topRight);
@@ -157,24 +157,26 @@ function neighborsToCssClass(neighbors) {
 function flavorTileWithAlts(concat) {
     const rand = Math.floor((Math.random() * 100) + 1);
     if (concat === "FFFFFFFFF") {
-        if (rand <= 1) {
+        if (rand <= 3) {
             return concat + "-alt2";
-        } else if (rand <= 2) {
+        } else if (rand <= 6) {
             return concat + "-alt";
         } else {
             return concat;
         }
     } else if (concat === "TTTTTTTTT") {
-        if (rand <= 6) {
+        if (rand <= 5) {
             return concat + "-alt2";
         } else if (rand <= 12) {
             return concat + "-alt";
         } else {
             return concat;
         }
-    } else if (concat === "TFFTFFTFF" || concat === "FFTFFTFFT" || concat === "FFFFFFTTT") {
-        if (rand <= 40) {
+    } else if (concat === "TFFTFFTFF" || concat === "FFTFFTFFT" || concat === "FFFFFFTTT" || concat === "TTTFFFFFF") {
+        if (rand <= 28) {
             return concat + "-alt";
+        } else if (rand <= 60) {
+            return concat + "-alt2";
         } else {
             return concat;
         }
