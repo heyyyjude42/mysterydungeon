@@ -7,7 +7,6 @@ const simpToPretty = new Map();
 const resultIDList = [];
 const stickyNotes = $("#drawer");
 let lastLine = "";
-let existingTileStyles = {};
 
 
 $(document).ready(() => {
@@ -17,56 +16,9 @@ $(document).ready(() => {
     $userInput.keydown((e) => {
         switch (e.keyCode) {
             case 13:
-                // hack to test
-                if ($userInput[0].value === "test") {
-
-                    let rowHTML = "<div class='dungeonRow'>";
-
-                    let one = neighborsToCssClass([false, false, false, false, false, true, false, true, true]);
-                    let two = neighborsToCssClass([false, false, false, false, true, true, true, true, true]);
-                    let three = neighborsToCssClass([false, false, false, true, true, false, true, true, false]);
-                    let four = neighborsToCssClass([false, false, false, true, false, false, true, false, false]);
-                    rowHTML += "<div class='tile meadow-" + one + "'/>";
-                    rowHTML += "<div class='tile meadow-" + two + "'/>";
-                    rowHTML += "<div class='tile meadow-" + three + "'/>";
-                    rowHTML += "<div class='tile meadow-" + four + "'/>";
-
-                    rowHTML += "</div>";
-                    output.append(rowHTML);
-
-                    rowHTML = "<div class='dungeonRow'>";
-
-                    one = neighborsToCssClass([false, false, true, false, true, true, false, false, true]);
-                    two = neighborsToCssClass([false, true, true, true, true, true, false, true, false]);
-                    three = neighborsToCssClass([true, true, false, true, true, false, true, false, false]);
-                    four = neighborsToCssClass([true, false, false, true, false, false, false, false, false]);
-                    rowHTML += "<div class='tile meadow-" + one + "'/>";
-                    rowHTML += "<div class='tile meadow-" + two + "'/>";
-                    rowHTML += "<div class='tile meadow-" + three + "'/>";
-                    rowHTML += "<div class='tile meadow-" + four + "'/>";
-
-                    rowHTML += "</div>";
-                    output.append(rowHTML);
-
-                    rowHTML = "<div class='dungeonRow'>";
-
-                    one = neighborsToCssClass([false, true, true, false, false, true, false, false, false]);
-                    two = neighborsToCssClass([true, true, true, false, true, false, false, false, false]);
-                    three = neighborsToCssClass([true, true, false, true, false, false, false, false, false]);
-                    four = neighborsToCssClass([true, false, false, false, false, false, false, false, false]);
-                    rowHTML += "<div class='tile meadow-" + one + "'/>";
-                    rowHTML += "<div class='tile meadow-" + two + "'/>";
-                    rowHTML += "<div class='tile meadow-" + three + "'/>";
-                    rowHTML += "<div class='tile meadow-" + four + "'/>";
-
-                    rowHTML += "</div>";
-                    output.append(rowHTML);
-
-                } else {
-                    lastLine = $userInput[0].value;
-                    query(lastLine);
-                    $userInput[0].value = "";
-                }
+                lastLine = $userInput[0].value;
+                query(lastLine);
+                $userInput[0].value = "";
                 break;
             case 38:
                 $userInput[0].value = lastLine;
@@ -99,81 +51,6 @@ $(document).ready(() => {
     });
 });
 
-function populateExistingTiles() {
-    let sheet;
-
-    for (let i=0; i<document.styleSheets.length; i++) {
-        let s = document.styleSheets[i];
-        if (s.title === "tiles") {
-            sheet = s;
-        }
-    }
-
-    for (let i = 2; i < sheet.cssRules.length; i++) {
-        existingTileStyles[sheet.cssRules[i].selectorText.split("-")[1]] = true;
-    }
-}
-
-/**
- * Neighbors is a 3x3 array with boolean values, with T indicating it's traversable
- * @param neighbors
- */
-function neighborsToCssClass(neighbors) {
-    // first try to see if the whole thing exists
-    let str = "";
-    for (let i = 0; i < neighbors.length; i++) {
-        str += boolToLetter(neighbors[i]);
-    }
-
-    if (existingTileStyles[str] != null) {
-        return str;
-    }
-
-    // otherwise, extrapolate a heuristic from only the direct top/bottom/left/right
-    const top = boolToLetter(neighbors[1]);
-    const left = boolToLetter(neighbors[3]);
-    const right = boolToLetter(neighbors[5]);
-    const bottom = boolToLetter(neighbors[7]);
-    const center = boolToLetter(neighbors[4]);
-    let topLeft, topRight, bottomLeft, bottomRight;
-
-    if (neighbors[4]) {
-        // path
-        topLeft = topRight = bottomLeft = bottomRight = false;
-    } else {
-        // wall
-        topLeft = topRight = bottomLeft = bottomRight = true;
-    }
-
-    if (top === right && right === center) {
-        topRight = !topRight;
-    }
-    if (top === left && left === center) {
-        topLeft = !topLeft;
-    }
-    if (bottom === right && right === center) {
-        bottomRight = !bottomRight;
-    }
-    if (bottom === left && left === center) {
-        bottomLeft = !bottomLeft;
-    }
-
-    const tr = boolToLetter(topRight);
-    const tl = boolToLetter(topLeft);
-    const br = boolToLetter(bottomRight);
-    const bl = boolToLetter(bottomLeft);
-
-    return tl + top + tr + left + center + right + bl + bottom + br;
-}
-
-function boolToLetter(b) {
-    if (b) {
-        return "T";
-    } else {
-        return "F";
-    }
-}
-
 //Main clicking function after list has been retrieved.
 function clickFun(id) {
     console.log("Clicking on list text works.");
@@ -181,7 +58,7 @@ function clickFun(id) {
     //Find the relevant text that is spit out by prettified.
     //let x = document.getElementById(id + " ID");
     let expand = simpToPretty.get(id);
-    
+
     //let holder = x.innerHTML;
     let note = $("<li>" + id + "</li>");
     //Set up delete button.
@@ -194,16 +71,16 @@ function clickFun(id) {
     stickyNotes.append(button);
     stickyNotes.append(note);
     let minimized = true;
-    minButton.addEventListener ("click", function() {
-      if(minimized){
-        minButton.innerHTML = "▲"
-        note.html((expand));
-        minimized = false;
-      }else{
-        minimized = true;
-        minButton.innerHTML = "▼"
-        note.html(id);
-      }
+    minButton.addEventListener("click", function () {
+        if (minimized) {
+            minButton.innerHTML = "▲"
+            note.html((expand));
+            minimized = false;
+        } else {
+            minimized = true;
+            minButton.innerHTML = "▼"
+            note.html(id);
+        }
     });
     button.addEventListener("click", function () {
         deleteEntry(note);
@@ -238,7 +115,7 @@ function query(line) {
             let end = prettified[0].substring(sLeng + 1);
             output.append("<div class='queryResults'>" + end + "</div>");
             document.getElementById("resultIndex").setAttribute("id", simplified[0]);
-            resultIDList.push(simplified[0]);   
+            resultIDList.push(simplified[0]);
             resultList.push(prettified[0]);
             resultIndex++;
         } else {
