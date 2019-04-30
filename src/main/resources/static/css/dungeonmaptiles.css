@@ -1,0 +1,443 @@
+/* Textures from spriters-resource.com, from Pokemon Mystery Dungeon. Ripped by SilverDeoxy563. */
+
+.dungeonRow:nth-child(n+1) {
+    display: flex;
+}
+
+.dungeonRow .tile {
+    min-width: 24px;
+    min-height: 24px;
+}
+
+/* WALLS */
+
+.TTTTFFTFF {
+    background:  no-repeat -84px -163px;
+}
+
+.TTTFFFFFF {
+    background:  no-repeat -109px -163px;
+}
+
+.TTTFFTFFT {
+    background:  no-repeat -134px -163px;
+}
+
+.TFFTFFTFF {
+    background:  no-repeat -84px -188px;
+}
+
+.FFFFFFFFF {
+    background:  no-repeat -109px -188px;
+}
+
+.FFTFFTFFT {
+    background:  no-repeat -134px -188px;
+}
+
+.TFFTFFTTT {
+    background:  no-repeat -84px -213px;
+}
+
+.FFFFFFTTT {
+    background:  no-repeat -109px -213px;
+}
+
+.FFTFFTTTT {
+    background:  no-repeat -134px -213px;
+}
+
+.TTTTFFTFT {
+    background:  no-repeat -84px -238px;
+}
+
+.TTTFFFTTT {
+    background:  no-repeat -109px -238px;
+}
+
+.TTTFFTTFT {
+    background:  no-repeat -134px -238px;
+}
+
+.TFTTFTTFT {
+    background:  no-repeat -84px -263px;
+}
+
+.TTTTFTTTT {
+    background:  no-repeat -109px -263px;
+}
+
+.TFTTFFTTT {
+    background:  no-repeat -84px -288px;
+}
+
+.TFTFFTTTT {
+    background:  no-repeat -134px -288px;
+}
+
+.TTTTFTTFT {
+    background:  no-repeat -109px -313px;
+}
+
+.TTTTFFTTT {
+    background:  no-repeat -84px -338px;
+}
+
+.TFTFFFTFT {
+    background:  no-repeat -109px -338px;
+}
+
+.TTTFFTTTT {
+    background:  no-repeat -134px -338px;
+}
+
+.TFTTFTTTT {
+    background:  no-repeat -109px -363px;
+}
+
+.TTTFFFTFT {
+    background:  no-repeat -109px -388px;
+}
+
+.TFTTFFTFT {
+    background:  no-repeat -84px -413px;
+}
+
+.TFTFFTTFT {
+    background:  no-repeat -134px -413px;
+}
+
+.TFTFFFTTT {
+    background:  no-repeat -109px -438px;
+}
+
+.FFFFFFTFT {
+    background:  no-repeat -109px -463px;
+}
+
+.FFTFFFFFT {
+    background:  no-repeat -84px -488px;
+}
+
+.TFFFFFTFF {
+    background:  no-repeat -134px -488px;
+}
+
+.TFTFFFFFF {
+    background:  no-repeat -109px -513px;
+}
+
+.FFFFFFFFT {
+    background:  no-repeat -84px -538px;
+}
+
+.FFFFFFTFF {
+    background:  no-repeat -109px -538px;
+}
+
+.FFTFFFFFF {
+    background:  no-repeat -84px -563px;
+}
+
+.TFFFFFFFF {
+    background:  no-repeat -109px -563px;
+}
+
+.TFFTFFTFT {
+    background:  no-repeat -84px -588px;
+}
+
+.FFTFFTTFT {
+    background:  no-repeat -109px -588px;
+}
+
+.TFTTFFTFF {
+    background:  no-repeat -84px -613px;
+}
+
+.TFTFFTFFT {
+    background:  no-repeat -109px -613px;
+}
+
+.TTTFFFFFT {
+    background:  no-repeat -84px -638px;
+}
+
+.TTTFFFTFF {
+    background:  no-repeat -109px -638px;
+}
+
+.FFTFFFTTT {
+    background:  no-repeat -84px -663px;
+}
+
+.TFFFFFTTT {
+    background:  no-repeat -109px -663px;
+}
+
+.TFTFFFTFF {
+    background:  no-repeat -84px -688px;
+}
+
+.TFTFFFFFT {
+    background:  no-repeat -109px -688px;
+}
+
+.TFFFFFTFT {
+    background:  no-repeat -84px -713px;
+}
+
+.FFTFFFTFT {
+    background:  no-repeat -109px -713px;
+}
+
+.FFTFFFTFT {
+    background:  no-repeat -109px -713px;
+}
+
+.TFFFFFFFT {
+    background:  no-repeat -84px -738px;
+}
+
+.FFTFFFTFF {
+    background:  no-repeat -109px -738px;
+}
+
+/* PATHS */
+
+.FFFFTTFTT {
+    background:  no-repeat -309px -163px;
+}
+
+.FFFTTTTTT {
+    background:  no-repeat -334px -163px;
+}
+
+.FFFTTFTTF {
+    background:  no-repeat -359px -163px;
+}
+
+.FTTFTTFTT {
+    background:  no-repeat -309px -188px;
+}
+
+.TTTTTTTTT {
+    background:  no-repeat -334px -188px;
+}
+
+.TTFTTFTTF {
+    background:  no-repeat -359px -188px;
+}
+
+.FTTFTTFFF {
+    background:  no-repeat -309px -213px;
+}
+
+.TTTTTTFFF {
+    background:  no-repeat -334px -213px;
+}
+
+.TTFTTFFFF {
+    background:  no-repeat -359px -213px;
+}
+
+.FFFFTTFTF {
+    background:  no-repeat -309px -238px;
+}
+
+.FFFTTTFFF {
+    background:  no-repeat -334px -238px;
+}
+
+.FFFTTFFTF {
+    background:  no-repeat -359px -238px;
+}
+
+.FTFFTFFTF {
+    background:  no-repeat -309px -263px;
+}
+
+.FFFFTFFFF {
+    background:  no-repeat -309px -263px;
+}
+
+.FTFFTTFFF {
+    background:  no-repeat -309px -288px;
+}
+
+.FTFTTFFFF {
+    background:  no-repeat -359px -288px;
+}
+
+.FFFFTFFTF {
+    background:  no-repeat -334px -313px;
+}
+
+.FFFFTTFFF {
+    background:  no-repeat -309px -338px;
+}
+
+.FTFTTTFTF {
+    background:  no-repeat -334px -338px;
+}
+
+.FFFTTFFFF {
+    background:  no-repeat -359px -338px;
+}
+
+.FTFFTFFFF {
+    background:  no-repeat -334px -363px;
+}
+
+.FFFTTTFTF {
+    background:  no-repeat -334px -388px;
+}
+
+.FTFFTTFTF {
+    background:  no-repeat -309px -413px;
+}
+
+.FTFTTFTFT {
+    background:  no-repeat -359px -413px;
+}
+
+.FTFTTTFFF {
+    background:  no-repeat -334px -438px;
+}
+
+.TTTTTTFTF {
+    background:  no-repeat -334px -463px;
+}
+
+.TTFTTTTTF {
+    background:  no-repeat -309px -488px;
+}
+
+.FTTTTTFTT {
+    background:  no-repeat -359px -488px;
+}
+
+.FTFTTTTTT {
+    background:  no-repeat -334px -513px;
+}
+
+.TTTTTTTTF {
+    background:  no-repeat -309px -538px;
+}
+
+.TTTTTTFTT {
+    background:  no-repeat -334px -538px;
+}
+
+.TTFTTTTTT {
+    background:  no-repeat -309px -563px;
+}
+
+.FTTTTTTTT {
+    background:  no-repeat -334px -563px;
+}
+
+.FTTFTTFTF {
+    background:  no-repeat -309px -588px;
+}
+
+.TTFTTFFTF {
+    background:  no-repeat -334px -588px;
+}
+
+.FTFFTTFTT {
+    background:  no-repeat -309px -613px;
+}
+
+.FTFTTFTTF {
+    background:  no-repeat -334px -613px;
+}
+
+.FFFTTTTTF {
+    background:  no-repeat -309px -638px;
+}
+
+.FFFTTTFTT {
+    background:  no-repeat -334px -638px;
+}
+
+.TTFTTTFFF {
+    background:  no-repeat -309px -663px;
+}
+
+.FTTTTTFFF {
+    background:  no-repeat -334px -663px;
+}
+
+.FTFTTTFTT {
+    background:  no-repeat -309px -688px;
+}
+
+.FTFTTTTTF {
+    background:  no-repeat -334px -688px;
+}
+
+.FTTTTTFTF {
+    background:  no-repeat -309px -713px;
+}
+
+.TTFTTTFTF {
+    background:  no-repeat -334px -713px;
+}
+
+.FTTTTTTTF {
+    background:  no-repeat -309px -738px;
+}
+
+.TTFTTTFTT {
+    background:  no-repeat -334px -738px;
+}
+
+/* ALTS */
+.TFFTFFTFF-alt {
+    background:  no-repeat -159px -188px;
+}
+
+.FFFFFFFFF-alt {
+    background:  no-repeat -184px -188px;
+}
+
+.FFTFFTFFT-alt {
+    background:  no-repeat -209px -188px;
+}
+
+.FFFFFFTTT-alt {
+    background:  no-repeat -184px -213px;
+}
+
+.FFFFFFFFF-alt2 {
+    background:  no-repeat -259px -188px;
+}
+
+.TTTTTTTTT-alt {
+    background:  no-repeat -409px -188px;
+}
+
+.TTTTTTTTT-alt2 {
+    background:  no-repeat -484px -188px;
+}
+
+.TTTFFFFFF-alt {
+    background:  no-repeat -184px -163px;
+}
+
+.TTTFFFFFF-alt2 {
+    background:  no-repeat -259px -163px;
+}
+
+.TFFTFFTFF-alt2 {
+    background:  no-repeat -234px -188px;
+}
+
+.FFTFFTFFT-alt2 {
+    background:  no-repeat -284px -188px;
+}
+
+.FFFFFFTTT-alt2 {
+    background:  no-repeat -259px -213px;
+}

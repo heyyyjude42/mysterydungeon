@@ -17,9 +17,9 @@
 
         Terrain <br/>
         <select id="terrainForm">
-            <option value="sidepath">Side Path</option>
-            <option value="forestpath">Forest Path</option>
-            <option value="snowpoint">Snowpoint Pass</option>
+            <option value="sidepath.png">Side Path</option>
+            <option value="forestpath.png">Forest Path</option>
+            <option value="snowpointpass.png">Snowpoint Pass</option>
             <option value="desert">Shimmer Desert</option>
             <option value="bristle">Mt Bristle</option>
             <option value="qscave">Quicksand Cave</option>

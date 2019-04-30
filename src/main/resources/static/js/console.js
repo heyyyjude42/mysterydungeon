@@ -11,7 +11,6 @@ let lastLine = "";
 
 $(document).ready(() => {
     const $userInput = $("#console");
-    populateExistingTiles();
 
     $userInput.keydown((e) => {
         switch (e.keyCode) {

@@ -1,7 +1,6 @@
 let existingTileStyles = {};
 
 $(document).ready(() => {
-    populateExistingTiles();
     $("#generateButton").on("click", () => {
         let width = $("#widthForm").val();
         let height = $("#heightForm").val();
@@ -19,8 +18,10 @@ $(document).ready(() => {
             size = "medium";
         }
         if (terrain == null) {
-            terrain = "meadow";
+            terrain = "sidepath";
         }
+
+        populateExistingTiles(terrain);
 
         const postParameters = {
             width: width,
@@ -33,12 +34,21 @@ $(document).ready(() => {
 
             let dungeon = responseObject.dungeon;
             let cells = dungeon.occupiedCells;
-            drawMap(cells, terrain);
+
+            cells.forEach(row => {
+               row.forEach(cell => {
+                   if (cell != null && cell.elements != null && cell.elements.length > 0) {
+                       //console.log(cell);
+                   }
+               });
+            });
+
+            drawMap(cells);
         });
     });
 });
 
-function drawMap(cells, terrain) {
+function drawMap(cells) {
     const $map = $("#map");
     $map.empty();
 
@@ -50,7 +60,7 @@ function drawMap(cells, terrain) {
             rowNeighbors.push(getNeighbors(cells, i, col));
         }
 
-        const rowHTML = getRowHTML(rowNeighbors, terrain);
+        const rowHTML = getRowHTML(rowNeighbors);
         $map.append(rowHTML);
     }
 }
@@ -75,18 +85,20 @@ function getTraversable(allCells, row, col) {
     return allCells[row][col] != null;
 }
 
-function getRowHTML(neighborsData, terrain) {
+function getRowHTML(neighborsData) {
     let rowHTML = "<div class='dungeonRow'>";
 
     neighborsData.forEach(n => {
-        rowHTML += "<div class='tile " + terrain + "-" + neighborsToCssClass(n) + "'/>";
+        const cssStyle = existingTileStyles[neighborsToCssClass(n)];
+        console.log(cssStyle);
+        rowHTML += "<div class='tile' style=\"" + cssStyle + "\"/>";
     });
 
     rowHTML += "</div>";
     return rowHTML;
 }
 
-function populateExistingTiles() {
+function populateExistingTiles(terrain) {
     let sheet;
 
     for (let i = 0; i < document.styleSheets.length; i++) {
@@ -97,7 +109,12 @@ function populateExistingTiles() {
     }
 
     for (let i = 2; i < sheet.cssRules.length; i++) {
-        existingTileStyles[sheet.cssRules[i].selectorText.split("-")[1]] = true;
+        const tileStyleName = sheet.cssRules[i].selectorText.split(".")[1];
+        let tileStyle = sheet.cssRules[i].cssText;
+        tileStyle = tileStyle.split("{ ")[1].split(" }")[0];
+        tileStyle = tileStyle.replace("background:", "background: url('https://www.spriters-resource.com/resources/sheets/82/85430.png')");
+        //tileStyle = tileStyle.replace("background:", "background: url('file://spritepacks\/" + terrain + "')");
+        existingTileStyles[tileStyleName] = tileStyle;
     }
 }
 
