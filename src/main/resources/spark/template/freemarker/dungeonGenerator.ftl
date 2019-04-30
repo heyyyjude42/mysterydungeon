@@ -24,7 +24,7 @@
             <option value="bristle">Mt Bristle</option>
             <option value="qscave">Quicksand Cave</option>
             <option value="foggyforest">Foggy Forest</option>
-            <option value="meadow">Tiny Meadow</option>
+            <option value="tinywoods">Tiny Woods</option>
             <option value="aegis">Ice Aegis</option>
             <option value="ndesert">Northern Desert</option>
             <option value="brinecave">Brine Cave</option>
