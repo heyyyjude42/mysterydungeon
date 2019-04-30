@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/html5bp.css">
     <link rel="stylesheet" href="css/dungeonmaker.css">
-    <link rel="stylesheet" href="css/tooltip.css">
+    <link rel="stylesheet" href="css/tooltipsmall.css">
     <link rel="stylesheet" href="css/dungeontiles.css" title="tiles">
 </head>
 <body>

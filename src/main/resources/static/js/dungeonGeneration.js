@@ -7,6 +7,9 @@ $(document).ready(() => {
         let height = $("#heightForm").val();
         let size = $("input[type='radio']:checked").val();
         let terrain = $("#terrainForm").val();
+        let genTraps = $.map($("input[name='genTraps']:checked"), t => {
+            return t.value;
+        }).length > 0;
 
         // nullcheck
         if (width == null) {
@@ -33,10 +36,48 @@ $(document).ready(() => {
 
             let dungeon = responseObject.dungeon;
             let cells = dungeon.occupiedCells;
+
             drawMap(cells, terrain);
+
+            if (genTraps) {
+                drawTraps(dungeon.rooms.filter(room => {
+                    return room.elements.length > 0;
+                }));
+            }
         });
     });
 });
+
+function drawTraps(rooms) {
+    rooms.forEach(room => {
+        const traps = room.elements;
+        traps.forEach(trap => {
+            const pos = {
+                x: room.topLeftCorner.x + trap.position.x,
+                y: room.topLeftCorner.y - trap.position.y
+            };
+
+            console.log(pos);
+            console.log(room);
+
+            drawTrap(trap, pos);
+        });
+    });
+}
+
+function drawTrap(trap, pos) {
+    const $map = $("#map");
+    const top = pos.y * 24;
+    const left = pos.x * 24;
+
+    let tooltipText = "x: " + pos.x + " y: " + pos.y + " x-offset: " + trap.position.x + " y-offset: " + trap.position.y;
+
+    let trapHTML = "<div class='tooltip' style='position:absolute;top:" + top + "px;left:" + left + "px;'>" + "<div class='displayText' style='border-bottom:0;'>";
+    trapHTML += "<div class='trap'></div>";
+    trapHTML += "</div>" + "<div class='right'><div class='tooltipText'>" + tooltipText + "</div><i></i></div>" + "</div>";
+
+    $map.append(trapHTML);
+}
 
 function drawMap(cells, terrain) {
     const $map = $("#map");
