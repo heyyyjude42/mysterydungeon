@@ -4,7 +4,7 @@ $(document).ready(() => {
 
     $(document).on("click", () => {
 
-        const postParameters = {width: 100, height: 100, avgRoomSize: "small"};
+        const postParameters = {width: 100, height: 100, avgRoomSize: "medium"};
 
         $.post("/dungeon", postParameters, responseJSON => {
             const responseObject = JSON.parse(responseJSON);

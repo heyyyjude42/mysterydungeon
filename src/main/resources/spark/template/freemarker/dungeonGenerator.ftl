@@ -4,4 +4,4 @@
 
 </#assign>
 
-<#include "dummymain.ftl">
+<#include "dungeonMain.ftl">
