@@ -17,6 +17,8 @@ public class Trap extends RoomElement {
   protected int saveDC;
   // A String representation of the damage that this trap deals.
   protected String damage;
+  // The location of this Trap with respect to the room it is in.
+  protected Location position;
 
   /**
    * The basic constructor for Traps.
@@ -28,7 +30,7 @@ public class Trap extends RoomElement {
    * @param damageDie - a Dice, the type of dice to roll for damage.
    */
   public Trap(Location position, int detectionDC, int disableDC, int saveDC, int numDice, Dice damageDie) {
-    super(position);
+    this.position = position;
     this.detectionDC = detectionDC;
     this.disableDC = disableDC;
     this.saveDC = saveDC;
@@ -65,6 +67,17 @@ public class Trap extends RoomElement {
    */
   public String getDamage() {
     return damage;
+  }
+
+  /**
+   * Generate a random trap with the provided challenge rating.
+   * @param level - The level of the trap.
+   * @param position - the position of this trap relative to the room.
+   * @return - A random trap with the provided challenge rating.
+   */
+  public static Trap randomTrap(int level, Location position) {
+    // TODO: randomly generate the trap specs.
+    return new Trap(position, 15, 15, 15, 2, Dice.D10);
   }
 
   @Override
