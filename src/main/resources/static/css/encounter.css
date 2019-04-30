@@ -1,0 +1,20 @@
+#window {
+    position: fixed;
+    border: 1px solid #8FC0A9;
+    width: 400px;
+    border: solid 1px;
+    right: 0px;
+    bottom: 80px;
+}
+
+#title_bar {
+    background: purple;
+    border: 1px solid #8FC0A9;
+    height: 25px;
+    width: 100%;
+}
+
+#box {
+    height: 250px;
+    background: #000000;
+}

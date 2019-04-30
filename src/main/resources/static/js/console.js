@@ -4,7 +4,7 @@ const output = $("#output");
 let resultIndex = 0;
 const resultList = [];
 const simpToPretty = new Map();
-const resultIDList = [];
+let resultIDList = [];
 const stickyNotes = $("#drawer");
 let lastLine = "";
 
@@ -24,6 +24,17 @@ $(document).ready(() => {
                 break;
         }
     });
+    $("#box").slideToggle();
+    const toggle = $('#toggle');
+    toggle.click(() => {
+        if(toggle.html() == "+"){
+            toggle.html("-");
+        }
+        else{
+            toggle.html("+");
+        }
+        $("#box").slideToggle();
+    });
     const drawerHandle = $("#pushSide");
     drawerHandle.click(() => {
         console.log(output.length);
@@ -31,18 +42,10 @@ $(document).ready(() => {
             console.log("Nothing to add.");
         } else {
             console.log("Storing result.");
-            //stickyTrack = resultIndex-1;
-            const removeTag = $("<li>" + resultList[resultIndex - 1] + "</li>");
-            stickyNotes.append(removeTag);
-            let button = document.createElement("button");
-            button.innerHTML = "X";
-            button.addEventListener("click", function () {
-                deleteEntry(removeTag);
-                button.remove();
-            });
-            stickyNotes.append(button);
-            clickFun(resultIDList[resultIndex - 1]);
-            console.log(stickyNotes);
+            for(let v = 0; v<resultIndex; v++){
+                console.log(resultIDList[v]);
+                clickFun(resultIDList[v]);
+            }
         }
         //stickyNotes.append("<p>" + resultList[resultIndex - 1] + "</p>");
         console.log("appending:");
@@ -96,6 +99,8 @@ function deleteEntry(removeTag) {
 
 function query(line) {
     const postParameters = {input: line};
+    resultIndex = 0;
+    resultIDList = [];
     output.append("<div class='query'>" + line + "</div>");
     $.post("/query", postParameters, responseJSON => {
         const responseObject = JSON.parse(responseJSON);
@@ -128,6 +133,9 @@ function query(line) {
                 resultIDList.push(simplified[i]);
                 resultList.push(prettified[i]);
                 resultIndex++;
+                if(line.includes(("generate-encounter"))){
+                    myFunction(prettified[i]);
+                }
             }
             output.append("</div>");
         }
@@ -136,3 +144,17 @@ function query(line) {
     });
 }
 
+function myFunction(longInfo) {
+    var table = document.getElementById("myTable");
+    var row = table.insertRow(1);
+    var cell1 = row.insertCell(0);
+    var cell2 = row.insertCell(1);
+    var cell3 = row.insertCell(2);
+    var cell4 = row.insertCell(3);
+    let infoArray = longInfo.split("\n");
+    
+    cell1.innerHTML = infoArray[0];
+    cell2.innerHTML = "Initiative X";
+    cell3.innerHTML = infoArray[3].substring(13);
+    cell4.innerHTML = infoArray[4].substring(12);
+  }
