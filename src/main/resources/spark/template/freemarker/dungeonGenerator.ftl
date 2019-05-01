@@ -37,10 +37,14 @@
             <option value="thenightmare.png">The Nightmare</option>
         </select> <br/><br/>
 
-        <button id="generateButton">Generate!</button><br/><br/>
+        <button id="generateButton" class="primaryButton">Generate!</button><br/><br/>
 
         <input type="checkbox" id="genTraps" name="genTraps" value="true">
-        <label for="genTraps">Generate traps</label>
+        <label for="genTraps">Generate traps</label><br/><br/><br/><br/><br/>
+
+        <button id="importButton" class="secondaryButton">Import</button><br/>
+        <button id="exportButton" class="secondaryButton">Export</button>
+        <div id="exportMessage">Copied to clipboard!</div>
     </div>
 
 

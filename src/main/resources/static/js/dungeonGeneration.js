@@ -1,55 +1,96 @@
 let existingTileStyles = {};
+let currDungeon = {};
 
 $(document).ready(() => {
-    $("#generateButton").on("click", () => {
-        let width = $("#widthForm").val();
-        let height = $("#heightForm").val();
-        let size = $("input[type='radio']:checked").val();
-        let terrain = $("#terrainForm").val();
-        let genTraps = $.map($("input[name='genTraps']:checked"), t => {
-            return t.value;
-        }).length > 0;
-
-        // nullcheck
-        if (width == null) {
-            width = 60;
-        }
-        if (height == null) {
-            height = 60;
-        }
-        if (size == null) {
-            size = "medium";
-        }
-        if (terrain == null) {
-            terrain = "sidepath";
-        }
-
-        populateExistingTiles(terrain);
-
-        const postParameters = {
-            width: width,
-            height: height,
-            avgRoomSize: size
-        };
-
-        $.post("/dungeon", postParameters, responseJSON => {
-            const responseObject = JSON.parse(responseJSON);
-
-            let dungeon = responseObject.dungeon;
-            let cells = dungeon.occupiedCells;
-
-            drawMap(cells, terrain);
-
-            if (genTraps) {
-                drawTraps(dungeon.rooms.filter(room => {
-                    return room.elements.length > 0;
-                }));
-            }
-        });
-    });
+    $("#importButton").on("click", importPressed);
+    $("#exportButton").on("click", exportPressed);
+    $("#generateButton").on("click", generatePressed);
 });
 
-function drawTraps(rooms) {
+function importPressed() {
+    const val = prompt("Paste dungeon object here:");
+    const cachedDungeon = currDungeon;
+    try {
+        currDungeon = JSON.parse(val);
+        drawDungeon();
+    } catch (e) {
+        currDungeon = cachedDungeon;
+        alert("could not parse object :(");
+    }
+}
+
+function exportPressed() {
+    const ta = document.createElement('textarea');
+    ta.value = JSON.stringify(currDungeon);
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand("copy");
+    document.body.removeChild(ta);
+
+    $('#exportMessage').show().delay(700).fadeOut();
+}
+
+function generatePressed() {
+    let width = $("#widthForm").val();
+    let height = $("#heightForm").val();
+    let size = $("input[type='radio']:checked").val();
+
+    // nullcheck
+    if (width == null) {
+        width = 60;
+    }
+    if (height == null) {
+        height = 60;
+    }
+    if (size == null) {
+        size = "medium";
+    }
+
+    const postParameters = {
+        width: width,
+        height: height,
+        avgRoomSize: size
+    };
+
+    $.post("/dungeon", postParameters, responseJSON => {
+        const responseObject = JSON.parse(responseJSON);
+
+        responseObject.dungeon.occupiedCells = responseObject.dungeon.occupiedCells.map(row => {
+            return row.map(cell => {
+                return cell != null;
+            });
+        });
+
+        currDungeon = responseObject;
+        drawDungeon();
+    });
+}
+
+function drawDungeon() {
+    let terrain = $("#terrainForm").val();
+    let drawTraps = $.map($("input[name='genTraps']:checked"), t => {
+        return t.value;
+    }).length > 0;
+
+    if (terrain == null) {
+        terrain = "sidepath";
+    }
+
+    populateExistingTiles(terrain);
+
+    let dungeon = currDungeon.dungeon;
+    let cells = dungeon.occupiedCells;
+
+    drawMap(cells, terrain);
+
+    if (drawTraps) {
+        drawAllTraps(dungeon.rooms.filter(room => {
+            return room.elements.length > 0;
+        }));
+    }
+}
+
+function drawAllTraps(rooms) {
     rooms.forEach(room => {
         const traps = room.elements;
         traps.forEach(trap => {
@@ -114,7 +155,7 @@ function getTraversable(allCells, row, col) {
     }
 
     // if there is something in the array, then it's a room, so it's traversable.
-    return allCells[row][col] != null;
+    return allCells[row][col];
 }
 
 function getRowHTML(neighborsData) {
