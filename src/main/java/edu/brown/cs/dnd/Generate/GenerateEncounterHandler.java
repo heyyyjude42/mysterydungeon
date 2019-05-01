@@ -30,6 +30,9 @@ public class GenerateEncounterHandler implements Handler {
     handler.register("generate-encounter", new GenerateEncounter());
   }
 
+  /**
+   * Class representing the generate-encounter command.
+   */
   private class GenerateEncounter implements Command {
 
     @Override
