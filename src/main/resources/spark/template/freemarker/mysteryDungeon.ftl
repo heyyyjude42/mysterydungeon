@@ -22,7 +22,7 @@
 
     <input type="text" id="console">
     <input type="button" id="pushSide" value = "Sticky Last Result(s)">
-    
+    <div id="dungeonButton" value = "Dungeon Maker"><a href="/dungeonmaker" target="_blank">Dungeon Maker!</a></div>
     
 </#assign>
 

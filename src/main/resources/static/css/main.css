@@ -57,12 +57,25 @@ table, th, td {
 
 #toggle {
     background: #8FC0A9;
+    border-radius: 3px;
     border: solid 1px;
     position: absolute;
     width: 25px;
     height: 23px;
     float: right;
     cursor: pointer;
+}
+
+#dungeonButton {
+    position: fixed;
+    right:60px;
+    bottom: 150px;
+    border: 1px solid #8FC0A9;
+    border-radius: 3px;
+    color: #8FC0A9;
+    padding: 7px 10px;
+    font-family: "Average Sans", sans-serif;
+    font-size: 15px;
 }
 
 #pushSide{
