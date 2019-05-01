@@ -7,7 +7,8 @@ const simpToPretty = new Map();
 let resultIDList = [];
 const stickyNotes = $("#drawer");
 let lastLine = "";
-
+let encounter = false;
+let rowCount = 0;
 
 $(document).ready(() => {
     const $userInput = $("#console");
@@ -101,6 +102,11 @@ function query(line) {
     const postParameters = {input: line};
     resultIndex = 0;
     resultIDList = [];
+    if(line.includes(("generate-encounter"))){
+        if(encounter){
+            deleteRows();
+        }
+    }
     output.append("<div class='query'>" + line + "</div>");
     $.post("/query", postParameters, responseJSON => {
         const responseObject = JSON.parse(responseJSON);
@@ -116,7 +122,9 @@ function query(line) {
             simpToPretty.set(simplified[0], prettified[0]);
             //console.log(prettified[0]);
             let sLeng = simplified[0].length;
-            let end = prettified[0].substring(sLeng + 1);
+            let firstLineCut = prettified[0].split("\n");
+            let end = prettified[0].substring(firstLineCut[0].length+1);
+            console.log(firstLineCut[0].length);
             output.append("<div class='queryResults'>" + end + "</div>");
             document.getElementById("resultIndex").setAttribute("id", simplified[0]);
             resultIDList.push(simplified[0]);
@@ -134,17 +142,26 @@ function query(line) {
                 resultList.push(prettified[i]);
                 resultIndex++;
                 if(line.includes(("generate-encounter"))){
-                    myFunction(prettified[i]);
+                    addRows(prettified[i]);
+                    rowCount++;
                 }
             }
             output.append("</div>");
+            if(line.includes(("generate-encounter"))){
+                encounter = true;
+            }
         }
         // scroll to bottom
         output.scrollTop(output[0].scrollHeight);
     });
 }
-
-function myFunction(longInfo) {
+function deleteRows(){
+    for(let i = 0; i<rowCount; i++){
+        document.getElementById("myTable").deleteRow(1);
+    }
+    rowCount = 0;
+}
+function addRows(longInfo) {
     var table = document.getElementById("myTable");
     var row = table.insertRow(1);
     var cell1 = row.insertCell(0);

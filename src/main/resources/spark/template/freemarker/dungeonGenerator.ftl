@@ -25,6 +25,8 @@
             <option value="quicksandcave.png">Quicksand Cave</option>
             <option value="foggyforest.png">Foggy Forest</option>
             <option value="tinywoods.png">Tiny Woods</option>
+            <option value="skytower.png">Sky Tower</option>
+            <option value="greatcanyon.png">Great Canyon</option>
             <option value="iceaegis.png">Ice Aegis</option>
             <option value="northerndesert.png">Northern Desert</option>
             <option value="brinecave.png">Brine Cave</option>
@@ -35,10 +37,14 @@
             <option value="thenightmare.png">The Nightmare</option>
         </select> <br/><br/>
 
-        <button id="generateButton">Generate!</button><br/><br/>
+        <button id="generateButton" class="primaryButton">Generate!</button><br/><br/>
 
         <input type="checkbox" id="genTraps" name="genTraps" value="true">
-        <label for="genTraps">Generate traps</label>
+        <label for="genTraps">Draw traps</label><br/><br/><br/><br/><br/>
+
+        <button id="importButton" class="secondaryButton">Import</button><br/>
+        <button id="exportButton" class="secondaryButton">Export</button>
+        <div id="exportMessage">Copied to clipboard!</div>
     </div>
 
 
