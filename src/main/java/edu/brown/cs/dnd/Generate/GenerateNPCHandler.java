@@ -240,7 +240,7 @@ public class GenerateNPCHandler implements Handler {
            m.setBackground(value);
            break;
          default:
-           throw new InvalidInputException("Flag not valid");
+           throw new InvalidInputException("ERROR: Flag not valid");
        }
       }
 

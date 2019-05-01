@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="css/html5bp.css">
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/tooltip.css">
+    <link rel="stylesheet" href="css/encounter.css"
   </head>
   <body>
 

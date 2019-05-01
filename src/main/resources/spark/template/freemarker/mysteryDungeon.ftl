@@ -4,6 +4,20 @@
         </div>
         <div id="drawer">
         </div>
+        <div id="window" contenteditable = "true">
+        <input type="button" id="toggle" value = "+">
+            <div id="title_bar">
+            </div>
+            <div id="box" contenteditable = "true">    
+                <table id="myTable" style="width:100%">
+                    <tr id = 'header'>
+                        <th>Name</th>
+                        <th>Initiative</th> 
+                        <th>Armor Class</th>
+                        <th>Health</th>
+                    </tr>
+                </table>    
+            </div> 
     </div>
 
     <input type="text" id="console">

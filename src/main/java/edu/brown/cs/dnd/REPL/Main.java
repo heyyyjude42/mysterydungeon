@@ -9,6 +9,7 @@ import java.util.*;
 import edu.brown.cs.dnd.Data.*;
 import edu.brown.cs.dnd.Dungeon.Dungeon;
 import edu.brown.cs.dnd.Dungeon.Rooms.RoomSize;
+import edu.brown.cs.dnd.Generate.GenerateDungeonHandler;
 import edu.brown.cs.dnd.Generate.GenerateEncounterHandler;
 import edu.brown.cs.dnd.Generate.GenerateNPCHandler;
 import edu.brown.cs.dnd.Roll.RollHandler;
@@ -69,7 +70,8 @@ public final class Main {
         new SearchHandler(),
         new RollHandler(),
         new GenerateNPCHandler(),
-        new GenerateEncounterHandler()
+        new GenerateEncounterHandler(),
+        new GenerateDungeonHandler()
     ));
 
     for (Handler h : handlers) {
