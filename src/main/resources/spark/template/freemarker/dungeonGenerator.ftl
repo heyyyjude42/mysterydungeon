@@ -17,25 +17,28 @@
 
         Terrain <br/>
         <select id="terrainForm">
-            <option value="sidepath">Side Path</option>
-            <option value="forestpath">Forest Path</option>
-            <option value="snowpoint">Snowpoint Pass</option>
-            <option value="desert">Shimmer Desert</option>
-            <option value="bristle">Mt Bristle</option>
-            <option value="qscave">Quicksand Cave</option>
-            <option value="foggyforest">Foggy Forest</option>
-            <option value="meadow">Tiny Meadow</option>
-            <option value="aegis">Ice Aegis</option>
-            <option value="ndesert">Northern Desert</option>
-            <option value="brinecave">Brine Cave</option>
-            <option value="tower">Temporal Tower</option>
-            <option value="concealedruins">Concealed Ruins</option>
-            <option value="steamcave">Steam Cave</option>
-            <option value="mystforest">Mystifying Forest</option>
-            <option value="nightmare">The Nightmare</option>
+            <option value="sidepath.png">Side Path</option>
+            <option value="forestpath.png">Forest Path</option>
+            <option value="snowpointpass.png">Snowpoint Pass</option>
+            <option value="shimmerdesert.png">Shimmer Desert</option>
+            <option value="mtbristle.png">Mt Bristle</option>
+            <option value="quicksandcave.png">Quicksand Cave</option>
+            <option value="foggyforest.png">Foggy Forest</option>
+            <option value="tinywoods.png">Tiny Woods</option>
+            <option value="iceaegis.png">Ice Aegis</option>
+            <option value="northerndesert.png">Northern Desert</option>
+            <option value="brinecave.png">Brine Cave</option>
+            <option value="temporaltower.png">Temporal Tower</option>
+            <option value="concealedruins.png">Concealed Ruins</option>
+            <option value="steamcave.png">Steam Cave</option>
+            <option value="mystifyingforest.png">Mystifying Forest</option>
+            <option value="thenightmare.png">The Nightmare</option>
         </select> <br/><br/>
 
-        <button id="generateButton">Generate!</button>
+        <button id="generateButton">Generate!</button><br/><br/>
+
+        <input type="checkbox" id="genTraps" name="genTraps" value="true">
+        <label for="genTraps">Generate traps</label>
     </div>
 
 

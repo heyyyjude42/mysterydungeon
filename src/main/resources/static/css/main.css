@@ -50,6 +50,21 @@ input[type="text"] {
     outline: none;
 }
 
+table, th, td {
+    border: 1px solid white;
+    border-collapse: collapse;
+  }
+
+#toggle {
+    background: lightblue;
+    border: solid 1px;
+    position: absolute;
+    width: 25px;
+    height: 23px;
+    float: right;
+    cursor: pointer;
+}
+
 #pushSide{
     position: absolute;
     top: 15px;
