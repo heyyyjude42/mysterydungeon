@@ -5,7 +5,13 @@ $(document).ready(() => {
     $("#importButton").on("click", importPressed);
     $("#exportButton").on("click", exportPressed);
     $("#generateButton").on("click", generatePressed);
+
+    $("#terrainForm").on("change", terrainChanged);
 });
+
+function terrainChanged() {
+    drawDungeon();
+}
 
 function importPressed() {
     const val = prompt("Paste dungeon object here:");

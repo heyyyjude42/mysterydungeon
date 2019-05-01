@@ -8,13 +8,13 @@
 }
 
 #title_bar {
-    background: purple;
-    border: 1px solid #8FC0A9;
+    background: transparent;
+    /*border: 1px solid #8FC0A9;*/
     height: 25px;
     width: 100%;
 }
 
 #box {
     height: 250px;
-    background: #000000;
+    /*background: #000000;*/
 }

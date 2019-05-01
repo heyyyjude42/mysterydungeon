@@ -40,7 +40,7 @@
         <button id="generateButton" class="primaryButton">Generate!</button><br/><br/>
 
         <input type="checkbox" id="genTraps" name="genTraps" value="true">
-        <label for="genTraps">Generate traps</label><br/><br/><br/><br/><br/>
+        <label for="genTraps">Draw traps</label><br/><br/><br/><br/><br/>
 
         <button id="importButton" class="secondaryButton">Import</button><br/>
         <button id="exportButton" class="secondaryButton">Export</button>
