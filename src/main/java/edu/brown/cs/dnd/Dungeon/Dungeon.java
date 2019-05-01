@@ -446,8 +446,6 @@ public class Dungeon implements IDungeon, QueryResult {
 
     if (x < 0 || y < 0) {return false;}
 
-
-
     for (int i = y; i < y + r.getHeight(); i++) {
       for (int j = x; j < x + r.getWidth(); j++) {
         if (i >= this.height || j >= this.width) {

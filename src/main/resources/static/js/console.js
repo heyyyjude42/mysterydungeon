@@ -126,7 +126,6 @@ function query(line) {
             let sLeng = simplified[0].length;
             let firstLineCut = prettified[0].split("\n");
             let end = prettified[0].substring(firstLineCut[0].length+1);
-            console.log(firstLineCut[0].length);
             output.append("<div class='queryResults'>" + end + "</div>");
             document.getElementById("resultIndex").setAttribute("id", simplified[0]);
             resultIDList.push(simplified[0]);
@@ -144,7 +143,7 @@ function query(line) {
                 resultList.push(prettified[i]);
                 resultIndex++;
                 if(line.includes(("generate-encounter"))){
-                    addRows(prettified[i]);
+                    addRows(responseObject.result.results[i]);
                     rowCount++;
                 }
             }
@@ -157,23 +156,34 @@ function query(line) {
         output.scrollTop(output[0].scrollHeight);
     });
 }
+
 function deleteRows(){
     for(let i = 0; i<rowCount; i++){
         document.getElementById("myTable").deleteRow(1);
     }
     rowCount = 0;
 }
-function addRows(longInfo) {
-    var table = document.getElementById("myTable");
-    var row = table.insertRow(1);
-    var cell1 = row.insertCell(0);
-    var cell2 = row.insertCell(1);
-    var cell3 = row.insertCell(2);
-    var cell4 = row.insertCell(3);
-    let infoArray = longInfo.split("\n");
-    
-    cell1.innerHTML = infoArray[0];
-    cell2.innerHTML = "Initiative X";
-    cell3.innerHTML = infoArray[3].substring(13);
-    cell4.innerHTML = infoArray[4].substring(12);
+
+function addRows(monster) {
+    const table = document.getElementById("myTable");
+    const row = table.insertRow(1);
+    const cell1 = row.insertCell(0);
+    const cell2 = row.insertCell(1);
+    const cell3 = row.insertCell(2);
+    const cell4 = row.insertCell(3);
+
+    const initMod = Math.floor(monster.dex / 2) - 5;
+    const postParameters = { input: "roll 1d20 + " + initMod };
+    if (initMod < 0) {
+        postParameters.input = "roll 1d20 " + initMod;
+    }
+
+    $.post("/query", postParameters, responseJSON => {
+        const responseObject = JSON.parse(responseJSON);
+        cell2.innerHTML = responseObject.prettified[0].split(" ")[1];
+    });
+
+    cell1.innerHTML = monster.name;
+    cell3.innerHTML = monster.ac;
+    cell4.innerHTML = monster.hp;
   }
