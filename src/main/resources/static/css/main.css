@@ -51,34 +51,35 @@ input[type="text"] {
 }
 
 table, th, td {
-    border: 1px solid white;
+    padding: 3px 5px;
+    outline: none;
+}
+
+table {
     border-collapse: collapse;
-  }
+    border-style: hidden;
+}
+
+table td, table th {
+    border: 1px solid #8b8fa5;
+}
 
 #toggle {
     background: #8FC0A9;
     border-radius: 3px;
-    border: solid 1px;
+    border: solid 1px #8FC0A9;
     position: absolute;
-    width: 25px;
+    right: 0;
     height: 23px;
     float: right;
     cursor: pointer;
+    outline: none;
+    font-family: "Average Sans", sans-serif;
+    font-size: 13px;
+    color: #18191E;
 }
 
 #dungeonButton {
-    position: fixed;
-    right:60px;
-    bottom: 150px;
-    border: 1px solid #8FC0A9;
-    border-radius: 3px;
-    color: #8FC0A9;
-    padding: 7px 10px;
-    font-family: "Average Sans", sans-serif;
-    font-size: 15px;
-}
-
-#pushSide{
     position: absolute;
     top: 15px;
     right: 15px;
@@ -93,6 +94,23 @@ table, th, td {
     letter-spacing: 0.7px;
 }
 
+#pushSide {
+    display: none;
+}
+
+#dungeonButton:hover {
+    background: #363e42;
+}
+
+#dungeonButton a:visited {
+    color: #8FC0A9;
+}
+
+#dungeonButton a {
+    text-decoration: none;
+    outline: none;
+}
+
 #drawer {
     position: absolute;
     right: 10px;
@@ -101,6 +119,7 @@ table, th, td {
     /*border: 3px solid #73AD21;*/
     height: 80%;
     overflow-y: scroll;
+    outline: none;
 }
 
 #drawer li {
