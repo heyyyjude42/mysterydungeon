@@ -66,9 +66,11 @@ function clickFun(id) {
     let note = $("<li>" + id + "</li>");
     //Set up delete button.
     let button = document.createElement("button");
+    button.setAttribute("class", "delBut");
     button.innerHTML = "X";
     //Set up minimize/maximize button.
     let minButton = document.createElement("button");
+    minButton.setAttribute("class", "minBut");
     minButton.innerHTML = "▼";
     stickyNotes.append(minButton);
     stickyNotes.append(button);
