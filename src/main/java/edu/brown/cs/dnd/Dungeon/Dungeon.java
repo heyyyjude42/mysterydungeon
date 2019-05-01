@@ -22,7 +22,7 @@ public class Dungeon implements IDungeon, QueryResult {
   private int height;
   private Random rand;
 
-  private static final int TOLERANCE = 100;
+  private static final int TOLERANCE = 200;
   private static final double MAIN_ROOM_FACTOR = 1.25;
   private static final int RAND_ROOM_LEVEL = 50;
 
