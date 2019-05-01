@@ -88,6 +88,34 @@ table td, table th {
     color: #18191E;
 }
 
+.delBut {
+    background: #8FC0A9;
+    border-radius: 3px;
+    border: solid 1px #8FC0A9;
+    position: absolute;
+    right: 0;
+    height: 23px;
+    float: right;
+    cursor: pointer;
+    outline: none;
+    font-family: "Average Sans", sans-serif;
+    font-size: 13px;
+    color: #18191E;
+}
+.minBut {
+    background: #8FC0A9;
+    border-radius: 3px;
+    border: solid 1px #8FC0A9;
+    position: absolute;
+    right: 20px;
+    height: 23px;
+    float: right;
+    cursor: pointer;
+    outline: none;
+    font-family: "Average Sans", sans-serif;
+    font-size: 13px;
+    color: #18191E;
+}
 #dungeonButton {
     position: absolute;
     top: 15px;
