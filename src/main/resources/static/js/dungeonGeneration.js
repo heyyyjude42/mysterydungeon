@@ -58,9 +58,6 @@ function drawTraps(rooms) {
                 y: room.topLeftCorner.y - trap.position.y
             };
 
-            console.log(pos);
-            console.log(room);
-
             drawTrap(trap, pos);
         });
     });
@@ -71,7 +68,10 @@ function drawTrap(trap, pos) {
     const top = pos.y * 24;
     const left = pos.x * 24;
 
-    let tooltipText = "x: " + pos.x + " y: " + pos.y + " x-offset: " + trap.position.x + " y-offset: " + trap.position.y;
+    let tooltipText = "Detection DC: " + trap.detectionDC + "<br/>";
+    tooltipText += "Disarm DC: " + trap.disableDC + "<br/>";
+    tooltipText += "Save DC: " + trap.saveDC + "<br/>";
+    tooltipText += "Damage: " + trap.damage;
 
     let trapHTML = "<div class='tooltip' style='position:absolute;top:" + top + "px;left:" + left + "px;'>" + "<div class='displayText' style='border-bottom:0;'>";
     trapHTML += "<div class='trap'></div>";
@@ -122,7 +122,6 @@ function getRowHTML(neighborsData) {
 
     neighborsData.forEach(n => {
         const cssStyle = existingTileStyles[neighborsToCssClass(n)];
-        console.log(cssStyle);
         rowHTML += "<div class='tile' style=\"" + cssStyle + "\"/>";
     });
 
@@ -144,7 +143,7 @@ function populateExistingTiles(terrain) {
         const tileStyleName = sheet.cssRules[i].selectorText.split(".")[1];
         let tileStyle = sheet.cssRules[i].cssText;
         tileStyle = tileStyle.split("{ ")[1].split(" }")[0];
-        //tileStyle = tileStyle.replace("background:", "background: url('https://www.spriters-resource.com/resources/sheets/82/85135.png')");
+        //tileStyle = tileStyle.replace("background:", "background: url('https://www.spriters-resource.com/resources/sheets/82/84825.png')");
         tileStyle = tileStyle.replace("background:", "background: url('css/spritepacks\/" + terrain + "')");
         existingTileStyles[tileStyleName] = tileStyle;
     }

@@ -25,6 +25,8 @@
             <option value="quicksandcave.png">Quicksand Cave</option>
             <option value="foggyforest.png">Foggy Forest</option>
             <option value="tinywoods.png">Tiny Woods</option>
+            <option value="skytower.png">Sky Tower</option>
+            <option value="greatcanyon.png">Great Canyon</option>
             <option value="iceaegis.png">Ice Aegis</option>
             <option value="northerndesert.png">Northern Desert</option>
             <option value="brinecave.png">Brine Cave</option>
