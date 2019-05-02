@@ -1,10 +1,20 @@
 package edu.brown.cs.dnd.Dungeon.Graph;
 
+/**
+ * Class representing an endirected edge.
+ * @param <T>   The parameterized type of the undirected edge
+ */
 public class UndirectedEdge<T> implements Comparable<UndirectedEdge<T>> {
   private T v1;
   private T v2;
   private Double weight;
 
+  /**
+   * A Constructor for an UndirectedEdge.
+   * @param t1    An element that is the first vertex of the edge
+   * @param t2    An element that is the second vertex of the edge
+   * @param weight    A double that is the weight of the edge
+   */
   public UndirectedEdge(T t1, T t2, double weight) {
     this.v1 = t1;
     this.v2 = t2;
@@ -46,17 +56,25 @@ public class UndirectedEdge<T> implements Comparable<UndirectedEdge<T>> {
 
   @Override
   public String toString() {
-    return "UndirectedEdge{" +
-            "v1=" + v1 +
-            ", v2=" + v2 +
-            ", weight=" + weight +
-            "}\n";
+    return "Undirected Edge {" +
+            "v1 = " + v1 +
+            ", v2 = " + v2 +
+            ", weight = " + weight +
+            "}";
   }
 
+  /**
+   * Method gets the first vertex of the edge.
+   * @return    An element that is the first vertex of the edge
+   */
   public T getV1() {
     return v1;
   }
 
+  /**
+   * Method gets the second vertex of the edge.
+   * @return    An element that is the second vertex of the edge
+   */
   public T getV2() {
     return v2;
   }
