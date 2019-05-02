@@ -8,8 +8,8 @@ public class Randomizer {
   /**
    * Method generates a random number between a specified min and max,
    * inclusive.
-   * @param min   An int that is the min of the range
-   * @param max   An int that is the max of the range
+   * @param min   An int that is the min of the range, inclusive
+   * @param max   An int that is the max of the range, inclusive
    * @return    An int that is the generated random number
    */
   public static int generate(int min,int max)

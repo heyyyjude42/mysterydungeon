@@ -73,7 +73,6 @@ public class Dungeon implements IDungeon, QueryResult {
     }
   }
 
-
   /**
    * Method filters out the smaller rooms of the dungeon, while keeping
    * a fraction of the discarded rooms.
@@ -114,7 +113,6 @@ public class Dungeon implements IDungeon, QueryResult {
       Collection<Path> toAdd = getPathFromEdge(e);
       rooms.addAll(toAdd);
     }
-
   }
 
   private void fillAllRooms() {
@@ -268,7 +266,6 @@ public class Dungeon implements IDungeon, QueryResult {
 
     return result;
   }
-
 
   /**
    * Method generates a two-segment path that connects two rooms, with the

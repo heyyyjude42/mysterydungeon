@@ -1,5 +1,8 @@
 package edu.brown.cs.dnd.Data;
 
+/**
+ * Enum representing comparator results.
+ */
 public enum Comparator {
   IS,
   LESS_THAN,

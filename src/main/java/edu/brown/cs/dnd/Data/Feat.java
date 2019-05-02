@@ -1,5 +1,8 @@
 package edu.brown.cs.dnd.Data;
 
+/**
+ * Class representing a Feat in D&D.
+ */
 public class Feat implements QueryResult {
   private String name;
   private String desc;
@@ -9,7 +12,12 @@ public class Feat implements QueryResult {
 
   }
 
-  public Feat(String name, String desc) {
+  /**
+   * A Constructor for a Feat.
+   * @param name    A String that is the feat's name
+   * @param desc    A String that is the desc. of the feat
+   */
+  Feat(String name, String desc) {
     this.name = name;
     this.desc = desc;
   }
@@ -20,16 +28,10 @@ public class Feat implements QueryResult {
   }
 
   @Override
-  public String simplify() {
-    return this.name;
-  }
+  public String simplify() {return this.name;}
 
-  public String getDesc() {
-    return desc;
-  }
+  public String getDesc() {return desc;}
 
-  public String getName() {
-    return name;
-  }
+  public String getName() {return name;}
 
 }

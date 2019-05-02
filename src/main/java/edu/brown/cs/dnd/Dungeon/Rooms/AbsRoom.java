@@ -19,7 +19,12 @@ public abstract class AbsRoom {
 
   private static final int TRAP_FREQ_RATIO = 100;
 
-
+  /**
+   * A Constructor for an AbsRoom.
+   * @param width   An int that is the width of the room
+   * @param height    An int that is the height of the room
+   * @param loc   A Location that is the top-left corner of the room
+   */
   public AbsRoom(int width, int height, Location loc) {
     this.width = width;
     this.height = height;
@@ -28,10 +33,20 @@ public abstract class AbsRoom {
     this.addTraps(5);
   }
 
+  /**
+   * Method finds the distance between two rooms.
+   * @param that    An AbsRoom that is the room to find the distance to
+   * @return    A double that is the distance between the two roomss
+   */
   public double distanceTo(AbsRoom that) {
     return this.getMidpoint().distanceTo(that.getMidpoint());
   }
 
+  /**
+   * Method finds a dynamic midpoint of the room.
+   * @return    A Location that is the midpoint of the room extended upwards,
+   * to result in a more stretched and dynamic mst
+   */
   public Location getMidpoint() {
     int midX = Math.round((float) (this.topLeftCorner.getX() + .5 * this.width));
     int midY = Math.round((float) (this.topLeftCorner.getY() + .5 * this.height));
@@ -42,10 +57,14 @@ public abstract class AbsRoom {
    * Adds the provided element to this rooms elements.
    * @param toAdd - the RoomElement to add.
    */
-  protected void addElement(RoomElement toAdd) {
+  private void addElement(RoomElement toAdd) {
     this.elements.add(toAdd);
   }
 
+  /**
+   * Method finds the area of the room.
+   * @return    An int that is the area of the room
+   */
   public int getArea() {return width * height; }
 
   /**
@@ -106,7 +125,7 @@ public abstract class AbsRoom {
    * Adds traps to this room.
    * @param level - the level of the traps.
    */
-  protected void addTraps(int level) {
+  private void addTraps(int level) {
     Random rand = new Random();
     for (int r = 0; r < this.getHeight(); r++) {
       for (int c = 0; c < this.getWidth(); c++) {
@@ -136,11 +155,11 @@ public abstract class AbsRoom {
 
   @Override
   public String toString() {
-    return "AbsRoom{" +
-            "topLeftCorner=" + topLeftCorner +
-            ", width=" + width +
-            ", height=" + height +
-            ", elements=" + elements +
+    return "AbsRoom {" +
+            "topLeftCorner = " + topLeftCorner +
+            ", width = " + width +
+            ", height = " + height +
+            ", elements = " + elements +
             '}';
   }
 }
