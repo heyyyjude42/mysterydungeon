@@ -11,10 +11,13 @@ import java.util.List;
  * Class that handles REPL queries involving search.
  */
 public class SearchHandler implements Handler {
-  private String OPTIONS_START = "\\|";
-  private String OPTIONS_DELIMITER = ",";
-  private String OPTIONS_NAME_BREAK = ":";
+  private static final String OPTIONS_START = "\\|";
+  private static final String OPTIONS_DELIMITER = ",";
+  private static final String OPTIONS_NAME_BREAK = ":";
 
+  /**
+   * A Constructor for a SearchHandler.
+   */
   public SearchHandler() {
     Database.load("data/srd.db");
   }
@@ -29,6 +32,9 @@ public class SearchHandler implements Handler {
     handler.register("s", new SearchCommand());
   }
 
+  /**
+   * Class representing the search command in the REPL.
+   */
   private class SearchCommand implements Command {
     @Override
     public Result run(String[] args) throws CommandFailedException {
@@ -68,7 +74,7 @@ public class SearchHandler implements Handler {
           // should have at least two things in it
           if (delimited.length >= 2) {
             String columnName = delimited[0].replace(" ", "");
-            String[] restrictions = delimited[1].substring(1).split(" "); // whitespace
+            String[] restrictions = delimited[1].substring(1).split(" ");
 
             if (restrictions.length == 1) {
               // this is an equality comparison, such as level: 3
@@ -105,7 +111,8 @@ public class SearchHandler implements Handler {
       }
     }
 
-    private Result searchByOperators(String query, List<SearchOperator> ops) throws CommandFailedException {
+    private Result searchByOperators(String query, List<SearchOperator> ops)
+            throws CommandFailedException {
       String[] preOptions = query.split(OPTIONS_START)[0].split(" ");
 
       if (preOptions.length < 2) {

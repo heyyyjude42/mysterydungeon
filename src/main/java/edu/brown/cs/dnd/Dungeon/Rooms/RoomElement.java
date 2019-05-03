@@ -8,11 +8,11 @@ import edu.brown.cs.dnd.Data.Location;
 public abstract class RoomElement {
 
   // A relative location to the room
-  protected Location coordinate;
+  private Location coordinate;
 
   /**
    * A constructor for a RoomElement.
    */
-  public RoomElement() {
+  protected RoomElement() {
   }
 }

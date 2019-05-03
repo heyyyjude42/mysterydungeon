@@ -1,0 +1,5 @@
+INPUT
+generate-npc 1234 1234
+OUTPUT
+ERROR:
+END

@@ -1,0 +1,5 @@
+INPUT
+generate-dungeon 100 100 small
+OUTPUT
+NO_ERROR
+END

@@ -23,7 +23,9 @@ public class UndirectedEdge<T> implements Comparable<UndirectedEdge<T>> {
 
   @Override
   public int hashCode() {
-    return 7 * v1.hashCode() + 7 * v2.hashCode() + 17 * weight.hashCode();
+    final int p1 = 7;
+    final int p2 = 17;
+    return p1 * v1.hashCode() + p1 * v2.hashCode() + p2 * weight.hashCode();
   }
 
   @Override
@@ -56,11 +58,12 @@ public class UndirectedEdge<T> implements Comparable<UndirectedEdge<T>> {
 
   @Override
   public String toString() {
-    return "Undirected Edge {" +
-            "v1 = " + v1 +
-            ", v2 = " + v2 +
-            ", weight = " + weight +
-            "}";
+    return "Undirected Edge {"
+            + "v1 = "
+            + v1
+            + ", v2 = " + v2
+            + ", weight = " + weight
+            + "}";
   }
 
   /**

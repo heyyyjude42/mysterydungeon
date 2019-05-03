@@ -2,7 +2,10 @@ package edu.brown.cs.dnd.Generate;
 
 import edu.brown.cs.dnd.Data.QueryResult;
 import edu.brown.cs.dnd.Data.ReturnType;
-import edu.brown.cs.dnd.REPL.*;
+import edu.brown.cs.dnd.REPL.Command;
+import edu.brown.cs.dnd.REPL.Handler;
+import edu.brown.cs.dnd.REPL.CommandHandler;
+import edu.brown.cs.dnd.REPL.InvalidInputException;
 import edu.brown.cs.dnd.Data.Result;
 import edu.brown.cs.dnd.Dungeon.Dungeon;
 import edu.brown.cs.dnd.Dungeon.Rooms.RoomSize;
@@ -16,7 +19,7 @@ import java.util.ArrayList;
  */
 public class GenerateDungeonHandler implements Handler {
 
-  private String ARGS_ERROR_MESSAGE = "ERROR: Invalid args";
+  private static final String ARGS_ERROR_MESSAGE = "ERROR: Invalid args";
 
   @Override
   public void registerCommands(CommandHandler handler) {
@@ -66,7 +69,7 @@ public class GenerateDungeonHandler implements Handler {
                                     int dungeonHeight,
                                     String avgRoomSize)
             throws InvalidInputException {
-      if (dungeonWidth < 0 || dungeonHeight < 0
+      if (dungeonWidth <= 0 || dungeonHeight <= 0
               || (!avgRoomSize.equals("small")
               && !avgRoomSize.equals("medium")
               && !avgRoomSize.equals("large"))) {

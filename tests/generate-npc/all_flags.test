@@ -1,0 +1,5 @@
+INPUT
+generate-npc alignment: Evil name: Bob type: Humanoid size: Large
+OUTPUT
+NO_ERROR
+END

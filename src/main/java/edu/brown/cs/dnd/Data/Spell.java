@@ -18,7 +18,9 @@ public class Spell implements QueryResult {
   private String description;
   private String classes;
 
-  // empty constructor for GSON serialization
+  /**
+   * An empty constructor for a spell for GSON serialization.
+   */
   public Spell() {
 
   }
@@ -40,7 +42,7 @@ public class Spell implements QueryResult {
    * @param description   A String that is the description of the spell
    * @param classes   A String that are the classes of the spell
    */
-  public Spell(String name, String school, int level, boolean ritual,
+  Spell(String name, String school, int level, boolean ritual,
                String range, String castingTime, boolean verbal,
                boolean somatic, boolean concentration, String materials,
                String duration, String description, String classes) {
@@ -138,7 +140,7 @@ public class Spell implements QueryResult {
    * Method gets the range of the spell.
    * @return    A String that is the range of the spell
    */
-  public String getRange() {
+  String getRange() {
     return range;
   }
 
@@ -146,7 +148,7 @@ public class Spell implements QueryResult {
    * Method gets the casting time of the spell.
    * @return    A String that is the casting time of the spell
    */
-  public String getCastingTime() {
+  String getCastingTime() {
     return castingTime;
   }
 

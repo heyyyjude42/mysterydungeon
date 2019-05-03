@@ -48,8 +48,11 @@ public abstract class AbsRoom {
    * to result in a more stretched and dynamic mst
    */
   public Location getMidpoint() {
-    int midX = Math.round((float) (this.topLeftCorner.getX() + .5 * this.width));
-    int midY = Math.round((float) (this.topLeftCorner.getY() + .5 * this.height));
+    final double half = .5;
+    int midX = Math.round((float) (this.topLeftCorner.getX()
+            + half * this.width));
+    int midY = Math.round((float) (this.topLeftCorner.getY()
+            + half * this.height));
     return new Location(midX, midY);
   }
 
@@ -65,7 +68,9 @@ public abstract class AbsRoom {
    * Method finds the area of the room.
    * @return    An int that is the area of the room
    */
-  public int getArea() {return width * height; }
+  public int getArea() {
+    return width * height;
+  }
 
   /**
    * Method gets the width of the room.
@@ -140,12 +145,16 @@ public abstract class AbsRoom {
 
   @Override
   public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
     AbsRoom absRoom = (AbsRoom) o;
-    return width == absRoom.width &&
-            height == absRoom.height &&
-            Objects.equals(topLeftCorner, absRoom.topLeftCorner);
+    return width == absRoom.width
+            && height == absRoom.height
+            && Objects.equals(topLeftCorner, absRoom.topLeftCorner);
   }
 
   @Override
@@ -155,11 +164,11 @@ public abstract class AbsRoom {
 
   @Override
   public String toString() {
-    return "AbsRoom {" +
-            "topLeftCorner = " + topLeftCorner +
-            ", width = " + width +
-            ", height = " + height +
-            ", elements = " + elements +
-            '}';
+    return "AbsRoom {"
+            + "topLeftCorner = " + topLeftCorner
+            + ", width = " + width
+            + ", height = " + height
+            + ", elements = " + elements
+            + '}';
   }
 }

@@ -4,8 +4,16 @@ package edu.brown.cs.dnd.Data;
  * Takes in an input like "class" and converts it to what the actual SQL
  * column name is called, which would be "classes".
  */
-public class ColumnConverter {
-  public static String convert(String column) {
+final class ColumnConverter {
+
+  /**
+   * A Default Constructor for a ColumnConverter.
+   */
+  private ColumnConverter() {
+
+  }
+
+  static String convert(String column) {
     switch (column.toLowerCase().replace("_", "")) {
       case "class":
         return "classes";
