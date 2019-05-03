@@ -1,18 +1,29 @@
 // Waits for DOM to load before running
 const output = $("#output");
 
+//Trackers for the Sticky notes.
 let resultIndex = 0;
 const resultList = [];
 const simpToPretty = new Map();
 let resultIDList = [];
 const stickyNotes = $("#drawer");
 let lastLine = "";
+
+//Trackers for Encounter Manager.
 let encounter = false;
 let rowCount = 0;
 
+/**
+ * Setup these variables for user interaction on the landing page.
+ * $userInput - On document ready setup the console reader
+ * toggle - Toggle button for encounter manager.
+ * drawerHandle - Sticky notes functionality.
+ */
 $(document).ready(() => {
     const $userInput = $("#console");
 
+    //Check to see if user hits enter or up arrow key.
+    //If enter, then query.
     $userInput.keydown((e) => {
         switch (e.keyCode) {
             case 13:
@@ -25,6 +36,8 @@ $(document).ready(() => {
                 break;
         }
     });
+    
+    //Hide the toggleable Battle Manager
     $("#box").slideToggle();
     const toggle = $('#toggle');
     toggle.click(() => {
@@ -59,10 +72,9 @@ function clickFun(id) {
     console.log("Clicking on list text works.");
 
     //Find the relevant text that is spit out by prettified.
-    //let x = document.getElementById(id + " ID");
     let expand = simpToPretty.get(id);
 
-    //let holder = x.innerHTML;
+    //Id is the minimized text version
     let note = $("<li>" + id + "</li>");
     //Set up delete button.
     let button = document.createElement("button");
@@ -72,10 +84,12 @@ function clickFun(id) {
     let minButton = document.createElement("button");
     minButton.setAttribute("class", "minBut");
     minButton.innerHTML = "▼";
+    //Add the buttons for each sticky.
     stickyNotes.append(minButton);
     stickyNotes.append(button);
     stickyNotes.append(note);
     let minimized = true;
+    //Button functions.
     minButton.addEventListener("click", function () {
         if (minimized) {
             minButton.innerHTML = "▲"
@@ -95,21 +109,33 @@ function clickFun(id) {
 
 }
 
+/**
+ * Deleting from the drawer.
+ * @param {*} removeTag 
+ *  The sticky to be removed.
+ */
 function deleteEntry(removeTag) {
     console.log("Remove is triggered.")
     removeTag.remove();
 }
 
+/**
+ * Method to query the backend for the repl searches.
+ * @param {*} line 
+ *  The lin
+ */
 function query(line) {
     const postParameters = {input: line};
     resultIndex = 0;
     resultIDList = [];
+    //Clear the encounter table if you're making another one.
     if(line.includes(("generate-encounter"))){
         if(encounter){
             deleteRows();
         }
     }
     output.append("<div class='query'>" + line + "</div>");
+
     $.post("/query", postParameters, responseJSON => {
         const responseObject = JSON.parse(responseJSON);
         const result = responseObject.result.results; // this gets the actual data properties
@@ -119,24 +145,22 @@ function query(line) {
         // if there's only one result, display the whole thing. Otherwise, display a shortened list.
         if (result.length === 1) {
             if(line.includes("/help")){
+                //Filter for the angle brackets, and replace them.
                 while(simplified[0].includes("<")){
                    simplified[0] = simplified[0].replace("<", "&lt;");
                    simplified[0] = simplified[0].replace(">", "&gt;");
                 }
+                //Display the help response.
                 let shortcut = "<div class='displayText'>" + simplified[0] + "</div>";
                 output.append(shortcut);
-                
-                console.log(prettified[0]);
             }else{
-                console.log(simplified[0]);
-                console.log(prettified[0]);
+                //Display the clickable sticky.
                 let shortcut = "<div class='displayText' id='resultIndex' onclick='clickFun(id)'>" + simplified[0] + "</div>";
                 output.append(shortcut);
-            // TODO: make this custom for each data type later
                 simpToPretty.set(simplified[0], prettified[0]);
-            //console.log(prettified[0]);
                 let firstLineCut = prettified[0].split("\n");
                 let end = prettified[0].substring(firstLineCut[0].length+1);
+                //Generate dungeon has whitespace that will be simplified away, so we use <pre>
                 if(line.includes("generate-dungeon")){
                     output.append("<div class='queryResults'><pre>" + end + "</pre></div>"); 
                 }else{
@@ -166,6 +190,7 @@ function query(line) {
                 }
             }
             output.append("</div>");
+            //Setup the flag for clearing out the table after an encounter is made.
             if(line.includes(("generate-encounter"))){
                 encounter = true;
             }
@@ -175,6 +200,9 @@ function query(line) {
     });
 }
 
+/**
+ * Method for deleting rows from the battle manager.
+ */
 function deleteRows(){
     for(let i = 0; i<rowCount; i++){
         document.getElementById("myTable").deleteRow(1);
@@ -182,6 +210,11 @@ function deleteRows(){
     rowCount = 0;
 }
 
+/**
+ * Method to add rows to the battle manager.
+ * @param {*} monster 
+ *  Information to be added to each row in the encounter manager.
+ */
 function addRows(monster) {
     const table = document.getElementById("myTable");
     const row = table.insertRow(1);
