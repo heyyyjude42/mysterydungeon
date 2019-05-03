@@ -1,6 +1,5 @@
 package edu.brown.cs.dnd.Data;
 
-import java.util.Collection;
 import java.util.Random;
 
 /**

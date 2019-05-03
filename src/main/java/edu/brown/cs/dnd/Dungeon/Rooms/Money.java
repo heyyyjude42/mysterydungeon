@@ -1,13 +1,10 @@
 package edu.brown.cs.dnd.Dungeon.Rooms;
 
 import edu.brown.cs.dnd.RandomTools.NormalDistribution;
-import edu.brown.cs.dnd.RandomTools.Randomizer;
-
 import java.util.Objects;
-import java.util.Random;
 
 /**
- * A class for representing currency in D&D
+ * A class for representing currency in DnD.
  */
 public class Money implements ILootElement {
   // The amount of copper coins in this Money.
@@ -46,7 +43,8 @@ public class Money implements ILootElement {
    * @return - a money.
    */
   public static Money randomMoney() {
-    NormalDistribution n = new NormalDistribution(RANDOM_MONEY_MEAN, RANDOM_MONEY_STD_DEV);
+    NormalDistribution n = new NormalDistribution(RANDOM_MONEY_MEAN,
+            RANDOM_MONEY_STD_DEV);
     int amountCopper = (int) Math.ceil(Math.abs(n.draw()));
     int plat = Math.floorDiv(amountCopper, COPPER_TO_PLAT);
     amountCopper -= plat * COPPER_TO_PLAT;
@@ -60,23 +58,27 @@ public class Money implements ILootElement {
 
   @Override
   public String toString() {
-    return "Money{" +
-            "copper=" + copper +
-            ", silver=" + silver +
-            ", gold=" + gold +
-            ", platinum=" + platinum +
-            '}';
+    return "Money{"
+            + "copper=" + copper
+            + ", silver=" + silver
+            + ", gold=" + gold
+            + ", platinum=" + platinum
+            + '}';
   }
 
   @Override
   public boolean equals(Object o) {
-    if (this == o) return true;
-    if (!(o instanceof Money)) return false;
+    if (this == o) {
+      return true;
+    }
+    if (!(o instanceof Money)) {
+      return false;
+    }
     Money money = (Money) o;
-    return copper == money.copper &&
-            silver == money.silver &&
-            gold == money.gold &&
-            platinum == money.platinum;
+    return copper == money.copper
+            && silver == money.silver
+            && gold == money.gold
+            && platinum == money.platinum;
   }
 
   @Override

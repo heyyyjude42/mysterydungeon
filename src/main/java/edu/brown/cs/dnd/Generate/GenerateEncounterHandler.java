@@ -1,4 +1,3 @@
-
 package edu.brown.cs.dnd.Generate;
 
 import edu.brown.cs.dnd.Data.Database;
