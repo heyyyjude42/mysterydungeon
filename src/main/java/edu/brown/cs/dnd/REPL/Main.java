@@ -69,6 +69,7 @@ public final class Main {
     List<Handler> handlers = new ArrayList<>(Arrays.asList(
         new SearchHandler(),
         new RollHandler(),
+        new HelpHandler(),
         new GenerateNPCHandler(),
         new GenerateEncounterHandler(),
         new GenerateDungeonHandler()
