@@ -137,7 +137,11 @@ function query(line) {
             //console.log(prettified[0]);
                 let firstLineCut = prettified[0].split("\n");
                 let end = prettified[0].substring(firstLineCut[0].length+1);
-                output.append("<div class='queryResults'><pre>" + end + "</pre></div>");
+                if(line.includes("generate-dungeon")){
+                    output.append("<div class='queryResults'><pre>" + end + "</pre></div>"); 
+                }else{
+                    output.append("<div class='queryResults'>" + end + "</div>");
+                }
                 document.getElementById("resultIndex").setAttribute("id", simplified[0]);
                 resultIDList.push(simplified[0]);
                 resultList.push(prettified[0]);
