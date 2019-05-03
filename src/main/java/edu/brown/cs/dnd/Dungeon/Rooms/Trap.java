@@ -23,7 +23,7 @@ public class Trap extends RoomElement {
 
   // Some parameters for random trap generation.
   private static final int TRAP_DC_MEAN = 10;
-  private static final int TRAP_DC_STD_DEV= 2;
+  private static final int TRAP_DC_STD_DEV = 2;
   private static final int TRAP_DAM_MEAN = 1;
   private static final int TRAP_DAM_STD_DEV = 2;
 
@@ -84,8 +84,10 @@ public class Trap extends RoomElement {
    * @return - A random trap with the provided challenge rating.
    */
   static Trap randomTrap(int level, Location position) {
-    NormalDistribution nDC = new NormalDistribution(TRAP_DC_MEAN, TRAP_DC_STD_DEV);
-    NormalDistribution nDam = new NormalDistribution(TRAP_DAM_MEAN,  TRAP_DAM_STD_DEV);
+    NormalDistribution nDC = new NormalDistribution(TRAP_DC_MEAN,
+            TRAP_DC_STD_DEV);
+    NormalDistribution nDam = new NormalDistribution(TRAP_DAM_MEAN,
+            TRAP_DAM_STD_DEV);
     int detectionDC = (int) Math.ceil(Math.abs(nDC.draw()));
     int disableDC = (int) Math.ceil(Math.abs(nDC.draw()));
     int saveDC = (int) Math.ceil(Math.abs(nDC.draw()));
@@ -120,12 +122,12 @@ public class Trap extends RoomElement {
 
   @Override
   public String toString() {
-    return "Trap{" +
-            "detectionDC=" + detectionDC +
-            ", disableDC=" + disableDC +
-            ", saveDC=" + saveDC +
-            ", damage='" + damage + '\'' +
-            ", position=" + position +
-            '}';
+    return "Trap{"
+            + "detectionDC=" + detectionDC
+            + ", disableDC=" + disableDC
+            + ", saveDC=" + saveDC
+            + ", damage='" + damage + '\''
+            + ", position=" + position
+            + '}';
   }
 }
