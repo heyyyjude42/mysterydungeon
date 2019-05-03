@@ -60,8 +60,16 @@ public abstract class AbsRoom {
    * Adds the provided element to this rooms elements.
    * @param toAdd - the RoomElement to add.
    */
-  private void addElement(RoomElement toAdd) {
+  protected void addElement(RoomElement toAdd) {
     this.elements.add(toAdd);
+  }
+
+  /**
+   * Get the room elements.
+   * @return - the elements.
+   */
+  public List<RoomElement> getElements() {
+    return elements;
   }
 
   /**
@@ -141,7 +149,7 @@ public abstract class AbsRoom {
         }
       }
     }
-  };
+  }
 
   @Override
   public boolean equals(Object o) {

@@ -8,6 +8,8 @@ import java.util.*;
 
 import edu.brown.cs.dnd.Data.*;
 import edu.brown.cs.dnd.Dungeon.Dungeon;
+import edu.brown.cs.dnd.Dungeon.Rooms.AbsRoom;
+import edu.brown.cs.dnd.Dungeon.Rooms.RoomElement;
 import edu.brown.cs.dnd.Dungeon.Rooms.RoomSize;
 import edu.brown.cs.dnd.Generate.GenerateDungeonHandler;
 import edu.brown.cs.dnd.Generate.GenerateEncounterHandler;
@@ -83,7 +85,11 @@ public final class Main {
     repl = new REPL(handler);
     repl.beginParsing();
 //    Dungeon d = new Dungeon(100, 100, RoomSize.MEDIUM);
-//    d.printDungeon();
+//    for (AbsRoom r : d.getRooms()) {
+//      for (RoomElement e : r.getElements()) {
+//        System.out.println(e.toString());
+//      }
+//    }
   }
 
   /**

@@ -3,6 +3,8 @@ package edu.brown.cs.dnd.Dungeon.Rooms;
 import edu.brown.cs.dnd.Data.Location;
 import edu.brown.cs.dnd.RandomTools.NormalDistribution;
 
+import java.util.Random;
+
 /**
  * Class representing a room in the dungeon.
  */
@@ -11,6 +13,8 @@ public class Room extends AbsRoom {
   // Standard Deviation to use when generating rooms in the dungeon
   // based on a normal distribution
   private static final double STD_DEV_RATIO = 1.3;
+  // The frequency of loot in rooms.
+  private static final int LOOT_FREQ_RATIO = 200;
 
   /**
    * A Constructor for a Room.
@@ -20,6 +24,23 @@ public class Room extends AbsRoom {
    */
   public Room(int width, int height, Location loc) {
     super(width, height, loc);
+    this.addLoot();
+  }
+
+  /**
+   * Add random loot to this room.
+   */
+  private void addLoot() {
+    Random rand = new Random();
+    for (int r = 0; r < this.getHeight(); r++) {
+      for (int c = 0; c < this.getWidth(); c++) {
+        int rng = rand.nextInt(LOOT_FREQ_RATIO);
+        if (rng == 0) {
+          Loot l = Loot.randomLoot(new Location(c, r));
+          this.addElement(l);
+        }
+      }
+    }
   }
 
   @Override
