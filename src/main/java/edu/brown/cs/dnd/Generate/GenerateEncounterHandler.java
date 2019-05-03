@@ -15,6 +15,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -42,48 +43,87 @@ public class GenerateEncounterHandler implements Handler {
 
     @Override
     public Result run(String[] args) throws
-            InvalidInputException, CommandFailedException {
+        InvalidInputException, CommandFailedException {
 
       if (args.length != 2) {
-        throw new InvalidInputException("ERROR: Must specify party size");
+        throw new InvalidInputException("ERROR: Must specify the sum of the " +
+            "party's levels.");
       }
 
-      int partySize = 0;
+      int partyLevel = 0;
 
       try {
-        partySize = Integer.parseInt(args[1]);
+        partyLevel = Integer.parseInt(args[1]);
       } catch (NumberFormatException e) {
-        throw new InvalidInputException("ERROR: party size is not a number");
+        throw new InvalidInputException("ERROR: combined party level is not a" +
+            " number");
       }
 
-      List<Monster> encounter = createEncounter(partySize);
+      List<Monster> encounter = createEncounter(partyLevel);
 
       return new Result(ReturnType.ENCOUNTER, encounter);
     }
 
     /**
-     * Method creates an encounter with the size specified by partySize.
-     * @param partySize   An int that is the party size
-     * @return    A List of Monsters that is the encounter with size partySize
+     * Method creates an encounter with the size specified by partyLevel.
+     *
+     * @param partyLevel An int that is the sum of the party's levels.
+     * @return A List of Monsters that is the encounter appropriate for the
+     * level sum.
      */
-    List<Monster> createEncounter(int partySize) throws CommandFailedException {
+    List<Monster> createEncounter(int partyLevel) throws CommandFailedException {
       PreparedStatement prep;
       Connection conn = Database.getConnection();
 
       try {
-        prep = conn.prepareStatement("SELECT * FROM monsters ORDER BY "
-                + "Random() LIMIT ?;");
+        List<Integer> monsterCR = getEncounterMonsterCRs(partyLevel,
+            new ArrayList<>());
+        List<Monster> encounter = new ArrayList<>();
 
-        prep.setInt(1, partySize);
+        for (Integer i : monsterCR) {
+          prep =
+              conn.prepareStatement("SELECT * FROM monsters WHERE cr = "
+                  + i + " ORDER BY " + "Random() LIMIT ?;");
+          prep.setInt(1, i);
 
-        ResultSet rs = prep.executeQuery();
-        List<Monster> encounter = GenerateNPCHandler.extractMonsterResult(rs);
+          ResultSet rs = prep.executeQuery();
+          List<Monster> monster = GenerateNPCHandler.extractMonsterResult(rs);
+          encounter.add(monster.get(0));
+          rs.close();
+        }
 
-        rs.close();
         return encounter;
       } catch (SQLException e) {
+        System.out.println(e.getMessage());
         throw new CommandFailedException("ERROR: Could not create encounter");
       }
+    }
+
+    /**
+     * Divides up a number into a sum of smaller, random numbers.
+     *
+     * @param partyLevel Combined party level of the group.
+     * @param currCR     The current list of CRs to add to.
+     * @return
+     */
+    private List<Integer> getEncounterMonsterCRs(int partyLevel,
+                                                 List<Integer> currCR) {
+      if (partyLevel == 0) {
+        return currCR;
+      }
+
+      int nextCR = (int) (Math.random() * partyLevel + 1);
+
+      if (nextCR > partyLevel) {
+        nextCR = partyLevel;
+      }
+
+      if (nextCR > 24) {
+        nextCR = 24;
+      }
+
+      currCR.add(nextCR);
+      return getEncounterMonsterCRs(partyLevel - nextCR, currCR);
     }
   }
 }
