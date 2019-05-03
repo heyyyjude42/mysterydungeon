@@ -148,3 +148,7 @@ Similarly, when we extract a monster from a query result, checkstyle complains
 about the magic numbers due to the high indices of the ResultSet. We thought it
 would be even worse style to declare final int variables from 9-18, as 
 declaring them is usually for constants used in our code, not array indices. 
+
+Checkstyle also complains about importing using the .* method. However, 
+IntelliJ automatically does this, despite us changing it and importing the
+libraries manually.
