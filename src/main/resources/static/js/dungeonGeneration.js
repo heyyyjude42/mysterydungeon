@@ -161,39 +161,33 @@ function drawAllTraps(rooms) {
 }
 
 function drawLoot(loot, pos) {
-    const $map = $("#map");
-    const top = pos.y * 24;
-    const left = pos.x * 24;
-
-    console.log(loot);
-
     let tooltipText = "Platinum: " + loot.contents[0].platinum + "<br/>";
     tooltipText += "Gold: " + loot.contents[0].gold + "<br/>";
     tooltipText += "Silver: " + loot.contents[0].silver + "<br/>";
     tooltipText += "Copper: " + loot.contents[0].copper;
 
-    let lootHTML = "<div class='tooltip' style='position:absolute;top:" + top + "px;left:" + left + "px;'>" + "<div class='displayText' style='border-bottom:0;'>";
-    lootHTML += "<div class='loot'></div>";
-    lootHTML += "</div>" + "<div class='right'><div class='tooltipText'>" + tooltipText + "</div><i></i></div>" + "</div>";
-
-    $map.append(lootHTML);
+    drawDungeonElement("loot", tooltipText, pos);
 }
 
 function drawTrap(trap, pos) {
-    const $map = $("#map");
-    const top = pos.y * 24;
-    const left = pos.x * 24;
-
     let tooltipText = "Detection DC: " + trap.detectionDC + "<br/>";
     tooltipText += "Disarm DC: " + trap.disableDC + "<br/>";
     tooltipText += "Save DC: " + trap.saveDC + "<br/>";
     tooltipText += "Damage: " + trap.damage;
 
-    let trapHTML = "<div class='tooltip' style='position:absolute;top:" + top + "px;left:" + left + "px;'>" + "<div class='displayText' style='border-bottom:0;'>";
-    trapHTML += "<div class='trap'></div>";
-    trapHTML += "</div>" + "<div class='right'><div class='tooltipText'>" + tooltipText + "</div><i></i></div>" + "</div>";
+    drawDungeonElement("trap", tooltipText, pos);
+}
 
-    $map.append(trapHTML);
+function drawDungeonElement(cssClass, tooltipText, pos) {
+    const $map = $("#map");
+    const top = pos.y * 24;
+    const left = pos.x * 24;
+
+    let html = "<div class='tooltip' style='position:absolute;top:" + top + "px;left:" + left + "px;'>" + "<div class='displayText' style='border-bottom:0;'>";
+    html += "<div class='" + cssClass + "'></div>";
+    html += "</div>" + "<div class='right'><div class='tooltipText'>" + tooltipText + "</div><i></i></div>" + "</div>";
+
+    $map.append(html);
 }
 
 function drawMap(cells, terrain) {
