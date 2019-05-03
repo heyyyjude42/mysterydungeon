@@ -46,8 +46,8 @@ public class GenerateEncounterHandler implements Handler {
         InvalidInputException, CommandFailedException {
 
       if (args.length != 2) {
-        throw new InvalidInputException("ERROR: Must specify the sum of the " +
-            "party's levels.");
+        throw new InvalidInputException("ERROR: Must specify the sum of the "
+                + "party's levels.");
       }
 
       int partyLevel = 0;
@@ -55,8 +55,8 @@ public class GenerateEncounterHandler implements Handler {
       try {
         partyLevel = Integer.parseInt(args[1]);
       } catch (NumberFormatException e) {
-        throw new InvalidInputException("ERROR: combined party level is not a" +
-            " number");
+        throw new InvalidInputException("ERROR: combined party level is not a"
+                + " number");
       }
 
       List<Monster> encounter = createEncounter(partyLevel);
@@ -71,7 +71,8 @@ public class GenerateEncounterHandler implements Handler {
      * @return A List of Monsters that is the encounter appropriate for the
      * level sum.
      */
-    List<Monster> createEncounter(int partyLevel) throws CommandFailedException {
+    List<Monster> createEncounter(int partyLevel)
+            throws CommandFailedException {
       PreparedStatement prep;
       Connection conn = Database.getConnection();
 
@@ -104,7 +105,7 @@ public class GenerateEncounterHandler implements Handler {
      *
      * @param partyLevel Combined party level of the group.
      * @param currCR     The current list of CRs to add to.
-     * @return
+     * @return    A List of Integers that are the monster crs
      */
     private List<Integer> getEncounterMonsterCRs(int partyLevel,
                                                  List<Integer> currCR) {
@@ -118,8 +119,10 @@ public class GenerateEncounterHandler implements Handler {
         nextCR = partyLevel;
       }
 
-      if (nextCR > 24) {
-        nextCR = 24;
+      final int twentyFour = 24;
+
+      if (nextCR > twentyFour) {
+        nextCR = twentyFour;
       }
 
       currCR.add(nextCR);
