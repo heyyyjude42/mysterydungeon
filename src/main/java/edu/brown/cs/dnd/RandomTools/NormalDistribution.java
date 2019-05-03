@@ -36,7 +36,7 @@ public class NormalDistribution {
    * Method gets the mean of the distribution.
    * @return    A double that is the mean of the distribution
    */
-  public double getMean() {
+  double getMean() {
     return mean;
   }
 
@@ -44,7 +44,7 @@ public class NormalDistribution {
    * Method gets the standard deviation of the distribution.
    * @return    A double that is the standard deviation of the distribution
    */
-  public double getStandardDeviation() {
+  double getStandardDeviation() {
     return standardDeviation;
   }
 

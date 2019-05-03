@@ -1,0 +1,6 @@
+INPUT
+/help generate-npc
+OUTPUT
+- generate-npc: generates an entirely random NPC
+generate-npc <flags>: allows finer control over the randomization. Separate flags by a space (e.g. generate-npc size: medium, type: humanoid)
+END

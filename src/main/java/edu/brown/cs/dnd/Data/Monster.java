@@ -2,10 +2,9 @@ package edu.brown.cs.dnd.Data;
 
 import edu.brown.cs.dnd.Dungeon.Rooms.RoomElement;
 import java.util.Map;
-import java.util.HashMap;
 
 /**
- * Class representing a Monster in D&D.
+ * Class representing a Monster in DnD.
  */
 public class Monster extends RoomElement implements QueryResult {
 
@@ -32,7 +31,7 @@ public class Monster extends RoomElement implements QueryResult {
   /**
    * An empty constructor for a Monster for JSON serialization.
    */
-  public Monster() {
+  Monster() {
   }
 
   /**
@@ -96,8 +95,9 @@ public class Monster extends RoomElement implements QueryResult {
     str += "Speed:        " + this.speed + "\n";
 
     str += "—————\n";
-    str += "STR " + this.str + "  |  DEX " + this.dex + "  |  CON " + this.con +
-        "  |  INT " + this.intelligence + "  |  WIS " + this.wis + "  |  CHA "
+    str += "STR " + this.str + "  |  DEX " + this.dex + "  |  CON " + this.con
+            + "  |  INT " + this.intelligence + "  |  WIS " + this.wis
+            + "  |  CHA "
             + this.cha + "\n";
 
     str += "—————\n";
@@ -126,8 +126,8 @@ public class Monster extends RoomElement implements QueryResult {
       str += "—————\n";
 
       for (String key : legendaryActions.keySet()) {
-        str += "* " + key.toUpperCase() + ": " + legendaryActions.get(key) +
-            "\n";
+        str += "* " + key.toUpperCase() + ": " + legendaryActions.get(key)
+                + "\n";
       }
     }
 
@@ -139,138 +139,274 @@ public class Monster extends RoomElement implements QueryResult {
     return this.name + " | CR " + this.cr;
   }
 
+  /**
+   * Method gets the name of the monster.
+   * @return    A String that is the name of the monster
+   */
   public String getName() {
     return name;
   }
 
+  /**
+   * Method gets the size of the monster.
+   * @return    A String that is the size of the monster
+   */
   public String getSize() {
     return size;
   }
 
+  /**
+   * Method gets the type of the monster.
+   * @return    A String that is the type of the monster
+   */
   public String getType() {
     return type;
   }
 
-  public String getAlignment() {
+  /**
+   * Method gets the alignment of the monster.
+   * @return    A String that is the alignment of the monster
+   */
+  String getAlignment() {
     return alignment;
   }
 
-  public int getAc() {
+  /**
+   * Method gets the ac of the monster.
+   * @return    An int that is the ac of the monster
+   */
+  int getAc() {
     return ac;
   }
 
-  public int getHp() {
+  /**
+   * Method gets the hp of the monster.
+   * @return    An int that is the hp of the monster
+   */
+  int getHp() {
     return hp;
   }
 
+  /**
+   * Method gets the hp of the monster.
+   * @return    A String that is the hp of the monster
+   */
   public String getHpDice() {
     return hpDice;
   }
 
+  /**
+   * Method gets the speed of the monster.
+   * @return    A String that is the speed of the monster
+   */
   public String getSpeed() {
     return speed;
   }
 
+  /**
+   * Method gets the str of the monster.
+   * @return    An int that is the str of the monster
+   */
   public int getStr() {
     return str;
   }
 
-  public int getDex() {
+  /**
+   * Method gets the dex of the monster.
+   * @return    An int that is the dex of the monster
+   */
+  int getDex() {
     return dex;
   }
 
-  public int getCon() {
+  /**
+   * Method gets the con of the monster.
+   * @return    An int that is the con of the monster
+   */
+  int getCon() {
     return con;
   }
 
+  /**
+   * Method gets the int of the monster.
+   * @return    An int that is the int of the monster
+   */
   public int getIntelligence() {
     return intelligence;
   }
 
+  /**
+   * Method gets the wis of the monster.
+   * @return    An int that is the wis of the monster
+   */
   public int getWis() {
     return wis;
   }
 
-  public int getCha() {
+  /**
+   * Method gets the cha of the monster.
+   * @return    An int that is the cha of the monster
+   */
+  int getCha() {
     return cha;
   }
 
-  public double getCr() {
+  /**
+   * Method gets the cr of the monster.
+   * @return    A double that is the cr of the monster
+   */
+  double getCr() {
     return cr;
   }
 
+  /**
+   * Method gets the traits of the monster.
+   * @return    A Map that contains the traits of the monster
+   */
   public Map<String, String> getTraits() {
     return traits;
   }
 
+  /**
+   * Method gets the actions of the monster.
+   * @return    A Map that contains the actions of the monster
+   */
   public Map<String, String> getActions() {
     return actions;
   }
 
+  /**
+   * Method gets the leg actions of the monster.
+   * @return    A Map that contains the leg actions of the monster
+   */
   public Map<String, String> getLegendaryActions() {
     return legendaryActions;
   }
 
+  /**
+   * Method sets the name of the monster.
+   * @param name    A String that is the name of the monster
+   */
   public void setName(String name) {
     this.name = name;
   }
 
+  /**
+   * Method sets the size of the monster.
+   * @param size    A String that is the size of the monster
+   */
   public void setSize(String size) {
     this.size = size;
   }
 
+  /**
+   * Method sets the type of the monster.
+   * @param type    A String that is the type of the monster
+   */
   public void setType(String type) {
     this.type = type;
   }
 
+  /**
+   * Method sets the alignment of the monster.
+   * @param alignment    A String that is the alignment of the monster
+   */
   public void setAlignment(String alignment) {
     this.alignment = alignment;
   }
 
+  /**
+   * Method sets the ac of the monster.
+   * @param ac    A String that is the ac of the monster
+   */
   public void setAc(int ac) {
     this.ac = ac;
   }
 
+  /**
+   * Method sets the hp of the monster.
+   * @param hp    A String that is the hp of the monster
+   */
   public void setHp(int hp) {
     this.hp = hp;
   }
 
+  /**
+   * Method sets the hp dice of the monster.
+   * @param hpDice    A String that is the hp dice of the monster
+   */
   public void setHpDice(String hpDice) {
     this.hpDice = hpDice;
   }
 
+  /**
+   * Method sets the speed of the monster.
+   * @param speed    A String that is the speed of the monster
+   */
   public void setSpeed(String speed) {
     this.speed = speed;
   }
 
+  /**
+   * Method sets the str of the monster.
+   * @param str    An int that is the str of the monster
+   */
   public void setStr(int str) {
     this.str = str;
   }
 
+  /**
+   * Method sets the dex of the monster.
+   * @param dex    An int that is the dex of the monster
+   */
   public void setDex(int dex) {
     this.dex = dex;
   }
 
+  /**
+   * Method sets the con of the monster.
+   * @param con    An int that is the con of the monster
+   */
   public void setCon(int con) {
     this.con = con;
   }
 
+  /**
+   * Method sets the intelligence of the monster.
+   * @param intelligence    An int that is the intelligence of the monster
+   */
   public void setIntelligence(int intelligence) {
     this.intelligence = intelligence;
   }
 
+  /**
+   * Method sets the wis of the monster.
+   * @param wis    A String that is the wis of the monster
+   */
   public void setWis(int wis) {
     this.wis = wis;
   }
 
+  /**
+   * Method sets the cha of the monster.
+   * @param cha    A String that is the cha of the monster
+   */
   public void setCha(int cha) {
     this.cha = cha;
   }
 
+  /**
+   * Method sets the cr of the monster.
+   * @param cr    A String that is the cr of the monster
+   */
   public void setCr(double cr) {
     this.cr = cr;
   }
 
+  /**
+   * Method sets the background of the monster.
+   * @param background    A String that is the background of the monster
+   */
   public void setBackground(String background) {
     this.background = background;
   }

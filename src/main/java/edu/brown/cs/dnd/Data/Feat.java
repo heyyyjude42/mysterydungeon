@@ -1,7 +1,7 @@
 package edu.brown.cs.dnd.Data;
 
 /**
- * Class representing a Feat in D&D.
+ * Class representing a Feat in DnD.
  */
 public class Feat implements QueryResult {
   private String name;
@@ -36,6 +36,10 @@ public class Feat implements QueryResult {
     return desc;
   }
 
+  /**
+   * Method gets the name of the Feat.
+   * @return    A String that is the name of the Feat
+   */
   public String getName() {
     return name;
   }

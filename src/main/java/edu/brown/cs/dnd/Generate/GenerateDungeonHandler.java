@@ -62,8 +62,8 @@ public class GenerateDungeonHandler implements Handler {
      * @param dungeonWidth    An int that is the specified dungeon width
      * @param dungeonHeight   An int that is the specified dungeon height
      * @param avgRoomSize   A String that is the specified average room size
-     * @return
-     * @throws InvalidInputException
+     * @return  A Dungeon that is the created Dungeon.
+     * @throws InvalidInputException    Thrown if dungeon parameters are invalid
      */
     private Dungeon sanitizeDungeon(int dungeonWidth,
                                     int dungeonHeight,

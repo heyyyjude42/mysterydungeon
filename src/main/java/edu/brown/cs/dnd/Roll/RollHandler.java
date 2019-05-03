@@ -11,7 +11,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Class representing a CommandHandler for rolling the D&D dice.
+ * Class representing a CommandHandler for rolling the DnD dice.
  */
 public class RollHandler implements Handler {
   private static final String SYNTAX_ERROR_MESSAGE =

@@ -1,7 +1,7 @@
 package edu.brown.cs.dnd.Data;
 
 /**
- * Class representing a spell in D&D.
+ * Class representing a spell in DnD.
  */
 public class Spell implements QueryResult {
   private String name;

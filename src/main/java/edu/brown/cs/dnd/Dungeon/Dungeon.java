@@ -138,7 +138,7 @@ public class Dungeon implements IDungeon, QueryResult {
    * @return    A Collection of AbsRooms that is either of sizes 1 or 2, which
    * is the path between the two rooms
    */
-  public Collection<Path> getPathFromEdge(UndirectedEdge<AbsRoom> edge) {
+  Collection<Path> getPathFromEdge(UndirectedEdge<AbsRoom> edge) {
     Set<Path> result = new HashSet<>();
     AbsRoom r1 = edge.getV1();
     AbsRoom r2 = edge.getV2();
@@ -361,7 +361,7 @@ public class Dungeon implements IDungeon, QueryResult {
    * @param r2    An AbsRoom that is the second room
    * @return    A boolean that is true if the two rooms are adjacent
    */
-  public boolean adjacentHoriz(AbsRoom r1, AbsRoom r2) {
+  private boolean adjacentHoriz(AbsRoom r1, AbsRoom r2) {
     return Math.abs(r1.getBottomRight().getX() - r2.getTopLeft().getX()) <= 1
             || Math.abs(r1.getTopLeft().getX() - r2.getBottomRight().getX())
             <= 1;
@@ -373,7 +373,7 @@ public class Dungeon implements IDungeon, QueryResult {
    * @param r2    An AbsRoom that is the second room
    * @return    A boolean that is true if the two rooms are adjacent
    */
-  public boolean adjacentVert(AbsRoom r1, AbsRoom r2) {
+  private boolean adjacentVert(AbsRoom r1, AbsRoom r2) {
     return Math.abs(r1.getBottomRight().getY() - r2.getTopLeft().getY()) <= 1
             || Math.abs(r1.getTopLeft().getY() - r2.getBottomRight().getY())
             <= 1;

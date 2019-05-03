@@ -1,0 +1,6 @@
+INPUT
+/help roll
+OUTPUT
+- roll <dice>: randomly rolls the result (e.g. roll 2d4 will roll two four-sided dice and sum the results together)
+- Tip: you can join dice amounts together, such as roll 2d4 + 10d6 - 5, for you Sneak Attack Rogues!
+END
