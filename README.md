@@ -120,7 +120,7 @@ generate-npc <flags>: allows finer control over the randomization. Separate flag
 
 Generate Encounter
 
-generate-encounter <partySize>: generates a random encounter for partySize number of people (e.g. generate-encounter 5)
+generate-encounter <partyLevel>: generates a random encounter for a combined party level (e.g. generate-encounter 24, if your party has 3 level 8 characters)
 Generate Dungeon (simple)
 generate-dungeon: <width> <height> <small, medium or large>
 
