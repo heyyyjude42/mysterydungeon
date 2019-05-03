@@ -1,6 +1,9 @@
 let existingTileStyles = {};
 let currDungeon = {};
 
+/**
+ * Runs when the page loads: attaches handlers on the various buttons and options.
+ */
 $(document).ready(() => {
     $("#importButton").on("click", importPressed);
     $("#exportButton").on("click", exportPressed);
@@ -8,10 +11,18 @@ $(document).ready(() => {
     $("#terrainForm").on("change", terrainChanged);
 });
 
+/**
+ * Called when the terrain selection is changed. Redraws the dungeon as-is to reskin.
+ */
 function terrainChanged() {
     drawDungeon();
 }
 
+/**
+ * Called when the import button is pressed. Opens a prompt for the user to copy
+ * in the dungeon data and attempts to parse it. If it can't be parsed, then
+ * reports an error message and keeps the old dungeon.
+ */
 function importPressed() {
     const val = prompt("Paste dungeon object here:");
     const cachedDungeon = currDungeon;
@@ -24,6 +35,10 @@ function importPressed() {
     }
 }
 
+/**
+ * Called when export is pressed. Copies the dungeon to the clipboard and
+ * displays a quick message.
+ */
 function exportPressed() {
     const ta = document.createElement('textarea');
     ta.value = JSON.stringify(currDungeon);
@@ -35,6 +50,10 @@ function exportPressed() {
     $('#exportMessage').show().delay(700).fadeOut();
 }
 
+/**
+ * Called when generate is pressed. Takes in the user's width/height/size
+ * selections and sends a POST request to the backend. Displays the result.
+ */
 function generatePressed() {
     let width = $("#widthForm").val();
     let height = $("#heightForm").val();
@@ -71,7 +90,11 @@ function generatePressed() {
     });
 }
 
+/**
+ * Draws the dungeon!
+ */
 function drawDungeon() {
+    // get the currently selected terrain, and whether we draw loot/traps
     let terrain = $("#terrainForm").val();
     let drawTraps = $.map($("input[name='genTraps']:checked"), t => {
         return t.value;
@@ -83,119 +106,122 @@ function drawDungeon() {
     if (terrain == null) {
         terrain = "sidepath";
     }
-
     populateExistingTiles(terrain);
 
     let dungeon = currDungeon.dungeon;
     let cells = dungeon.occupiedCells;
 
+    // draw the map based on the cells and terrain
     drawMap(cells, terrain);
 
-
+    // check to see if we draw traps on top
     if (drawTraps) {
-        drawAllTraps(dungeon.rooms.filter(room => {
-            let hasTrap = false;
-            if (room.elements.length > 0) {
-                room.elements.forEach(e => {
-                    if (e.damage != null) {
-                        hasTrap = true;
-                    }
-                });
-            }
-            return hasTrap;
-        }));
+        drawAllTraps(dungeon.rooms);
     }
 
+    // check to see if we draw loot on top
     if (drawLoot) {
-        drawAllLoot(dungeon.rooms.filter(room => {
-            let hasloot = false;
-            if (room.elements.length > 0) {
-                room.elements.forEach(e => {
-                    if (e.contents != null) {
-                        hasloot = true;
-                    }
-                });
-            }
-            return hasloot;
-        }));
+        drawAllLoot(dungeon.rooms);
     }
 }
 
+/**
+ * Draws any loot in the given rooms. If no traps exist then nothing happens.
+ * @param rooms Rooms to draw loot from
+ */
 function drawAllLoot(rooms) {
     rooms.forEach(room => {
-        const loot = room.elements.filter(e => {
-            if (e.contents != null) {
-                return true;
-            }
-            return false;
-        });
+        if (room.elements.length > 0) {
+            const loot = room.elements.filter(e => {
+                return e.contents != null;
 
-        loot.forEach(l => {
-            const pos = {
-                x: room.topLeftCorner.x + l.position.x,
-                y: room.topLeftCorner.y - l.position.y
-            }
+            });
 
-            drawLoot(l, pos);
-        });
+            loot.forEach(l => {
+                const pos = {
+                    x: room.topLeftCorner.x + l.position.x,
+                    y: room.topLeftCorner.y - l.position.y
+                };
+
+                drawLoot(l, pos);
+            });
+        }
     });
 }
 
+/**
+ * Draws any traps in the given rooms. If no loot exists then nothing happens.
+ * @param rooms Rooms to find loot in.
+ */
 function drawAllTraps(rooms) {
     rooms.forEach(room => {
-        const traps = room.elements.filter(e => {
-            if (e.damage != null) {
-                return true;
-            }
-            return false;
-        });
-        traps.forEach(trap => {
-            const pos = {
-                x: room.topLeftCorner.x + trap.position.x,
-                y: room.topLeftCorner.y - trap.position.y
-            };
+        if (room.elements.length > 0) {
+            const traps = room.elements.filter(e => {
+                return e.damage != null;
+            });
+            traps.forEach(trap => {
+                const pos = {
+                    x: room.topLeftCorner.x + trap.position.x,
+                    y: room.topLeftCorner.y - trap.position.y
+                };
 
-            drawTrap(trap, pos);
-        });
+                drawTrap(trap, pos);
+            });
+        }
     });
 }
 
+/**
+ * Draws a single loot element on the map.
+ * @param loot The loot object
+ * @param pos The position of the loot
+ */
 function drawLoot(loot, pos) {
-    const $map = $("#map");
-    const top = pos.y * 24;
-    const left = pos.x * 24;
-
-    console.log(loot);
-
     let tooltipText = "Platinum: " + loot.contents[0].platinum + "<br/>";
     tooltipText += "Gold: " + loot.contents[0].gold + "<br/>";
     tooltipText += "Silver: " + loot.contents[0].silver + "<br/>";
     tooltipText += "Copper: " + loot.contents[0].copper;
 
-    let lootHTML = "<div class='tooltip' style='position:absolute;top:" + top + "px;left:" + left + "px;'>" + "<div class='displayText' style='border-bottom:0;'>";
-    lootHTML += "<div class='loot'></div>";
-    lootHTML += "</div>" + "<div class='right'><div class='tooltipText'>" + tooltipText + "</div><i></i></div>" + "</div>";
-
-    $map.append(lootHTML);
+    drawDungeonElement("loot", tooltipText, pos);
 }
 
+/**
+ * Draws a single trap element on the map.
+ * @param trap the trap object
+ * @param pos the position of the trap
+ */
 function drawTrap(trap, pos) {
-    const $map = $("#map");
-    const top = pos.y * 24;
-    const left = pos.x * 24;
-
     let tooltipText = "Detection DC: " + trap.detectionDC + "<br/>";
     tooltipText += "Disarm DC: " + trap.disableDC + "<br/>";
     tooltipText += "Save DC: " + trap.saveDC + "<br/>";
     tooltipText += "Damage: " + trap.damage;
 
-    let trapHTML = "<div class='tooltip' style='position:absolute;top:" + top + "px;left:" + left + "px;'>" + "<div class='displayText' style='border-bottom:0;'>";
-    trapHTML += "<div class='trap'></div>";
-    trapHTML += "</div>" + "<div class='right'><div class='tooltipText'>" + tooltipText + "</div><i></i></div>" + "</div>";
-
-    $map.append(trapHTML);
+    drawDungeonElement("trap", tooltipText, pos);
 }
 
+/**
+ * Draws a dungeon element: trap or loot, or monsters later to come.
+ * @param cssClass The css class this element should have.
+ * @param tooltipText What to display on the hover text
+ * @param pos The position (in tile coordinates)
+ */
+function drawDungeonElement(cssClass, tooltipText, pos) {
+    const $map = $("#map");
+    const top = pos.y * 24;
+    const left = pos.x * 24;
+
+    let html = "<div class='tooltip' style='position:absolute;top:" + top + "px;left:" + left + "px;'>" + "<div class='displayText' style='border-bottom:0;'>";
+    html += "<div class='" + cssClass + "'></div>";
+    html += "</div>" + "<div class='right'><div class='tooltipText'>" + tooltipText + "</div><i></i></div>" + "</div>";
+
+    $map.append(html);
+}
+
+/**
+ * Draws the whole map.
+ * @param cells Occupied cells.
+ * @param terrain Terrain to draw with.
+ */
 function drawMap(cells, terrain) {
     const $map = $("#map");
     $map.empty();
@@ -213,6 +239,13 @@ function drawMap(cells, terrain) {
     }
 }
 
+/**
+ * Returns a length-9 array of this cell's surrounding traversableness.
+ * @param allCells 2D array of the whole map's cell occupations.
+ * @param row The row to find neighbors of.
+ * @param col The column to find neighbors of.
+ * @returns {Array} The array. i.e. TTTTTTTT means the cell and the cells around it are traversable.
+ */
 function getNeighbors(allCells, row, col) {
     let neighbors = [];
     for (let rowOffset = -1; rowOffset < 2; rowOffset++) {
@@ -224,6 +257,13 @@ function getNeighbors(allCells, row, col) {
     return neighbors;
 }
 
+/**
+ * Returns whether this cell is traversable.
+ * @param allCells 2D array of the whole map's cell occupations.
+ * @param row The row to find traversability of.
+ * @param col The column.
+ * @returns True or false.
+ */
 function getTraversable(allCells, row, col) {
     if (row < 0 || row >= allCells.length || col < 0 || col >= allCells[0].length) {
         return false;
@@ -233,10 +273,16 @@ function getTraversable(allCells, row, col) {
     return allCells[row][col];
 }
 
+/**
+ * Gets the HTML for a whole row.
+ * @param neighborsData The neighbors data for the whole row, one for each cell in the row.
+ * @returns {string} An HTML string.
+ */
 function getRowHTML(neighborsData) {
     let rowHTML = "<div class='dungeonRow'>";
 
     neighborsData.forEach(n => {
+        // for each cell, get what its corresponding CSS location would be.
         const cssStyle = existingTileStyles[neighborsToCssClass(n)];
         rowHTML += "<div class='tile' style=\"" + cssStyle + "\"/>";
     });
@@ -245,6 +291,11 @@ function getRowHTML(neighborsData) {
     return rowHTML;
 }
 
+/**
+ * Based on the current terrain, populate the dictionary of what the CSS style
+ * for each T/F neighbor combination should be.
+ * @param terrain The terrain.
+ */
 function populateExistingTiles(terrain) {
     let sheet;
 
@@ -266,8 +317,8 @@ function populateExistingTiles(terrain) {
 }
 
 /**
- * Neighbors is a 3x3 array with boolean values, with T indicating it's traversable
- * @param neighbors
+ * Neighbors is a 3x3 array with boolean values, with T indicating it's traversable.
+ * @param neighbors The 3x3 array.
  */
 function neighborsToCssClass(neighbors) {
     // first try to see if the whole thing exists
@@ -317,7 +368,11 @@ function neighborsToCssClass(neighbors) {
     return flavorTileWithAlts(tl + top + tr + left + center + right + bl + bottom + br);
 }
 
-// randomize alts for flavor!
+/**
+ * Randomize some tiles with alts for flavor/freshness.
+ * @param concat
+ * @returns {*}
+ */
 function flavorTileWithAlts(concat) {
     const rand = Math.floor((Math.random() * 100) + 1);
     if (concat === "FFFFFFFFF") {
@@ -349,6 +404,11 @@ function flavorTileWithAlts(concat) {
     }
 }
 
+/**
+ * Turns true to T and false to F.
+ * @param b the boolean
+ * @returns {string} T or F
+ */
 function boolToLetter(b) {
     if (b) {
         return "T";
