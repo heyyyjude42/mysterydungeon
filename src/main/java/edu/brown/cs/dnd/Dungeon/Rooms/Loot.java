@@ -6,7 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * A class to represent loot in D&D.
+ * A class to represent loot in DnD.
  */
 public class Loot extends RoomElement {
   // The elements in this loot "chest".
@@ -39,9 +39,9 @@ public class Loot extends RoomElement {
 
   @Override
   public String toString() {
-    return "Loot{" +
-            "contents=" + contents +
-            ", position=" + position +
-            '}';
+    return "Loot{"
+            + "contents=" + contents
+            + ", position=" + position
+            + '}';
   }
 }
