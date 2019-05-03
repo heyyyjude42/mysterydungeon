@@ -1,0 +1,8 @@
+INPUT
+/help search
+OUTPUT
+- search <term>: searches the entire database (e.g. search foresight, or search “danse macabre”)
+- search <table> <term>: searches a specific table (e.g. search monsters bear)
+- search <table> | <flags>: searches with a set of operators in a table (e.g. search spells | class: bard, level: 2, or search monsters | type: humanoid, ac: >= 18, int: >= 14)
+- Tip: you can also search with just “s” for short!
+END

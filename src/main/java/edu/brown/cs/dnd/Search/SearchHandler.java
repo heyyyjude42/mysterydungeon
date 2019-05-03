@@ -157,8 +157,8 @@ public class SearchHandler implements Handler {
     /**
      * Takes in the raw input and parses it for quotation marks.
      *
-     * @param args
-     * @return
+     * @param args    A String array that is the input.
+     * @return    A String array that is the sanitized input
      */
     private String[] sanitize(String[] args) {
       List<String> results = new ArrayList<>();

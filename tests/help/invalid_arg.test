@@ -1,0 +1,10 @@
+INPUT
+/help asdf
+OUTPUT
+Type help <command> for one of the following commands:
+- search
+- roll
+- generate-npc
+- generate-encounter
+- generate-dungeon
+END

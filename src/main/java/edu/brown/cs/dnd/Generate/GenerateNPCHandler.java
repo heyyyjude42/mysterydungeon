@@ -176,7 +176,7 @@ public class GenerateNPCHandler implements Handler {
      *                user
      * @return    A String that is the query body
      */
-    public String createQueryBody(String[] args) throws
+    String createQueryBody(String[] args) throws
             InvalidInputException, CommandFailedException {
       StringBuilder result = new StringBuilder();
       int iteration = 0;

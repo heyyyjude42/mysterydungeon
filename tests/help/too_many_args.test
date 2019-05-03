@@ -1,0 +1,5 @@
+INPUT
+/help a b c d
+OUTPUT
+ERROR:
+END

@@ -3,7 +3,7 @@ package edu.brown.cs.dnd.Data;
 import java.util.Random;
 
 /**
- * Enum representing D&D Dice.
+ * Enum representing DnD Dice.
  */
 public enum Dice {
   D4(4),

@@ -4,7 +4,11 @@ import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 import edu.brown.cs.dnd.REPL.CommandFailedException;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -22,7 +26,7 @@ public final class Database {
   }
 
   private static Connection conn;
-  private static String[] TABLES = {"spells", "feats", "monsters"};
+  private static final String[] TABLES = {"spells", "feats", "monsters"};
 
   /**
    * Method loads the path of the database.

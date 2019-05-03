@@ -1,0 +1,5 @@
+INPUT
+/help generate-encounter
+OUTPUT
+- generate-encounter <partySize>: generates a random encounter for partySize number of people (e.g. generate-encounter 5)
+END

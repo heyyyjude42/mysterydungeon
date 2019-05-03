@@ -6,7 +6,7 @@ import edu.brown.cs.dnd.Data.Location;
 import java.util.Objects;
 
 /**
- * A class to represent a generic D&D trap.
+ * A class to represent a generic DnD trap.
  */
 public class Trap extends RoomElement {
   // The difficulty class of detecting this trap.
@@ -29,7 +29,7 @@ public class Trap extends RoomElement {
    * @param numDice - an int, the number of dice to roll for damage.
    * @param damageDie - a Dice, the type of dice to roll for damage.
    */
-  public Trap(Location position, int detectionDC,
+  Trap(Location position, int detectionDC,
               int disableDC, int saveDC, int numDice, Dice damageDie) {
     this.position = position;
     this.detectionDC = detectionDC;

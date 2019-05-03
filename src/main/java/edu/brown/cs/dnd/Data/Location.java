@@ -66,7 +66,7 @@ public class Location {
    * @return    A Location whose coordinates are the summed coordinates of the
    * two locations
    */
-  public Location plus(Location that) {
+  Location plus(Location that) {
     return new Location(this.x + that.x, this.y + that.y);
   }
 
@@ -78,7 +78,7 @@ public class Location {
    * @return    A Location whose coordinates are the subtracted coordinates of
    * the two locations
    */
-  public Location minus(Location that) {
+  Location minus(Location that) {
     return new Location(this.x - that.x, this.y - that.y);
   }
 

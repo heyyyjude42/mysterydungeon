@@ -1,0 +1,6 @@
+INPUT
+/help help
+OUTPUT
+help: see list of all commands
+help <command>: see more details about a specific command
+END

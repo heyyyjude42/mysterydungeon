@@ -25,7 +25,7 @@ public abstract class AbsRoom {
    * @param height    An int that is the height of the room
    * @param loc   A Location that is the top-left corner of the room
    */
-  public AbsRoom(int width, int height, Location loc) {
+  AbsRoom(int width, int height, Location loc) {
     this.width = width;
     this.height = height;
     this.topLeftCorner = loc;
@@ -47,7 +47,7 @@ public abstract class AbsRoom {
    * @return    A Location that is the midpoint of the room extended upwards,
    * to result in a more stretched and dynamic mst
    */
-  public Location getMidpoint() {
+  Location getMidpoint() {
     final double half = .5;
     int midX = Math.round((float) (this.topLeftCorner.getX()
             + half * this.width));

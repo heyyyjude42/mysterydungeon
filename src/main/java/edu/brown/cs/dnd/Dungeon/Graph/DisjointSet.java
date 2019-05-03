@@ -6,7 +6,7 @@ import java.util.Collection;
 
 /**
  * Class representing a Disjoint Set.
- * @param <T>
+ * @param <T>   The parameter type of the disjoint set
  */
 public class DisjointSet<T> {
 
