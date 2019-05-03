@@ -27,7 +27,7 @@ public class Dungeon implements IDungeon, QueryResult {
   private static final int RAND_ROOM_LEVEL = 50;
 
   /**
-   * A Default Constructor for a Dungeon
+   * A Default Constructor for a Dungeon.
    */
   public Dungeon() { }
 
@@ -73,7 +73,6 @@ public class Dungeon implements IDungeon, QueryResult {
     }
   }
 
-
   /**
    * Method filters out the smaller rooms of the dungeon, while keeping
    * a fraction of the discarded rooms.
@@ -114,9 +113,11 @@ public class Dungeon implements IDungeon, QueryResult {
       Collection<Path> toAdd = getPathFromEdge(e);
       rooms.addAll(toAdd);
     }
-
   }
 
+  /**
+   * Method fills the cells of the 2d grid that the dungeon is overlayed over.
+   */
   private void fillAllRooms() {
     for (AbsRoom r : this.rooms) {
       fillCells(r);
@@ -269,7 +270,6 @@ public class Dungeon implements IDungeon, QueryResult {
     return result;
   }
 
-
   /**
    * Method generates a two-segment path that connects two rooms, with the
    * first segment extending vertically.
@@ -411,14 +411,10 @@ public class Dungeon implements IDungeon, QueryResult {
   }
 
   @Override
-  public List<AbsRoom> getRooms() {
-    return this.rooms;
-  }
+  public List<AbsRoom> getRooms() {return this.rooms;}
 
   @Override
-  public int getArea() {
-    return width * height;
-  }
+  public int getArea() {return width * height;}
 
   /**
    * Method sets the cells of the dungeon to true or false given a room.
@@ -440,7 +436,7 @@ public class Dungeon implements IDungeon, QueryResult {
    * @param r   A Room that is the room to check for insertion
    * @return    A boolean that is true if the room can be inserted.
    */
-  public boolean isValidRoom(Room r) {
+  private boolean isValidRoom(Room r) {
     int x = r.getBottomLeft().getX();
     int y = r.getBottomLeft().getY();
 

@@ -8,6 +8,7 @@ import edu.brown.cs.dnd.Dungeon.Rooms.Path;
 
 import java.util.Collection;
 
+import edu.brown.cs.dnd.Dungeon.Rooms.RoomSize;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -45,9 +46,16 @@ public class DungeonTest {
     UndirectedEdge<AbsRoom> ue5 = new UndirectedEdge<>(r1, r6, 5);
     Collection<Path> paths5 = d.getPathFromEdge(ue5);
     assertNotNull(paths5);
-
-    for (Path p : paths5) {
-      System.out.println(p);
-    }
   }
+
+  @Test
+  public void testGetArea() {
+    Dungeon d = new Dungeon(10, 15, RoomSize.MEDIUM);
+    Dungeon d2 = new Dungeon(4, 8, RoomSize.SMALL);
+
+    assertEquals(d.getArea(), 150);
+    assertEquals(d2.getArea(), 32);
+  }
+
+
 }

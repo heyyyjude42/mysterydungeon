@@ -3,7 +3,11 @@ package edu.brown.cs.dnd.Data;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Class representing a result of a command.
+ */
 public class Result {
+
   private ReturnType type;
   private List<QueryResult> results;
 
@@ -12,16 +16,29 @@ public class Result {
 
   }
 
+  /**
+   * A Constructor for a Result.
+   * @param type    A ReturnType that is the return type of the result
+   * @param results   A List of query results that form the result
+   */
   public Result(ReturnType type, List<? extends QueryResult> results) {
     this.type = type;
     this.results = new ArrayList<>();
     this.results.addAll(results);
   }
 
+  /**
+   * Method gets the return type.
+   * @return    A ReturnType object that is the return type
+   */
   public ReturnType getType() {
     return type;
   }
 
+  /**
+   * Method gets the list of query results.
+   * @return    A List of QueryResult objects that are the query results
+   */
   public List<QueryResult> getResults() {
     return results;
   }

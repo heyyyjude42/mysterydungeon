@@ -26,9 +26,11 @@ public class LocationTest {
   public void testRandom() {
     Location l = Location.randLocation(10, 10);
     Location l2 = Location.randLocation(5, 7);
+    Location l3 = Location.randLocation(1, 1);
 
     assertTrue(l.getX() < 10 && l.getY() < 10);
     assertTrue(l2.getX() < 5 && l2.getY() < 7);
+    assertTrue(l3.getX() < 1 && l3.getY() < 1);
   }
 
   @Test
@@ -55,5 +57,14 @@ public class LocationTest {
     assertEquals(l.minusX(5), new Location(5, 10));
     assertEquals(l.addY(5), new Location(10, 15));
     assertEquals(l.minusY(5), new Location(10, 5));
+  }
+
+  @Test
+  public void testToString() {
+    Location l = new Location(3, 3);
+    Location l2 = new Location(1, 1);
+
+    assertEquals(l.toString(), "Location {x = 3, y = 3}");
+    assertEquals(l2.toString(), "Location {x = 1, y = 1}");
   }
 }
