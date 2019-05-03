@@ -11,7 +11,6 @@ import edu.brown.cs.dnd.Dungeon.Rooms.RoomSize;
 import edu.brown.cs.dnd.REPL.CommandHandler;
 import edu.brown.cs.dnd.REPL.InvalidInputException;
 import edu.brown.cs.dnd.REPL.Main;
-import edu.brown.cs.dnd.REPL.REPL;
 import spark.*;
 
 import java.io.PrintWriter;

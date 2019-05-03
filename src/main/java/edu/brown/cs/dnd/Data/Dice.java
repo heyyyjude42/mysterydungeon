@@ -1,5 +1,6 @@
 package edu.brown.cs.dnd.Data;
 
+import java.util.Collection;
 import java.util.Random;
 
 /**
@@ -14,6 +15,7 @@ public enum Dice {
   D20(20);
 
   private int value;
+  private static final int DICE_REMOVED = 2;
 
   /**
    * A Constructor for a Dice.
@@ -38,7 +40,7 @@ public enum Dice {
    */
   public static Dice randomDie() {
     Random rand = new Random();
-    return values()[rand.nextInt(values().length)];
+    return values()[rand.nextInt(values().length - DICE_REMOVED)];
   }
 
   @Override

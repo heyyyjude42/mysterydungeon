@@ -7,12 +7,10 @@ import edu.brown.cs.dnd.Data.Location;
  */
 public abstract class RoomElement {
 
-  // A relative location to the room
-  private Location coordinate;
-
   /**
    * A constructor for a RoomElement.
    */
   protected RoomElement() {
   }
+
 }

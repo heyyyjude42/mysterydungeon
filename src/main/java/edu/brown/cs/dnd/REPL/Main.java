@@ -3,7 +3,6 @@ package edu.brown.cs.dnd.REPL;
 import java.io.IOException;
 import java.io.File;
 import java.util.*;
-
 import edu.brown.cs.dnd.Data.*;
 import edu.brown.cs.dnd.GUIHandlers.DnDHandlers;
 import edu.brown.cs.dnd.Generate.GenerateDungeonHandler;
@@ -114,6 +113,10 @@ public final class Main {
     Spark.post("/dungeon", new DnDHandlers.DungeonHandler());
   }
 
+  /**
+   * Method returns the Main's REPL.
+   * @return    A REPL that is the Main's REPL
+   */
   public static REPL getREPL() {
     return repl;
   }
