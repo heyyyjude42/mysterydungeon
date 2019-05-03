@@ -1,0 +1,5 @@
+INPUT
+generate-npc background: superhero
+OUTPUT
+NO_ERROR
+END

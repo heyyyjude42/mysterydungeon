@@ -13,11 +13,17 @@ public class REPL {
 
   /**
    * Constructor.
+   * @param handler   A CommandHandler object that is the REPL's Command
+   *                  Handler
    */
   public REPL(CommandHandler handler) {
     this.handler = handler;
   }
 
+  /**
+   * Method gets the Command Handler.
+   * @return    A CommandHandler object that is the Command Handler
+   */
   public CommandHandler getHandler() {
     return handler;
   }
@@ -46,6 +52,10 @@ public class REPL {
     }
   }
 
+  /**
+   * Method parses the user input.
+   * @param nextInput   A String that is the next user input
+   */
   private void parse(String nextInput) {
     try {
       System.out.println(handler.runCommand(nextInput.split("\\s+")));

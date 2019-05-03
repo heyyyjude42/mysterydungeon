@@ -80,4 +80,11 @@ public class RoomTest {
     assertEquals(d.numVertAligned(r1, r5), 3);
   }
 
+  @Test
+  public void testGetSymbol() {
+    AbsRoom r = new Room(3, 3, new Location(5, 6));
+
+    assertEquals(r.getSymbol(), "x ");
+  }
+
 }

@@ -12,10 +12,22 @@ import java.util.List;
 /**
  * Class for querying the database. SQL queries should be contained here.
  */
-public class Database {
+public final class Database {
+
+  /**
+   * A Default Constructor for a Database.
+   */
+  private Database() {
+
+  }
+
   private static Connection conn;
   private static String[] TABLES = {"spells", "feats", "monsters"};
 
+  /**
+   * Method loads the path of the database.
+   * @param path    A String that is the path of the database.
+   */
   public static void load(String path) {
     try {
       Class.forName("org.sqlite.JDBC");
@@ -29,7 +41,9 @@ public class Database {
   /**
    * Executes a search in the whole database, ONLY FOR NAME.
    *
-   * @param term
+   * @param term    The term to search by
+   * @return    A Result object that is the result of the query
+   * @throws SQLException    Thrown when query fails
    */
   public static Result searchSRD(String term) throws SQLException {
     int index = 0;
@@ -54,14 +68,15 @@ public class Database {
   /**
    * Executes a search in a specific table.
    *
-   * @param o
-   * @param table
-   * @return
-   * @throws CommandFailedException
-   * @throws SQLException
+   * @param o   The search operator of the query
+   * @param table   The table to search in
+   * @return    A Result object that is the result of the query
+   * @throws CommandFailedException Thrown when error in command
+   * @throws SQLException   Thrown when query fails
    */
   public static Result searchTable(List<SearchOperator> o,
-                                                        String table) throws CommandFailedException, SQLException {
+                                                        String table)
+          throws CommandFailedException, SQLException {
     switch (table.toLowerCase()) {
       case "spell":
       case "spells":
@@ -75,12 +90,20 @@ public class Database {
       case "feat":
         return new Result(ReturnType.FEAT, searchFeats(o));
       default:
-        throw new CommandFailedException("ERROR: did not find the table named" +
-            " " + table);
+        throw new CommandFailedException("ERROR: did not find the table named"
+                + " "
+                + table);
     }
   }
 
-  public static List<Feat> searchFeats(List<SearchOperator> o) throws SQLException {
+  /**
+   * Method searches the database for feats.
+   * @param o   The search operator of the query
+   * @return    A List of Feats that are the results of the query
+   * @throws SQLException   Thrown when query fails
+   */
+  private static List<Feat> searchFeats(List<SearchOperator> o)
+          throws SQLException {
     List<Object[]> results = Database.searchTableRaw(o, "feats");
     List<Feat> typedResults = new ArrayList<>();
 
@@ -93,7 +116,14 @@ public class Database {
     return typedResults;
   }
 
-  public static List<Monster> searchMonsters(List<SearchOperator> o) throws SQLException {
+  /**
+   * Method searches the database for monsters.
+   * @param o   The search operator of the query
+   * @return    A List of Monsters that are the results of the query
+   * @throws SQLException   Thrown when query fails
+   */
+  private static List<Monster> searchMonsters(List<SearchOperator> o)
+          throws SQLException {
     List<Object[]> results = Database.searchTableRaw(o, "monsters");
     List<Monster> typedResults = new ArrayList<>();
 
@@ -134,7 +164,13 @@ public class Database {
     return typedResults;
   }
 
-  public static List<Spell> searchSpells(List<SearchOperator> o) throws SQLException {
+  /**
+   * Method searches the database for spells.
+   * @param o   The search operator of the query
+   * @return    A List of Spells that are the results of the query
+   * @throws SQLException   Thrown when query fails
+   */
+  private static List<Spell> searchSpells(List<SearchOperator> o) throws SQLException {
     List<Object[]> results = Database.searchTableRaw(o, "spells");
     List<Spell> typedResults = new ArrayList<>();
 
@@ -161,8 +197,16 @@ public class Database {
     return typedResults;
   }
 
+  /**
+   * Method searches the table without a specified subsection.
+   * @param operators   The operators of the search query
+   * @param table   The table to search through
+   * @return    A List of Objects that are the query results
+   * @throws SQLException   Thrown when query fails
+   */
   private static List<Object[]> searchTableRaw(List<SearchOperator> operators,
-                                               String table) throws SQLException {
+                                               String table)
+          throws SQLException {
     String query = "SELECT * FROM " + table + " WHERE";
 
     for (SearchOperator o : operators) {
@@ -197,6 +241,11 @@ public class Database {
     return results;
   }
 
+  /**
+   * Method converts a JSON String to a HashMap.
+   * @param term    A term that is the JSON String
+   * @return    A HashMap that is the parsed version of the JSON String
+   */
   public static HashMap<String, String> sqlStringToMap(String term) {
     return new Gson().fromJson(term, new TypeToken<HashMap<String, String>>() {
     }.getType());

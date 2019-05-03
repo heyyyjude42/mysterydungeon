@@ -1,8 +1,15 @@
 package edu.brown.cs.dnd.Generate;
 
-import edu.brown.cs.dnd.Data.*;
-import edu.brown.cs.dnd.REPL.*;
-import org.omg.CORBA.DynAnyPackage.Invalid;
+import edu.brown.cs.dnd.Data.Database;
+import edu.brown.cs.dnd.Data.Monster;
+import edu.brown.cs.dnd.Data.Result;
+import edu.brown.cs.dnd.Data.ReturnType;
+import edu.brown.cs.dnd.Data.QueryResult;
+import edu.brown.cs.dnd.REPL.Command;
+import edu.brown.cs.dnd.REPL.Handler;
+import edu.brown.cs.dnd.REPL.CommandHandler;
+import edu.brown.cs.dnd.REPL.InvalidInputException;
+import edu.brown.cs.dnd.REPL.CommandFailedException;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,10 +19,7 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.ArrayList;
-import java.util.Set;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.HashMap;
 
 /**
  * Class representing a handler to support generating an NPC based on user
@@ -87,7 +91,7 @@ public class GenerateNPCHandler implements Handler {
    */
   private class GenerateNPCCommand implements Command {
 
-    Map<String, String> flagValues;
+    private Map<String, String> flagValues;
 
     GenerateNPCCommand() {
       this.flagValues = new HashMap<>();
@@ -153,7 +157,7 @@ public class GenerateNPCHandler implements Handler {
 
         ResultSet rs = prep.executeQuery();
 
-        if (!rs.isBeforeFirst() ) {
+        if (!rs.isBeforeFirst()) {
           m = customNPC(args);
         } else {
           m = extractMonsterResult(rs).get(0);
@@ -181,7 +185,7 @@ public class GenerateNPCHandler implements Handler {
         String flag = args[i];
 
         if (flag.charAt(flag.length() - 1) != ':') {
-          throw new InvalidInputException("Flag format should be "
+          throw new InvalidInputException("ERROR: Flag format should be "
                   + "<Attribute>: <Attribute Value>");
         }
 
@@ -221,27 +225,27 @@ public class GenerateNPCHandler implements Handler {
       Monster m = randomNPC();
 
       for (String flag : this.flagValues.keySet()) {
-       String value = this.flagValues.get(flag);
+        String value = this.flagValues.get(flag);
 
-       switch(flag) {
-         case "type":
-           m.setType(value);
-           break;
-         case "name":
-           m.setName(value);
-           break;
-         case "size":
-           m.setSize(value);
-           break;
-         case "alignment":
-           m.setAlignment(value);
-           break;
-         case "background":
-           m.setBackground(value);
-           break;
-         default:
-           throw new InvalidInputException("ERROR: Flag not valid");
-       }
+        switch (flag) {
+          case "type":
+            m.setType(value);
+            break;
+          case "name":
+            m.setName(value);
+            break;
+          case "size":
+            m.setSize(value);
+            break;
+          case "alignment":
+            m.setAlignment(value);
+            break;
+          case "background":
+            m.setBackground(value);
+            break;
+          default:
+            throw new InvalidInputException("ERROR: Flag not valid");
+        }
       }
 
       return m;

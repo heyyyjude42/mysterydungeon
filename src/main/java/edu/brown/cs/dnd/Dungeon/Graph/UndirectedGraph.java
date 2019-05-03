@@ -1,6 +1,9 @@
 package edu.brown.cs.dnd.Dungeon.Graph;
 
-import java.util.*;
+import java.util.Set;
+import java.util.HashSet;
+import java.util.Collection;
+import java.util.PriorityQueue;
 
 /**
  * Class representing an Undirected Graph.
@@ -13,7 +16,9 @@ public class UndirectedGraph<T> {
   /**
    * A Constructor for an UndirectedGraph.
    */
-  public UndirectedGraph() {this.edges = new HashSet<>();}
+  public UndirectedGraph() {
+    this.edges = new HashSet<>();
+  }
 
   /**
    * Method constructs and adds an edge to the graph.
@@ -30,7 +35,9 @@ public class UndirectedGraph<T> {
    * Method adds an edge to the graph.
    * @param e   An UndirectedEdge that is the edge to add
    */
-  void addEdge(UndirectedEdge<T> e) {edges.add(e);}
+  void addEdge(UndirectedEdge<T> e) {
+    edges.add(e);
+  }
 
   /**
    * Method gets all the vertices of the graph.
@@ -51,7 +58,9 @@ public class UndirectedGraph<T> {
    * Method gets all the edges of the graph.
    * @return    A Set of UndirectedEdges that are the edges of the graph
    */
-  public Set<UndirectedEdge<T>> getEdges() {return edges;}
+  public Set<UndirectedEdge<T>> getEdges() {
+    return edges;
+  }
 
   /**
    * Method creates a minimum-spanning tree from the graph.
@@ -61,7 +70,8 @@ public class UndirectedGraph<T> {
     Collection<T> vertices = this.getVertices();
     int verticesSize = vertices.size();
     DisjointSet<T> components = new DisjointSet<>(vertices);
-    PriorityQueue<UndirectedEdge<T>> pq = new PriorityQueue<UndirectedEdge<T>>(this.edges);
+    PriorityQueue<UndirectedEdge<T>> pq =
+            new PriorityQueue<UndirectedEdge<T>>(this.edges);
 
     UndirectedGraph ug = new UndirectedGraph();
 
@@ -77,8 +87,8 @@ public class UndirectedGraph<T> {
 
   @Override
   public String toString() {
-    return "UndirectedGraph{" +
-            "edges=" + edges +
-            '}';
+    return "UndirectedGraph{"
+            + "edges=" + edges
+            + '}';
   }
 }

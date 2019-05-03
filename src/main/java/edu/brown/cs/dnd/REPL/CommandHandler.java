@@ -4,11 +4,13 @@ import edu.brown.cs.dnd.Data.Result;
 import edu.brown.cs.dnd.Data.ReturnType;
 import edu.brown.cs.dnd.Data.StringResult;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Class representing a Command Handler.
+ */
 public class CommandHandler {
   private Map<String, Command> commands;
 
@@ -16,6 +18,11 @@ public class CommandHandler {
     this.commands = new HashMap<>();
   }
 
+  /**
+   * Method registers the command.
+   * @param name    A String that is the REPL command
+   * @param cmd   A Command that is the command to register
+   */
   public void register(String name, Command cmd) {
     this.commands.put(name, cmd);
   }

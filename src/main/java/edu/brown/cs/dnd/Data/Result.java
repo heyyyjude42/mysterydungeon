@@ -11,7 +11,9 @@ public class Result {
   private ReturnType type;
   private List<QueryResult> results;
 
-  // empty constructor for GSON serialization
+  /**
+   * An empty constructor for a result for GSON serialization.
+   */
   public Result() {
 
   }

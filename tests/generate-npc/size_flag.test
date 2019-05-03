@@ -1,0 +1,5 @@
+INPUT
+generate-npc size: medium
+OUTPUT
+NO_ERROR
+END

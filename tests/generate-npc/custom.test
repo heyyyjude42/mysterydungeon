@@ -1,0 +1,5 @@
+INPUT
+generate-npc type: nonexistent alignment: super super good
+OUTPUT
+NO_ERROR
+END

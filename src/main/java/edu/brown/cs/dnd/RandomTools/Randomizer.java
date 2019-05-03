@@ -1,9 +1,16 @@
-package edu.brown.cs.dnd.Dungeon;
+package edu.brown.cs.dnd.RandomTools;
 
 /**
  * Class representing a utility random number generator within a range.
  */
-public class Randomizer {
+public final class Randomizer {
+
+  /**
+   * A private constructor for a Randomizer.
+   */
+  private Randomizer() {
+
+  }
 
   /**
    * Method generates a random number between a specified min and max,
@@ -12,8 +19,7 @@ public class Randomizer {
    * @param max   An int that is the max of the range, inclusive
    * @return    An int that is the generated random number
    */
-  public static int generate(int min,int max)
-  {
-    return min + (int)(Math.random() * ((max - min) + 1));
+  public static int generate(int min, int max) {
+    return min + (int) (Math.random() * ((max - min) + 1));
   }
 }

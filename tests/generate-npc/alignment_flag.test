@@ -1,0 +1,5 @@
+INPUT
+generate-npc alignment: Evil
+OUTPUT
+NO_ERROR
+END

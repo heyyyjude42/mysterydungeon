@@ -13,6 +13,10 @@ public interface IDungeon {
      */
   List<AbsRoom> getRooms();
 
+  /**
+   * Method gets the area of the dungeon.
+   * @return    An int that is the area of the dungeon
+   */
   int getArea();
 
 

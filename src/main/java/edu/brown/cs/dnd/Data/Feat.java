@@ -8,7 +8,7 @@ public class Feat implements QueryResult {
   private String desc;
 
   // empty constructor for GSON serialization
-  public Feat() {
+  Feat() {
 
   }
 
@@ -28,10 +28,16 @@ public class Feat implements QueryResult {
   }
 
   @Override
-  public String simplify() {return this.name;}
+  public String simplify() {
+    return this.name;
+  }
 
-  public String getDesc() {return desc;}
+  String getDesc() {
+    return desc;
+  }
 
-  public String getName() {return name;}
+  public String getName() {
+    return name;
+  }
 
 }

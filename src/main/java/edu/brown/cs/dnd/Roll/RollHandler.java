@@ -10,15 +10,22 @@ import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Class representing a CommandHandler for rolling the D&D dice.
+ */
 public class RollHandler implements Handler {
-  private String SYNTAX_ERROR_MESSAGE = "ERROR: expected syntax in the form " +
-      "of roll xdy, such as 4d6, or an integer.";
+  private static final String SYNTAX_ERROR_MESSAGE =
+          "ERROR: expected syntax in the form "
+                  + "of roll xdy, such as 4d6, or an integer.";
 
   @Override
   public void registerCommands(CommandHandler handler) {
     handler.register("roll", new RollCommand());
   }
 
+  /**
+   * Class representing the roll command in the REPL.
+   */
   private class RollCommand implements Command {
     @Override
     public Result run(String[] args) throws InvalidInputException {
@@ -36,7 +43,7 @@ public class RollHandler implements Handler {
 
       try {
         int[] diceRolls = rollDice(dice);
-        Pattern plusOrMinus = Pattern.compile("[+\\-]"); // get list of all +  and -'s
+        Pattern plusOrMinus = Pattern.compile("[+\\-]");
         Matcher m = plusOrMinus.matcher(roll);
 
         int result = diceRolls[0];

@@ -143,15 +143,22 @@ public final class Main {
     }
   }
 
+  /**
+   * Class to handle the initial loading of the GUI.
+   */
   private class FrontHandler implements TemplateViewRoute, Route {
     @Override
-    public ModelAndView handle(Request request, Response response) throws Exception {
-      Map<String, Object> variables = ImmutableMap.of("title", "Mystery " +
-          "Dungeon");
+    public ModelAndView handle(Request request, Response response)
+            throws Exception {
+      Map<String, Object> variables = ImmutableMap.of("title", "Mystery "
+              + "Dungeon");
       return new ModelAndView(variables, "mysteryDungeon.ftl");
     }
   }
 
+  /**
+   * Handler for user commands in the GUI.
+   */
   private class QueryHandler implements Route {
     @Override
     public String handle(Request request, Response response) throws Exception {
@@ -180,16 +187,23 @@ public final class Main {
     }
   }
 
+  /**
+   * Handler for the Dungeon Maker.
+   */
   private class DummyFrontHandler implements TemplateViewRoute, Route {
     @Override
     public ModelAndView handle(Request request, Response response) {
-      Map<String, Object> variables = ImmutableMap.of("title", "Dungeon Generator");
+      Map<String, Object> variables =
+              ImmutableMap.of("title", "Dungeon Generator");
 
       return new ModelAndView(variables, "dungeonGenerator.ftl");
     }
   }
 
 
+  /**
+   * Handler to send the randomly-generated dungeon.
+   */
   private class DungeonHandler implements Route {
     @Override
     public String handle(Request request, Response response) throws Exception {

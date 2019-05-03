@@ -29,7 +29,9 @@ public class Monster extends RoomElement implements QueryResult {
   private Map<String, String> legendaryActions;
   private String background;
 
-  // empty constructor for GSON serialization
+  /**
+   * An empty constructor for a Monster for JSON serialization.
+   */
   public Monster() {
   }
 
@@ -95,8 +97,8 @@ public class Monster extends RoomElement implements QueryResult {
 
     str += "—————\n";
     str += "STR " + this.str + "  |  DEX " + this.dex + "  |  CON " + this.con +
-        "  |  INT " + this.intelligence + "  |  WIS " + this.wis + "  |  CHA " +
-        this.cha + "\n";
+        "  |  INT " + this.intelligence + "  |  WIS " + this.wis + "  |  CHA "
+            + this.cha + "\n";
 
     str += "—————\n";
     str += "Challenge:    " + this.cr + "\n";

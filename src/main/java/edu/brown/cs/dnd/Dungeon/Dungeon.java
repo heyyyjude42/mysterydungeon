@@ -8,8 +8,14 @@ import edu.brown.cs.dnd.Dungeon.Rooms.AbsRoom;
 import edu.brown.cs.dnd.Dungeon.Rooms.Path;
 import edu.brown.cs.dnd.Dungeon.Rooms.Room;
 import edu.brown.cs.dnd.Dungeon.Rooms.RoomSize;
+import edu.brown.cs.dnd.RandomTools.Randomizer;
 
-import java.util.*;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Random;
+import java.util.Collection;
+import java.util.Set;
+import java.util.HashSet;
 
 /**
  * Class representing the dungeon and its utilities.
@@ -25,6 +31,8 @@ public class Dungeon implements IDungeon, QueryResult {
   private static final int TOLERANCE = 200;
   private static final double MAIN_ROOM_FACTOR = 1.25;
   private static final int RAND_ROOM_LEVEL = 50;
+  private static final double DUNGEON_GEN_DENSITY = 0.8;
+  private static final int ONE_HUNDRED = 100;
 
   /**
    * A Default Constructor for a Dungeon.
@@ -43,7 +51,7 @@ public class Dungeon implements IDungeon, QueryResult {
     this.occupiedCells = new AbsRoom[height][width];
     this.rand = new Random();
     this.rooms = new ArrayList<>();
-    generateRooms(0.8, roomSize);
+    generateRooms(DUNGEON_GEN_DENSITY, roomSize);
     filterRooms();
     connectRooms();
     fillAllRooms();
@@ -86,7 +94,7 @@ public class Dungeon implements IDungeon, QueryResult {
     double averageRoomSize = totalRoomArea / (double) rooms.size();
     for (AbsRoom r : rooms) {
       if (r.getArea() < averageRoomSize * MAIN_ROOM_FACTOR) {
-        if (rand.nextInt(100) >= RAND_ROOM_LEVEL) {
+        if (rand.nextInt(ONE_HUNDRED) >= RAND_ROOM_LEVEL) {
           untouched.add(r);
         }
       }
@@ -182,9 +190,10 @@ public class Dungeon implements IDungeon, QueryResult {
       }
     } else {
       // Flip a coin to decide which extended path method to use
-      int decider = Randomizer.generate(1, 100);
+      final int half = 50;
+      int decider = Randomizer.generate(1, ONE_HUNDRED);
 
-      if (decider <= 50) {
+      if (decider <= half) {
         result.addAll(extendedVertPath(leftMost, rightMost));
       } else {
         result.addAll(extendedHorizPath(leftMost, rightMost));
@@ -411,16 +420,20 @@ public class Dungeon implements IDungeon, QueryResult {
   }
 
   @Override
-  public List<AbsRoom> getRooms() {return this.rooms;}
+  public List<AbsRoom> getRooms() {
+    return this.rooms;
+  }
 
   @Override
-  public int getArea() {return width * height;}
+  public int getArea() {
+    return width * height;
+  }
 
   /**
    * Method sets the cells of the dungeon to true or false given a room.
    * @param r   An Absroom to fill the dungeon with
    */
-  public void fillCells(AbsRoom r) {
+  private void fillCells(AbsRoom r) {
     int x = r.getBottomLeft().getX();
     int y = r.getBottomLeft().getY();
 
@@ -440,7 +453,9 @@ public class Dungeon implements IDungeon, QueryResult {
     int x = r.getBottomLeft().getX();
     int y = r.getBottomLeft().getY();
 
-    if (x < 0 || y < 0) {return false;}
+    if (x < 0 || y < 0) {
+      return false;
+    }
 
     for (int i = y; i < y + r.getHeight(); i++) {
       for (int j = x; j < x + r.getWidth(); j++) {

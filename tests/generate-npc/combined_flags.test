@@ -1,0 +1,5 @@
+INPUT
+generate-npc type: Human alignment: Evil
+OUTPUT
+NO_ERROR
+END

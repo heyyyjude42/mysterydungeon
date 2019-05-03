@@ -55,7 +55,8 @@ public class Location {
    * @return    A double that is the distance to the specified location
    */
   public double distanceTo(Location that) {
-    return Math.sqrt(Math.pow(this.x - that.x, 2.0) + Math.pow(this.y - that.y, 2.0));
+    return Math.sqrt(Math.pow(this.x - that.x, 2.0)
+            + Math.pow(this.y - that.y, 2.0));
   }
 
   /**
@@ -105,7 +106,7 @@ public class Location {
 
   /**
    * Method returns a new location with the X coordinate of the passed in
-   * location subtracted from that of the current location
+   * location subtracted from that of the current location.
    * @param toAdd    A Location that is the location to subtract its X
    *                 coordinate from the current
    * @return    A Location whose coordinates are the subtracted X coordinates
@@ -117,7 +118,7 @@ public class Location {
 
   /**
    * Method returns a new location with the Y coordinate of the passed in
-   * location subtracted from that of the current location
+   * location subtracted from that of the current location.
    * @param toAdd    A Location that is the location to subtract its Y
    *                 coordinate from the current
    * @return    A Location whose coordinates are the subtracted Y coordinates
@@ -129,19 +130,25 @@ public class Location {
 
   @Override
   public String toString() {
-    return "Location {" +
-            "x = " + x +
-            ", y = " + y +
-            '}';
+    return "Location {"
+            + "x = "
+            + x
+            + ", y = "
+            + y
+            + '}';
   }
 
   @Override
   public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
     Location location = (Location) o;
-    return x == location.x &&
-            y == location.y;
+    return x == location.x
+            && y == location.y;
   }
 
   @Override

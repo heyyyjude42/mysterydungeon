@@ -57,5 +57,4 @@ public class DungeonTest {
     assertEquals(d2.getArea(), 32);
   }
 
-
 }

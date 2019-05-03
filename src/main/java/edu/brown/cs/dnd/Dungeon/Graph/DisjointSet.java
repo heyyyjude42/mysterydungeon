@@ -1,7 +1,6 @@
 package edu.brown.cs.dnd.Dungeon.Graph;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Collection;
 
@@ -11,14 +10,14 @@ import java.util.Collection;
  */
 public class DisjointSet<T> {
 
-  private Map<T,T> parents;
+  private Map<T, T> parents;
 
   /**
    * A Constructor for a Disjoint Set.
    * @param elements    A Collection that are initial elements inside the
    *                    disjoint set
    */
-  public DisjointSet(Collection<T> elements) {
+  DisjointSet(Collection<T> elements) {
     this.parents = new HashMap<>();
 
     for (T e : elements) {
@@ -57,11 +56,13 @@ public class DisjointSet<T> {
    * @param a   The first element to union
    * @param b   The second element to union
    */
-  public void union(T a, T b) {
+  void union(T a, T b) {
     T rootA = find(a);
     T rootB = find(b);
 
-    if (rootA.equals(rootB)) {return;}
+    if (rootA.equals(rootB)) {
+      return;
+    }
 
     parents.put(rootA, rootB);
   }
@@ -73,7 +74,7 @@ public class DisjointSet<T> {
    * @return    A boolean that is true if the two elements are in the same set,
    * and false otherwise
    */
-  public boolean inSameSet(T a, T b) {
+  boolean inSameSet(T a, T b) {
     return find(a).equals(find(b));
   }
 
@@ -81,7 +82,7 @@ public class DisjointSet<T> {
    * Method gets the parents map.
    * @return    A Map that is the parents map of the disjoint set
    */
-  public Map<T, T> getParents() {
+  Map<T, T> getParents() {
     return this.parents;
   }
 

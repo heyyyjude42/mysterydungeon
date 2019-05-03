@@ -1,10 +1,15 @@
+
 package edu.brown.cs.dnd.Generate;
 
 import edu.brown.cs.dnd.Data.Database;
 import edu.brown.cs.dnd.Data.Monster;
 import edu.brown.cs.dnd.Data.Result;
 import edu.brown.cs.dnd.Data.ReturnType;
-import edu.brown.cs.dnd.REPL.*;
+import edu.brown.cs.dnd.REPL.Command;
+import edu.brown.cs.dnd.REPL.Handler;
+import edu.brown.cs.dnd.REPL.CommandHandler;
+import edu.brown.cs.dnd.REPL.InvalidInputException;
+import edu.brown.cs.dnd.REPL.CommandFailedException;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -48,7 +53,7 @@ public class GenerateEncounterHandler implements Handler {
       try {
         partySize = Integer.parseInt(args[1]);
       } catch (NumberFormatException e) {
-        System.out.println("ERROR: party size is not a number");
+        throw new InvalidInputException("ERROR: party size is not a number");
       }
 
       List<Monster> encounter = createEncounter(partySize);

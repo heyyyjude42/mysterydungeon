@@ -1,0 +1,5 @@
+INPUT
+generate-encounter a b c d
+OUTPUT
+ERROR:
+END

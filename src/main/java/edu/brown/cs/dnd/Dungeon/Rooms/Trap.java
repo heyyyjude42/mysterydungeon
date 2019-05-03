@@ -10,15 +10,15 @@ import java.util.Objects;
  */
 public class Trap extends RoomElement {
   // The difficulty class of detecting this trap.
-  protected int detectionDC;
+  private int detectionDC;
   // The difficulty class of disabling this trap.
-  protected int disableDC;
+  private int disableDC;
   // The difficulty class of the saving throw for this trap.
-  protected int saveDC;
+  private int saveDC;
   // A String representation of the damage that this trap deals.
-  protected String damage;
+  private String damage;
   // The location of this Trap with respect to the room it is in.
-  protected Location position;
+  private Location position;
 
   /**
    * The basic constructor for Traps.
@@ -29,7 +29,8 @@ public class Trap extends RoomElement {
    * @param numDice - an int, the number of dice to roll for damage.
    * @param damageDie - a Dice, the type of dice to roll for damage.
    */
-  public Trap(Location position, int detectionDC, int disableDC, int saveDC, int numDice, Dice damageDie) {
+  public Trap(Location position, int detectionDC,
+              int disableDC, int saveDC, int numDice, Dice damageDie) {
     this.position = position;
     this.detectionDC = detectionDC;
     this.disableDC = disableDC;
@@ -41,7 +42,7 @@ public class Trap extends RoomElement {
    * Gets the detectionDC.
    * @return - the detectionDC.
    */
-  public int getDetectionDC() {
+  int getDetectionDC() {
     return detectionDC;
   }
 
@@ -49,7 +50,7 @@ public class Trap extends RoomElement {
    * Gets the disableDC.
    * @return - the disableDC.
    */
-  public int getDisableDC() {
+  int getDisableDC() {
     return disableDC;
   }
 
@@ -57,7 +58,7 @@ public class Trap extends RoomElement {
    * Gets the saveDC.
    * @return - the saveDC.
    */
-  public int getSaveDC() {
+  int getSaveDC() {
     return saveDC;
   }
 
@@ -65,7 +66,7 @@ public class Trap extends RoomElement {
    * Gets the damage String.
    * @return - the damage.
    */
-  public String getDamage() {
+  String getDamage() {
     return damage;
   }
 
@@ -75,24 +76,31 @@ public class Trap extends RoomElement {
    * @param position - the position of this trap relative to the room.
    * @return - A random trap with the provided challenge rating.
    */
-  public static Trap randomTrap(int level, Location position) {
-    // TODO: randomly generate the trap specs.
-    return new Trap(position, 15, 15, 15, 2, Dice.D10);
+  static Trap randomTrap(int level, Location position) {
+    final int temporaryConstant = 15;
+    return new Trap(position,
+            temporaryConstant, temporaryConstant,
+            temporaryConstant, 2, Dice.D10);
   }
 
   @Override
   public boolean equals(Object o) {
-    if (this == o) return true;
-    if (!(o instanceof Trap)) return false;
+    if (this == o) {
+      return true;
+    }
+    if (!(o instanceof Trap)) {
+      return false;
+    }
     Trap trap = (Trap) o;
-    return getDetectionDC() == trap.getDetectionDC() &&
-            getDisableDC() == trap.getDisableDC() &&
-            getSaveDC() == trap.getSaveDC() &&
-            Objects.equals(getDamage(), trap.getDamage());
+    return getDetectionDC() == trap.getDetectionDC()
+            && getDisableDC() == trap.getDisableDC()
+            && getSaveDC() == trap.getSaveDC()
+            && Objects.equals(getDamage(), trap.getDamage());
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(getDetectionDC(), getDisableDC(), getSaveDC(), getDamage());
+    return Objects.hash(getDetectionDC(),
+            getDisableDC(), getSaveDC(), getDamage());
   }
 }
