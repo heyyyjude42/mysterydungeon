@@ -174,7 +174,8 @@ public final class Database {
    * @return    A List of Spells that are the results of the query
    * @throws SQLException   Thrown when query fails
    */
-  private static List<Spell> searchSpells(List<SearchOperator> o) throws SQLException {
+  private static List<Spell> searchSpells(List<SearchOperator> o)
+          throws SQLException {
     List<Object[]> results = Database.searchTableRaw(o, "spells");
     List<Spell> typedResults = new ArrayList<>();
 
