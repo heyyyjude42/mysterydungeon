@@ -63,11 +63,11 @@ public class GenerateNPCHandler implements Handler {
         int cha = rs.getInt(15);
         int cr = rs.getInt(16);
 
-        HashMap<String, String> traits =
+        Map<String, String> traits =
                 Database.sqlStringToMap(rs.getString(17));
-        HashMap<String, String> actions =
+        Map<String, String> actions =
                 Database.sqlStringToMap(rs.getString(18));
-        HashMap<String, String> legendaryActions =
+        Map<String, String> legendaryActions =
                 Database.sqlStringToMap(rs.getString(19));
 
         result.add(new Monster(name, size, type, alignment, ac, hp, hpDice,

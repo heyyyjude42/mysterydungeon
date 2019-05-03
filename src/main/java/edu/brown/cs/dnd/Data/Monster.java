@@ -1,10 +1,14 @@
 package edu.brown.cs.dnd.Data;
 
 import edu.brown.cs.dnd.Dungeon.Rooms.RoomElement;
-
+import java.util.Map;
 import java.util.HashMap;
 
+/**
+ * Class representing a Monster in D&D.
+ */
 public class Monster extends RoomElement implements QueryResult {
+
   private String name;
   private String size;
   private String type;
@@ -20,22 +24,44 @@ public class Monster extends RoomElement implements QueryResult {
   private int wis;
   private int cha;
   private double cr;
-  private HashMap<String, String> traits;
-  private HashMap<String, String> actions;
-  private HashMap<String, String> legendaryActions;
+  private Map<String, String> traits;
+  private Map<String, String> actions;
+  private Map<String, String> legendaryActions;
   private String background;
 
   // empty constructor for GSON serialization
   public Monster() {
   }
 
+  /**
+   * A Constructor for a Monster.
+   * @param name    A String that is the name of the monster
+   * @param size    A String that is the size of the monster
+   * @param type    A String that is the type of the monster
+   * @param alignment   A String that is the alignment of the monster
+   * @param ac    An int that is the ac, or energy, or the monster
+   * @param hp    An int that is the hp of the monster
+   * @param hpDice    A String that is the hp dice of the monster
+   * @param speed   A String that is the speed of the monster
+   * @param str   An int that is the strength of the monster
+   * @param dex   An int that is the dexterity of the monster
+   * @param con   An int that is the con of the monster
+   * @param intelligence    An int that is the intelligence of the monster
+   * @param wis   An int that is the wisdom of the monster
+   * @param cha   An int that is the charisma of the monster
+   * @param cr    An int that is the cr of the monster
+   * @param traits    A Map that contains the traits of the monster
+   * @param actions   A Map that contains the actions of the monster
+   * @param legendaryActions    A Map that contains the legendary actions
+   *                            of the monster
+   */
   public Monster(String name, String size, String type, String alignment,
                  int ac, int hp, String hpDice, String speed, int str,
                  int dex, int con, int intelligence, int wis, int cha,
                  double cr,
-                 HashMap<String, String> traits,
-                 HashMap<String, String> actions,
-                 HashMap<String, String> legendaryActions) {
+                 Map<String, String> traits,
+                 Map<String, String> actions,
+                 Map<String, String> legendaryActions) {
     this.name = name;
     this.size = size;
     this.type = type;
@@ -171,15 +197,15 @@ public class Monster extends RoomElement implements QueryResult {
     return cr;
   }
 
-  public HashMap<String, String> getTraits() {
+  public Map<String, String> getTraits() {
     return traits;
   }
 
-  public HashMap<String, String> getActions() {
+  public Map<String, String> getActions() {
     return actions;
   }
 
-  public HashMap<String, String> getLegendaryActions() {
+  public Map<String, String> getLegendaryActions() {
     return legendaryActions;
   }
 

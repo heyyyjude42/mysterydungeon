@@ -1,17 +1,30 @@
 package edu.brown.cs.dnd.Data;
 
+/**
+ * Class representing a search operator used in SQL queries.
+ */
 public class SearchOperator {
   private Comparator comparator;
   private String columnName;
   private String term;
 
+  /**
+   * A Constructor for a search operator.
+   * @param comparator    A comparator to use for the search terms
+   * @param columnName    A String that is the column name
+   * @param term    A String that is the term of the query
+   */
   public SearchOperator(Comparator comparator, String columnName, String term) {
     this.comparator = comparator;
     this.columnName = ColumnConverter.convert(columnName);
     this.term = term;
   }
 
-  public String getTerm() {
+  /**
+   * Method gets the term of the query.
+   * @return    A String that is the term of the query
+   */
+  String getTerm() {
     return this.term;
   }
 
