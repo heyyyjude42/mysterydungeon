@@ -27,7 +27,13 @@ public class CommandHandler {
     this.commands.put(name, cmd);
   }
 
-  Result runCommand(String[] args) throws InvalidInputException {
+  /**
+   * Method runs the command.
+   * @param args    A String array that are the args of the command
+   * @return    A Result object that is the result of the command
+   * @throws InvalidInputException    Thrown when encounters invalid user input
+   */
+  public Result runCommand(String[] args) throws InvalidInputException {
     if (args == null || args.length == 0) {
       throw new InvalidInputException("ERROR: no arguments given");
     }
