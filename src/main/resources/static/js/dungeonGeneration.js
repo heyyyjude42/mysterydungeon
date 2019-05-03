@@ -5,7 +5,6 @@ $(document).ready(() => {
     $("#importButton").on("click", importPressed);
     $("#exportButton").on("click", exportPressed);
     $("#generateButton").on("click", generatePressed);
-
     $("#terrainForm").on("change", terrainChanged);
 });
 
@@ -77,6 +76,9 @@ function drawDungeon() {
     let drawTraps = $.map($("input[name='genTraps']:checked"), t => {
         return t.value;
     }).length > 0;
+    let drawLoot = $.map($("input[name='genLoot']:checked"), t => {
+        return t.value;
+    }).length > 0;
 
     if (terrain == null) {
         terrain = "sidepath";
@@ -89,16 +91,64 @@ function drawDungeon() {
 
     drawMap(cells, terrain);
 
+
     if (drawTraps) {
         drawAllTraps(dungeon.rooms.filter(room => {
-            return room.elements.length > 0;
+            let hasTrap = false;
+            if (room.elements.length > 0) {
+                room.elements.forEach(e => {
+                    if (e.damage != null) {
+                        hasTrap = true;
+                    }
+                });
+            }
+            return hasTrap;
+        }));
+    }
+
+    if (drawLoot) {
+        drawAllLoot(dungeon.rooms.filter(room => {
+            let hasloot = false;
+            if (room.elements.length > 0) {
+                room.elements.forEach(e => {
+                    if (e.contents != null) {
+                        hasloot = true;
+                    }
+                });
+            }
+            return hasloot;
         }));
     }
 }
 
+function drawAllLoot(rooms) {
+    rooms.forEach(room => {
+        const loot = room.elements.filter(e => {
+            if (e.contents != null) {
+                return true;
+            }
+            return false;
+        });
+
+        loot.forEach(l => {
+            const pos = {
+                x: room.topLeftCorner.x + l.position.x,
+                y: room.topLeftCorner.y - l.position.y
+            }
+
+            drawLoot(l, pos);
+        });
+    });
+}
+
 function drawAllTraps(rooms) {
     rooms.forEach(room => {
-        const traps = room.elements;
+        const traps = room.elements.filter(e => {
+            if (e.damage != null) {
+                return true;
+            }
+            return false;
+        });
         traps.forEach(trap => {
             const pos = {
                 x: room.topLeftCorner.x + trap.position.x,
@@ -108,6 +158,25 @@ function drawAllTraps(rooms) {
             drawTrap(trap, pos);
         });
     });
+}
+
+function drawLoot(loot, pos) {
+    const $map = $("#map");
+    const top = pos.y * 24;
+    const left = pos.x * 24;
+
+    console.log(loot);
+
+    let tooltipText = "Platinum: " + loot.contents[0].platinum + "<br/>";
+    tooltipText += "Gold: " + loot.contents[0].gold + "<br/>";
+    tooltipText += "Silver: " + loot.contents[0].silver + "<br/>";
+    tooltipText += "Copper: " + loot.contents[0].copper;
+
+    let lootHTML = "<div class='tooltip' style='position:absolute;top:" + top + "px;left:" + left + "px;'>" + "<div class='displayText' style='border-bottom:0;'>";
+    lootHTML += "<div class='loot'></div>";
+    lootHTML += "</div>" + "<div class='right'><div class='tooltipText'>" + tooltipText + "</div><i></i></div>" + "</div>";
+
+    $map.append(lootHTML);
 }
 
 function drawTrap(trap, pos) {
