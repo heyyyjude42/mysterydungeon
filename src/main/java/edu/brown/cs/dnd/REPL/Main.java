@@ -80,15 +80,6 @@ public final class Main {
 
     repl = new REPL(handler);
     repl.beginParsing();
-<<<<<<< HEAD
-//    Dungeon d = new Dungeon(100, 100, RoomSize.MEDIUM);
-//    for (AbsRoom r : d.getRooms()) {
-//      for (RoomElement e : r.getElements()) {
-//        System.out.println(e.toString());
-//      }
-//    }
-=======
->>>>>>> 50de2c92ffc5afaf88f87efaf923030f62cdf2fb
   }
 
   /**
