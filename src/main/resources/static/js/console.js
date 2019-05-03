@@ -118,19 +118,29 @@ function query(line) {
 
         // if there's only one result, display the whole thing. Otherwise, display a shortened list.
         if (result.length === 1) {
-            let shortcut = "<div class='displayText' id='resultIndex' onclick='clickFun(id)'>" + simplified[0] + "</div>";
-            output.append(shortcut);
-            //output.append("<div class='queryResults' id='explanation'>" + prettified[0] + "</div>"); // TODO: make this custom for each data type later
-            simpToPretty.set(simplified[0], prettified[0]);
+            if(line.includes("/help")){
+                while(simplified[0].includes("<")){
+                   simplified[0] = simplified[0].replace("<", "&lt;");
+                   simplified[0] = simplified[0].replace(">", "&gt;");
+                }
+                let shortcut = "<div class='displayText'>" + simplified[0] + "</div>";
+                output.append(shortcut);
+                
+                console.log(prettified[0]);
+            }else{
+                let shortcut = "<div class='displayText' id='resultIndex' onclick='clickFun(id)'>" + simplified[0] + "</div>";
+                output.append(shortcut);
+            // TODO: make this custom for each data type later
+                simpToPretty.set(simplified[0], prettified[0]);
             //console.log(prettified[0]);
-            let sLeng = simplified[0].length;
-            let firstLineCut = prettified[0].split("\n");
-            let end = prettified[0].substring(firstLineCut[0].length+1);
-            output.append("<div class='queryResults'>" + end + "</div>");
-            document.getElementById("resultIndex").setAttribute("id", simplified[0]);
-            resultIDList.push(simplified[0]);
-            resultList.push(prettified[0]);
-            resultIndex++;
+                let firstLineCut = prettified[0].split("\n");
+                let end = prettified[0].substring(firstLineCut[0].length+1);
+                output.append("<div class='queryResults'>" + end + "</div>");
+                document.getElementById("resultIndex").setAttribute("id", simplified[0]);
+                resultIDList.push(simplified[0]);
+                resultList.push(prettified[0]);
+                resultIndex++;
+            }
         } else {
             output.append("<div class='queryResults'>");
             for (let i = 0; i < prettified.length; i++) {
