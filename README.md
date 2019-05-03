@@ -120,7 +120,7 @@ generate-npc <flags>: allows finer control over the randomization. Separate flag
 
 Generate Encounter
 
-generate-encounter <partySize>: generates a random encounter for partySize number of people (e.g. generate-encounter 5)
+generate-encounter <partyLevel>: generates a random encounter for a combined party level (e.g. generate-encounter 24, if your party has 3 level 8 characters)
 Generate Dungeon (simple)
 generate-dungeon: <width> <height> <small, medium or large>
 
@@ -138,3 +138,13 @@ Generate Dungeon (complex)
 Opens up a new tab that displays a UI for generating dungeons. Pretty pictures are involved.
 
 ## Checkstyle appeals
+In our Monster class, the checkstyle does not like that there are more than 7
+parameters in the constructor. We thought about incorporating them all into 
+a single hashmap, but concluded that it wouldn't be as clear, since the monsters
+have a finite amount of known characteristics in DnD and can be represented as
+such in the class. 
+
+Similarly, when we extract a monster from a query result, checkstyle complains
+about the magic numbers due to the high indices of the ResultSet. We thought it
+would be even worse style to declare final int variables from 9-18, as 
+declaring them is usually for constants used in our code, not array indices. 
