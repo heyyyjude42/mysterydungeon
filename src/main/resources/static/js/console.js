@@ -128,6 +128,8 @@ function query(line) {
                 
                 console.log(prettified[0]);
             }else{
+                console.log(simplified[0]);
+                console.log(prettified[0]);
                 let shortcut = "<div class='displayText' id='resultIndex' onclick='clickFun(id)'>" + simplified[0] + "</div>";
                 output.append(shortcut);
             // TODO: make this custom for each data type later
@@ -135,7 +137,11 @@ function query(line) {
             //console.log(prettified[0]);
                 let firstLineCut = prettified[0].split("\n");
                 let end = prettified[0].substring(firstLineCut[0].length+1);
-                output.append("<div class='queryResults'>" + end + "</div>");
+                if(line.includes("generate-dungeon")){
+                    output.append("<div class='queryResults'><pre>" + end + "</pre></div>"); 
+                }else{
+                    output.append("<div class='queryResults'>" + end + "</div>");
+                }
                 document.getElementById("resultIndex").setAttribute("id", simplified[0]);
                 resultIDList.push(simplified[0]);
                 resultList.push(prettified[0]);
@@ -147,11 +153,13 @@ function query(line) {
                 output.append("<div class='tooltip'>" + "<div class='displayText' id='resultIndex' onclick='clickFun(id)'>" + simplified[i] + "</div>" +
                     "<div class='right'><div class='tooltipText'>" + prettified[i] + "</div><i></i></div>" +
                     "</div></br>");
+
                 document.getElementById("resultIndex").setAttribute("id", simplified[i]);
                 simpToPretty.set(simplified[i], prettified[i]);
                 resultIDList.push(simplified[i]);
                 resultList.push(prettified[i]);
                 resultIndex++;
+                console.log(prettified[i]);
                 if(line.includes(("generate-encounter"))){
                     addRows(responseObject.result.results[i]);
                     rowCount++;

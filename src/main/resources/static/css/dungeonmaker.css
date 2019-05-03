@@ -39,6 +39,12 @@ body {
     background: url("spritepacks/beartrap.png") no-repeat 0 0;
 }
 
+.loot {
+    min-height: 24px;
+    min-width: 24px;
+    background: url("spritepacks/loot.png") no-repeat 0 0;
+}
+
 #exportMessage {
     font-size: 11px;
     color: #8b8fa5;
