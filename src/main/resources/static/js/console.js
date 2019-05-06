@@ -155,25 +155,33 @@ function query(line) {
                 output.append(shortcut);
             }else{
                 //Display the clickable sticky.
-                let shortcut = "<div class='displayText' id='resultIndex' onclick='clickFun(id)'>" + simplified[0] + "</div>";
-                output.append(shortcut);
-                simpToPretty.set(simplified[0], prettified[0]);
-                let firstLineCut = prettified[0].split("\n");
-                let end = prettified[0].substring(firstLineCut[0].length+1);
-                //Generate dungeon has whitespace that will be simplified away, so we use <pre>
-                if(line.includes("generate-dungeon")){
+                
+                console.log(simplified[0].includes("ERROR:"));
+                if(!simplified[0].includes("ERROR:")){
+                    let shortcut = "<div class='displayText' id='resultIndex' onclick='clickFun(id)'>" + simplified[0] + "</div>";
+                    output.append(shortcut);
+                    simpToPretty.set(simplified[0], prettified[0]);
+                    let firstLineCut = prettified[0].split("\n");
+                    let end = prettified[0].substring(firstLineCut[0].length+1);
+                    //Generate dungeon has whitespace that will be simplified away, so we use <pre>
+                    if(line.includes("generate-dungeon")){
                     output.append("<div class='queryResults'><pre>" + end + "</pre></div>"); 
-                }else{
+                    }else{
                     output.append("<div class='queryResults'>" + end + "</div>");
+                    }
+                    document.getElementById("resultIndex").setAttribute("id", simplified[0]);
+                    if(line.includes(("generate-encounter"))){
+                        encounter=true;
+                        addRows(responseObject.result.results[0]);
+                        rowCount++;
+                    }
+                    resultIDList.push(simplified[0]);
+                    resultList.push(prettified[0]);
+                    resultIndex++;
+                }else{
+                    let shortcut = "<div class='displayText'>" + simplified[0] + "</div>";
+                    output.append(shortcut);
                 }
-                document.getElementById("resultIndex").setAttribute("id", simplified[0]);
-                if(line.includes(("generate-encounter"))){
-                    addRows(responseObject.result.results[0]);
-                    rowCount++;
-                }
-                resultIDList.push(simplified[0]);
-                resultList.push(prettified[0]);
-                resultIndex++;
             }
         } else {
             output.append("<div class='queryResults'>");
