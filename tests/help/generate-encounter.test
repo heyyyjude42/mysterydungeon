@@ -1,5 +1,5 @@
 INPUT
 /help generate-encounter
 OUTPUT
-- generate-encounter <partySize>: generates a random encounter for partySize number of people (e.g. generate-encounter 5)
+- generate-encounter <combinedLevels>: generates a random encounter for a party of combinedLevels levels (e.g. generate-encounter 24, for 3 players of level 8)
 END
