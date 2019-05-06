@@ -167,6 +167,10 @@ function query(line) {
                     output.append("<div class='queryResults'>" + end + "</div>");
                 }
                 document.getElementById("resultIndex").setAttribute("id", simplified[0]);
+                if(line.includes(("generate-encounter"))){
+                    addRows(responseObject.result.results[0]);
+                    rowCount++;
+                }
                 resultIDList.push(simplified[0]);
                 resultList.push(prettified[0]);
                 resultIndex++;
